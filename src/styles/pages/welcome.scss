@@ -1,0 +1,94 @@
+@import "../shared/variables";
+
+.welcome--background {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("../../images/welcome/dark_mode.svg") right no-repeat;
+    background-size: contain;
+  }
+  .welcome--wrapper {
+    z-index: 1;
+    width: 500px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 3px 9px rgba(47, 46, 65, 0.3), 0 4px 9px rgba(47, 46, 65, .4);
+    background: $secondary-background-color;
+    border-radius: 10px;
+    position: relative;
+    height: 100%;
+    padding: 30px;
+    color: #fff;
+
+    .welcome--wrapper__title {
+      color: #fff;
+      position: relative;
+      display: flex;
+      flex-grow: 0;
+      justify-content: center;
+      padding: 10px 0;
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        background: #6c63ff;
+        width: 20%;
+        border-radius: 10px;
+      }
+
+      &:before {
+        top: 0;
+        left: 0;
+      }
+
+      &:after {
+        bottom: 0;
+        right: 0;
+      }
+    }
+    .welcome--wrapper__text {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    .welcome--wrapper__footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+      .welcome--wrapper__register, .welcome--wrapper__login {
+        color: $primary-text-color;
+        border: 1px solid $border-color;
+        background: #fff;
+        font-size: 18px;
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+        opacity: .7;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .welcome--wrapper__login {
+        background: #504ba8;
+        border: 1px solid #433bce;
+        color: #fff;
+
+      }
+    }
+  }
+}

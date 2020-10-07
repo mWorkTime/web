@@ -1,0 +1,30 @@
+@import "~antd/dist/antd.min.css";
+@import "./shared/variables";
+
+//Pages
+@import "./pages/auth";
+@import "./pages/welcome";
+//Components
+
+
+#root {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  color: #fff;
+}
+
+::-webkit-scrollbar-track{
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 4px;
+  width: 4px;
+  background-color: $border-color;
+}
