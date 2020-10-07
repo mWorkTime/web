@@ -1,0 +1,72 @@
+@import "../shared/variables";
+
+.auth--background {
+  height: 100%;
+  &:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("../../images/auth/investment.svg") top no-repeat;
+    background-size: cover;
+  }
+  .auth--wrapper {
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+      font-size: 28px;
+      text-align: center;
+      color: $primary-text-color;
+    }
+
+    &__content {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+      .form--register, .form--login {
+        width: 475px;
+      }
+
+      .form--login__input, .form--register__input {
+        .ant-form-item-label {
+          label {
+            color: $primary-text-color;
+          }
+        }
+        .ant-form-item-control {
+          .ant-input-affix-wrapper {
+            color: $primary-text-color;
+          }
+          input {
+            color: $primary-text-color;
+          }
+        }
+      }
+
+      .form--register {
+        &__button {
+          width: 100%;
+        }
+        &__link {
+          padding-top: 10px;
+        }
+      }
+
+      .form--login {
+        &__button {
+          width: 100%;
+        }
+        &__link {
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
