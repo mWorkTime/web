@@ -41,7 +41,7 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
             rules={validateName}
             hasFeedback
           >
-            <Input prefix={<UserOutlined />} placeholder="введите ваше имя" />
+            <Input prefix={<UserOutlined />} placeholder="введите ваше имя" disabled={disable} />
           </Form.Item>
 
           <Form.Item
@@ -51,7 +51,7 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
             rules={validateOrganization}
             hasFeedback
           >
-            <Input prefix={<SolutionOutlined />} placeholder="введите название организации" />
+            <Input prefix={<SolutionOutlined />} placeholder="введите название организации" disabled={disable} />
           </Form.Item>
         </>
         : null
@@ -63,7 +63,7 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
         rules={validateEmail}
         hasFeedback
       >
-        <Input prefix={<MailOutlined />} placeholder="example@gmail.com" />
+        <Input prefix={<MailOutlined />} placeholder="example@gmail.com" disabled={disable} />
       </Form.Item>
       <Form.Item
         className={clsInput}
@@ -72,7 +72,7 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
         rules={typeForm === 'register' ? validateRegisterPassword : validatePassword}
         hasFeedback
       >
-        <Input.Password prefix={<LockOutlined />} placeholder="введите пароль" />
+        <Input.Password prefix={<LockOutlined />} placeholder="введите пароль" disabled={disable}/>
       </Form.Item>
       {
         typeForm === 'register' ?
@@ -84,12 +84,12 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
             rules={validateConfirmPassword}
             hasFeedback
           >
-            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="потвердите пароль" />
+            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="потвердите пароль" disabled={disable}/>
           </Form.Item>
           : null
       }
       <Button type="primary" className={clsButton}
-              htmlType="submit" shape="round">{btnLabel}</Button>
+              htmlType="submit" shape="round" disabled={disable}>{btnLabel}</Button>
 
       <div className={bottomItems.cls}>
         {bottomItems.text} &nbsp;
