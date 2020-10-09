@@ -1,27 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import Auth from '../../pages/auth'
 import renderAuthForm from './index'
+import { connect } from 'react-redux'
 import { Form, message } from 'antd'
-import { fetchRegister } from '../../services/auth.service'
+import { registerUser } from '../../actions'
 
-const Register = () => {
+const Register = ({ onFinishRegistration, disabled, successMsg }) => {
   const [form] = Form.useForm()
-  const [disabled, setDisabled] = useState(false)
 
-  const onFinish = (userData) => {
-    setDisabled(true)
-    fetchRegister(userData)
-      .then(({ data }) => {
-        message.success(data.success)
-        setDisabled(false)
-        form.resetFields()
-      })
-      .catch(() => setDisabled(false))
-  }
+  useEffect(() => {
+    if (successMsg) {
+      message.success(successMsg)
+    }
+  }, [successMsg])
+
 
   return (
-    <Auth title={'Регистрация'} children={renderAuthForm('register', form, onFinish, disabled)} />
+    <Auth title={'Регистрация'} children={renderAuthForm('register', form, onFinishRegistration, disabled)} />
   )
 }
 
-export default Register
+const mapStateToProps = ({ authUser: { successMsg, disabled } }) => {
+  return {
+    successMsg,
+    disabled
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFinishRegistration: (data) => {
+      dispatch(registerUser(data, dispatch))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

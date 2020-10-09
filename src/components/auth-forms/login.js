@@ -1,31 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import Auth from '../../pages/auth'
 import renderAuthForm from './index'
 
 import { Form, message } from 'antd'
-import { fetchLogin } from '../../services/auth.service'
-import { setLocalStorageAndCookie } from '../../utils/clear-set-auth'
+import { connect } from 'react-redux'
+import { loginUser } from '../../actions'
 
-const Login = () => {
+const Login = ({ onFinishAuthorization, disabled, successMsg }) => {
   const [form] = Form.useForm()
-  const [disabled, setDisabled] = useState(false)
 
-  const onFinish = (userData) => {
-    setDisabled(true)
-    fetchLogin(userData)
-      .then(({ data }) => {
-        setLocalStorageAndCookie(data)
-        message.success(data.success)
-      })
-      .catch(() => {
-        setDisabled(false)
-        form.resetFields()
-      })
-  }
+  useEffect(() => {
+    if (successMsg) {
+      message.success(successMsg)
+    }
+  }, [successMsg])
 
   return (
-    <Auth title={'Авторизация'} children={renderAuthForm('login', form, onFinish, disabled)} />
+    <Auth title={'Авторизация'} children={renderAuthForm('login', form, onFinishAuthorization, disabled)} />
   )
 }
 
-export default Login
+const mapStateToProps = ({ authUser: { successMsg, disabled } }) => {
+  return {
+    successMsg,
+    disabled
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFinishAuthorization: (data) => {
+      dispatch(loginUser(data, dispatch))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
