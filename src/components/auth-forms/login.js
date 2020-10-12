@@ -5,33 +5,47 @@ import renderAuthForm from './index'
 import { Form, message } from 'antd'
 import { connect } from 'react-redux'
 import { loginUser } from '../../actions'
+import { clearMessages, setDisabled } from '../../actions/auth.action'
 
-const Login = ({ onFinishAuthorization, disabled, successMsg }) => {
+const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDisableFields, successConfirmMsg, errorConfirmMsg }) => {
   const [form] = Form.useForm()
 
+  const clearFormFields = () => {
+    form.resetFields()
+    cancelDisableFields()
+  }
+
   useEffect(() => {
-    if (successMsg) {
-      message.success(successMsg)
+    if (successMsg.login) {
+      message.success(successMsg.login)
     }
-  }, [successMsg])
+
+    if (successConfirmMsg) {
+      message.success(successConfirmMsg)
+    }
+
+    if (errorConfirmMsg) {
+      message.error(errorConfirmMsg)
+    }
+  }, [successMsg.login, successConfirmMsg, errorConfirmMsg])
+
+  useEffect(() => clearMsg, [clearMsg])
 
   return (
-    <Auth title={'Авторизация'} children={renderAuthForm('login', form, onFinishAuthorization, disabled)} />
+    <Auth title={'Авторизация'}
+          children={renderAuthForm('login', form, onFinishAuthorization, clearFormFields, disabled, cancelDisableFields)} />
   )
 }
 
-const mapStateToProps = ({ authUser: { successMsg, disabled } }) => {
-  return {
-    successMsg,
-    disabled
-  }
+const mapStateToProps = ({ authUser: { successMsg, disabled }, confirmUser: { successConfirmMsg, errorConfirmMsg } }) => {
+  return { successMsg, disabled, successConfirmMsg, errorConfirmMsg }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFinishAuthorization: (data) => {
-      dispatch(loginUser(data, dispatch))
-    }
+    onFinishAuthorization: (data) => dispatch(loginUser(data)()),
+    clearMsg: () => dispatch(clearMessages('login')),
+    cancelDisableFields: () => dispatch(setDisabled())
   }
 }
 

@@ -4,7 +4,7 @@ import { UserOutlined, MailOutlined, LockOutlined, SolutionOutlined } from '@ant
 import { generalValidation, registerValidation} from '../../validators/auth.validator'
 import { Link } from 'react-router-dom'
 
-const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
+const renderAuthForm = (typeForm, instanceForm,  funcFinish, funcClear, disable, cancelDisable) => {
   const { validatePassword, validateEmail } = generalValidation
   const { validateRegisterPassword, validateConfirmPassword, validateName, validateOrganization} = registerValidation
 
@@ -88,12 +88,14 @@ const renderAuthForm = (typeForm, instanceForm,  funcFinish, disable) => {
           </Form.Item>
           : null
       }
-      <Button type="primary" className={clsButton}
-              htmlType="submit" shape="round" disabled={disable}>{btnLabel}</Button>
-
+      <div className='form--auth__buttons'>
+        <Button type="primary" className={clsButton}
+                htmlType="submit" shape="round" disabled={disable}>{btnLabel}</Button>
+        <Button type='link' onClick={funcClear}>Очистить поля</Button>
+      </div>
       <div className={bottomItems.cls}>
         {bottomItems.text} &nbsp;
-        <Link to={bottomItems.link}>
+        <Link to={bottomItems.link} onClick={cancelDisable}>
           {linkText}
         </Link>
       </div>
