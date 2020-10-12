@@ -22,6 +22,9 @@ api.interceptors.response.use((res) => {
   const { response } = err
 
   if (response.status === 400 && response.data.error) {
+    if(response.data.needResend || response.data.needRegister) {
+      return Promise.reject(err)
+    }
     message.error(response.data.error)
   }
 
@@ -81,7 +84,7 @@ api.interceptors.response.use((res) => {
   //     })
   //   })
   // }
-  // return Promise.reject(err)
+  return Promise.reject(err)
 })
 
 export default api

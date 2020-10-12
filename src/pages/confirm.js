@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { confirmEmail } from '../services/confirm.service'
-import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setConfirmSuccessMessage, setConfirmFailMessage } from '../actions'
+import { Redirect } from 'react-router'
 
-const ConfirmPage = ({ token }) => {
-  const [isConfirm, setIsConfirm] = useState(false)
+const ConfirmPage = ({ token, successConfirmMsg, failConfirmMsg }) => {
+  const [isConfirmOrNeedLogin, setIsConfirmOrNeedLogin] = useState(false)
   const [needRegister, setNeedRegister] = useState(false)
 
   useEffect(() => {
     confirmEmail({ token })
       .then(({ data }) => {
-        if (data.needRegister) {
-          setNeedRegister(true)
-        } else if (data.needResend) {
-          setIsConfirm(true)
-        }
-        setIsConfirm(true)
+        successConfirmMsg(data.success)
+        setIsConfirmOrNeedLogin(true)
       })
-  }, [token])
+      .catch(({ response: { data } }) => {
+        if (data.needRegister) {
+          failConfirmMsg(data.error)
+          return setNeedRegister(true)
+        }
+        failConfirmMsg(data.error)
+        setIsConfirmOrNeedLogin(true)
+      })
+  }, [token, failConfirmMsg, successConfirmMsg])
 
-
-  if (!isConfirm) {
-    return <h1>Осуществляется подтверждение аккаунта. Ожидайте... </h1>
+  if (isConfirmOrNeedLogin) {
+    return <Redirect to={'/auth/login'} />
   }
 
   if (needRegister) {
     return <Redirect to={'/auth/register'} />
   }
 
-  return (
-    <Redirect to={'/auth/login'} />
-  )
+  return <h1>Осуществляется подтверждение аккаунта. Ожидайте... </h1>
 }
 
-export default ConfirmPage
+const mapDispatchToProps = (dispatch) => {
+  return {
+    successConfirmMsg: (message) => dispatch(setConfirmSuccessMessage(message)),
+    failConfirmMsg: (message) => dispatch(setConfirmFailMessage(message))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ConfirmPage)
