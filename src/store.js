@@ -1,5 +1,5 @@
 import Reducer from './reducers'
-import thunk from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 
 const composeEnhancers =
@@ -9,6 +9,6 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 
-const store = createStore(Reducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(Reducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 export default store

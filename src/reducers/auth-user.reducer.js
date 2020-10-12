@@ -1,15 +1,28 @@
 import {
   START_AUTHENTICATION, AUTHORIZATION_SUCCESSFUL,
   REGISTRATION_SUCCESSFUL, AUTHORIZATION_FAILED,
-  REGISTRATION_FAILED
-  } from '../types'
+  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED
+} from '../types'
+
+const clearAllMessages = (state, typeForm) => {
+  if (typeForm === 'register') {
+    return {
+      login: state.login,
+      register: ''
+    }
+  }
+  return { register: state.register, login: '' }
+}
 
 const updateAuthUser = (state, action) => {
   if (state === undefined) {
     return {
       user: null,
       organization: null,
-      successMsg: '',
+      successMsg: {
+        register: '',
+        login: ''
+      },
       disabled: false,
       failed: false
     }
@@ -24,7 +37,10 @@ const updateAuthUser = (state, action) => {
   case REGISTRATION_SUCCESSFUL:
     return {
       ...state.authUser,
-      successMsg: action.message
+      successMsg: {
+        login: '',
+        register: action.message
+      }
     }
   case AUTHORIZATION_SUCCESSFUL: {
     return {
@@ -32,7 +48,10 @@ const updateAuthUser = (state, action) => {
       user: action.user,
       disabled: true,
       organization: action.organization,
-      successMsg: action.message
+      successMsg: {
+        register: '',
+        login: action.message
+      }
     }
   }
   case REGISTRATION_FAILED:
@@ -47,6 +66,16 @@ const updateAuthUser = (state, action) => {
       disabled: false
     }
   }
+  case CLEAR_AUTH_MESSAGES:
+    return {
+      ...state.authUser,
+      successMsg: clearAllMessages(state.authUser.successMsg, action.form)
+    }
+  case SET_DISABLED:
+    return {
+      ...state.authUser,
+      disabled: false
+    }
   default:
     return state.authUser
   }

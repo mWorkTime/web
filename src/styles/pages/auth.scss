@@ -50,9 +50,14 @@
         }
       }
 
+      .form--auth__buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+
       .form--register {
         &__button {
-          width: 100%;
+          width: 60%;
         }
         &__link {
           padding-top: 10px;
@@ -61,7 +66,7 @@
 
       .form--login {
         &__button {
-          width: 100%;
+          width: 60%;
         }
         &__link {
           padding-top: 10px;
