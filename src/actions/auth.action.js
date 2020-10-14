@@ -7,10 +7,8 @@ import { fetchRegister, fetchLogin } from '../services/auth.service'
 import { setLocalStorageAndCookie } from '../utils/clear-set-auth'
 import { clearConfirmAllMessages } from './confirm.action'
 
-const startAuth = () => {
-  return {
-    type: START_AUTHENTICATION
-  }
+const startAuth = {
+  type: START_AUTHENTICATION
 }
 
 const failedAuth = (type) => {
@@ -40,7 +38,7 @@ const clearMessages = (typeForm) => (dispatch) => {
 }
 
 const registerUser = (userData) => () => (dispatch) => {
-  dispatch(startAuth())
+  dispatch(startAuth)
 
   fetchRegister(userData)
     .then(({ data: { success } }) => {
@@ -52,7 +50,8 @@ const registerUser = (userData) => () => (dispatch) => {
 }
 
 const loginUser = (userData) => () => (dispatch) => {
-  dispatch(startAuth())
+  dispatch(startAuth)
+  dispatch(clearConfirmAllMessages())
 
   fetchLogin(userData)
     .then(({ data }) => {

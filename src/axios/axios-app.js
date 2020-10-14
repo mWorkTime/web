@@ -9,7 +9,6 @@ const api = Axios.create({
   }
 })
 
-
 // /** @type {Array} */
 // let requestsToRefresh = []
 //
@@ -21,20 +20,20 @@ api.interceptors.response.use((res) => {
 }, (err) => {
   const { response } = err
 
-  if (response.status === 400 && response.data.error) {
-    if(response.data.needResend || response.data.needRegister) {
+  if (response.status === 400 && response.data && typeof response.data === 'object' && response.data.error) {
+    if (response.data.needResend || response.data.needRegister) {
       return Promise.reject(err)
     }
     message.error(response.data.error)
   }
 
-  if (response.status === 422 && response.data.error) {
+  if (response.status === 422 && response.data && typeof response.data === 'object' && response.data.error) {
     message.error(response.data.error)
+    return Promise.reject(err)
   }
 
   if (response.status === 500) {
-    window.location = '/'
-    return
+    return Promise.reject(err)
   }
 
   // if (response.status === 401) {
@@ -43,8 +42,7 @@ api.interceptors.response.use((res) => {
   //   const name = moduleLocalStorage.getItem('name')
   //
   //   if (!currentToken) {
-  //     window.location = '/'
-  //     return
+  //     return Promise.reject(err)
   //   }
   //
   //   if (!isRefreshRequesting) {
@@ -76,11 +74,11 @@ api.interceptors.response.use((res) => {
   //     requestsToRefresh.push((token) => {
   //       if (token) {
   //         config.headers.Authorization = 'Bearer ' + token
-  //         return resolve(api(config))
+  //         resolve(api(config))
   //       }
   //       // // If the first request could not update the token, we
   //       // // must return the basic request processing logic
-  //       // reject(Promise.reject(err))
+  //       reject(Promise.reject(err))
   //     })
   //   })
   // }

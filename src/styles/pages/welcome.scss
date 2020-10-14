@@ -87,7 +87,45 @@
         background: #504ba8;
         border: 1px solid #433bce;
         color: #fff;
+      }
+    }
+  }
+}
 
+@media screen and (max-width: 576px) {
+  .welcome--background {
+    justify-content: center;
+    align-items: center;
+    .welcome--wrapper {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .welcome--background {
+    .welcome--wrapper {
+      padding: 20px 15px;
+      border-radius: 0;
+      &__title {
+        font-size: 28px;
+        text-align: center;
+      }
+      &__text {
+        font-size: 16px !important;
+      }
+      &__footer {
+        .welcome--wrapper__register, .welcome--wrapper__login {
+          text-align: center;
+          font-size: 16px !important;
+          margin-bottom: 10px;
+          padding: 7px 0 !important;
+          border-radius: 20px !important;
+        }
+        a {
+          width: 100%;
+        }
       }
     }
   }
