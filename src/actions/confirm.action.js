@@ -1,7 +1,8 @@
 import {
   SET_CONFIRM_SUCCESS_MESSAGE, SET_CONFIRM_FAIL_MESSAGE,
-  CLEAR_CONFIRM_ALL_MESSAGES
+  CLEAR_CONFIRM_ALL_MESSAGES, SET_DISABLED
 } from '../types'
+import { resendConfirmLink } from '../services/confirm.service'
 
 const setConfirmSuccessMessage = (successMsg) => {
   return {
@@ -23,8 +24,23 @@ const clearConfirmAllMessages = () => {
   }
 }
 
+const setDisable = {
+  type: SET_DISABLED
+}
+
+const getNewConfirmLink = (userData) => () => (dispatch) => {
+  dispatch(setDisable)
+
+  resendConfirmLink(userData)
+    .then(({ data: { success } }) => {
+      dispatch(setConfirmSuccessMessage(success))
+    })
+    .catch((err) => { console.log(err.response.data.error) })
+}
+
 export {
   setConfirmSuccessMessage,
   setConfirmFailMessage,
-  clearConfirmAllMessages
+  clearConfirmAllMessages,
+  getNewConfirmLink
 }

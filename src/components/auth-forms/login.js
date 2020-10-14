@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Auth from '../../pages/auth'
 import renderAuthForm from './index'
+import Resend from './resend'
 
 import { Form, message } from 'antd'
 import { connect } from 'react-redux'
@@ -33,7 +34,9 @@ const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDi
 
   return (
     <Auth title={'Авторизация'}
-          children={renderAuthForm('login', form, onFinishAuthorization, clearFormFields, disabled, cancelDisableFields)} />
+          children={renderAuthForm('login', form, onFinishAuthorization, clearFormFields, disabled, cancelDisableFields)}
+          resendComponent={<Resend />}
+    />
   )
 }
 
