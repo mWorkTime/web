@@ -1,10 +1,9 @@
 import React from 'react'
 import {
   DashboardOutlined,
-  UserOutlined,
-  FunctionOutlined,
-  CustomerServiceOutlined,
-  CommentOutlined,
+  TeamOutlined,
+  CarryOutOutlined,
+  ReconciliationOutlined,
   ExportOutlined
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
@@ -15,37 +14,31 @@ const Sidebar = () => {
 
   const sidebarItems = [
     {
-      key: 'main',
+      key: 'dashboard',
       link: '/',
       label: 'Главная',
       icon: <DashboardOutlined className="sidebar--menu--i__home" />
 
     },
     {
-      key: 'customers',
-      link: '/users',
-      label: 'Пользователи',
-      icon: <UserOutlined className="sidebar--menu--i__user" />
+      key: 'employees',
+      link: '/employees',
+      label: 'Работники',
+      icon: <TeamOutlined className="sidebar--menu--i__user" />
     },
     {
-      key: 'order-measure',
-      label: 'Заказы замерщиков',
-      link: '/order-measure',
-      icon: <FunctionOutlined className="sidebar--menu--i__function" />
+      key: 'tasks',
+      label: 'Задания',
+      link: '/tasks',
+      icon: <CarryOutOutlined className="sidebar--menu--i__function" />
     },
     {
-      key: 'callbacks',
-      link: '/callbacks',
-      label: 'Обратные звонки', icon: <CustomerServiceOutlined
+      key: 'reports',
+      link: '/reports',
+      label: 'Отчёты', icon: <ReconciliationOutlined
         className="sidebar--menu--i__customer" />
 
     },
-    {
-      key: 'comments',
-      link: '/comments',
-      label: 'Комментарии', icon: <CommentOutlined
-        className="sidebar--menu--i__comment" />
-    }
   ]
 
   const renderSidebarMenu = sidebarItems.map(({ key, label, icon, link, func }) => (
@@ -63,7 +56,7 @@ const Sidebar = () => {
     <div className={`sidebar--menu ${active ? 'active' : ''}`}>
       <Link to={'/'}>
         <div className="sidebar--menu__logo">
-          <span className="sidebar--menu--l__title">Три кита</span>
+          <span className="sidebar--menu--l__title">mYourTime</span>
         </div>
       </Link>
       <ul className="sidebar--menu__list">

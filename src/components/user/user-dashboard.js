@@ -7,7 +7,9 @@ const UserDashboard = () => {
 
   return (
     <Dashboard>
-      <div className={`base--layout ${active ? 'active' : ''}`}>user secret page with some data</div>
+      <div className={`base--layout ${active ? 'active' : ''}`}>
+
+      </div>
     </Dashboard>
   )
 }
