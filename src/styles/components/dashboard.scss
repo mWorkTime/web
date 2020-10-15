@@ -1,0 +1,178 @@
+@import "../shared/variables";
+
+.dashboard--wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("../../images/user/moonlight.svg") bottom no-repeat;
+    background-size: cover;
+  }
+
+  .dashboard--wrapper__top {
+    background: $primary-background-color;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    margin: 30px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+
+    .dashboard--top__ls {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: 30px;
+
+      .top--ls__header {
+        display: flex;
+        justify-content: space-between;
+        .top--ls__title {
+          color: $color-4th;
+          font-size: 26px;
+        }
+        .top--ls__date {
+          color: #94949a;
+          font-weight: bold;
+          font-size: 14px;
+        }
+      }
+
+      .dashboard--top__info {
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .top--info__header {
+          padding: 10px 0 10px 20px;
+          border-bottom: 1px solid $border-color;
+          font-size: 18px;
+          color: $secondary-text-color;
+          font-weight: 600;
+        }
+
+        .top--info__content {
+          padding: 15px;
+          display: flex;
+          flex-wrap: wrap;
+          .top--info {
+            padding: 10px;
+            .top--info__label {
+              color: $color-1st;
+              font-size: 16px;
+              font-weight: bold;
+            }
+            .top--info__value {
+              .top--info__value__confirm {
+                color: $color-success;
+              }
+            }
+          }
+        }
+
+        .top--info__buttons {
+          a {
+            display: block;
+            border-top: 1px solid $border-color;
+            padding: 10px 0 15px 20px;
+            color: $color-1st;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color .3s ease-in-out;
+
+            &:hover {
+              background: rgba(240, 240, 240, 1);
+            }
+          }
+        }
+      }
+    }
+
+    .dashboard--top__rs {
+      padding: 20px;
+      display: flex;
+      width: 200px;
+      .dashboard--top__img {
+        width: 100%;
+      }
+    }
+  }
+  .dashboard--wrapper__content {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+
+    .dashboard--content__box {
+      background: #fff;
+      position: relative;
+      width: 400px;
+      margin: 20px 5px 0 0;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid $border-color;
+
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+
+      .content--box__ts {
+        display: flex;
+        flex-grow: 1;
+        .content--ts__ls {
+          padding: 20px;
+          .content--box__title {
+            padding-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+            overflow: hidden;
+            color: $secondary-text-color;
+          }
+
+          .content--box__text {
+            color: #4b5c6e;
+          }
+        }
+        .content--ts__rs {
+          width: 270px;
+          padding: 20px;
+          display: flex;
+          .content--ts__img {
+            width: 100%;
+          }
+        }
+      }
+
+      .content--box__btn {
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid $border-color;
+        a {
+          display: block;
+          height: 100%;
+          padding: 10px 0 15px 20px;
+          overflow: hidden;
+          border-radius: 0 0 10px 10px;
+          letter-spacing: .5px;
+          transition: background-color .3s ease-in-out;
+          font-size: 16px;
+          font-weight: 600;
+          word-break: break-word;
+          color: $color-4th;
+          &:hover {
+            background: rgba(240, 240, 240, 1);
+          }
+        }
+
+      }
+    }
+  }
+
+}
