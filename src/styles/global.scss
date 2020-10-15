@@ -1,4 +1,5 @@
 @import "~antd/dist/antd.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,500&display=swap');
 @import "./shared/variables";
 
 //Pages
@@ -9,6 +10,8 @@
 //Components
 @import "./components/sidebar.scss";
 @import "./components/burger.scss";
+@import "./components/header.scss";
+@import "./components/dashboard.scss";
 
 body, html {
   height: 100%;
@@ -18,16 +21,17 @@ body, html {
   height: 100%;
   width: 100%;
   position: relative;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .base--layout {
   height: 100%;
-  margin-left: 70px;
+  margin-left: 60px;
   transition: all .4s ease-out;
   display: flex;
   flex-direction: column;
   &.active {
-    margin-left: 260px;
+    margin-left: 250px;
   }
 }
 
@@ -37,7 +41,7 @@ body, html {
   color: #fff;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: #fff;
 }
 
@@ -46,7 +50,6 @@ body, html {
   width: 4px;
   background-color: $border-color;
 }
-
 
 @media screen and (max-width: 768px) {
   .base--layout {

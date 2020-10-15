@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Logo from '../../images/logo/timeline.svg'
 
 const Sidebar = () => {
   const active = useSelector(({ sidebarUser: { active } }) => active )
@@ -56,6 +57,7 @@ const Sidebar = () => {
     <div className={`sidebar--menu ${active ? 'active' : ''}`}>
       <Link to={'/'}>
         <div className="sidebar--menu__logo">
+          <img src={Logo} alt="Logo app mYourTime" />
           <span className="sidebar--menu--l__title">mYourTime</span>
         </div>
       </Link>

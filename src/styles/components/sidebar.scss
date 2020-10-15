@@ -19,6 +19,7 @@
       .sidebar--menu--l__title {
         visibility: visible;
         display: inline-block;
+        color: $color-4th;
         opacity: 1;
       }
     }
@@ -88,8 +89,8 @@
         text-decoration: none;
         color: $primary-text-color;
         &:hover {
-          background: rgba(24, 144, 255, .1);
-          color: $color-1st !important;
+          background: rgba(108, 99, 255, .2);
+          color: $color-4th !important;
         }
 
         .sidebar--menu__icon {
@@ -114,13 +115,10 @@
               color: #1890ff;
             }
             &__function {
-              color: #511fc4;
+              color: $color-4th;
             }
             &__customer {
               color: #fa541c;
-            }
-            &__comment {
-              color: #005eff;
             }
           }
         }
