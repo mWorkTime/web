@@ -147,7 +147,7 @@
     transition: .5s;
 
     &:hover {
-      background: rgba(245, 34, 45, .15);
+      background: rgba(245, 77, 79, .15);
     }
 
     .sidebar--menu--f__icon {
@@ -159,7 +159,7 @@
       text-align: center;
       .sidebar--menu--f--i__logout {
         font-size: 20px;
-        color: #f5222d;
+        color: $color-danger;
       }
     }
 
@@ -167,7 +167,7 @@
       position: relative;
       display: block;
       font-size: 16px;
-      color: #f5222d;
+      color: $color-danger;
       height: 60px;
       line-height: 60px;
       text-align: start;

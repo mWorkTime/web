@@ -1,6 +1,6 @@
 import users from '../../images/user/Add_user.svg'
 import tasks from '../../images/user/add_tasks.svg'
-import reports from '../../images/user/files.svg'
+import reports from '../../images/user/hiring.svg'
 
 const updateUserDashboard = (state, action) => {
   if (state === undefined) {

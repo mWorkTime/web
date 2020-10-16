@@ -110,7 +110,7 @@
     margin-bottom: 50px;
 
     .dashboard--content__box {
-      background: #fff;
+      background: $primary-background-color;
       position: relative;
       width: 400px;
       margin: 20px 5px 0 0;
@@ -170,9 +170,111 @@
             background: rgba(240, 240, 240, 1);
           }
         }
-
       }
     }
   }
+}
 
+@media screen and (max-width: 768px) {
+  .dashboard--wrapper {
+    .dashboard--wrapper__top {
+      flex-direction: column-reverse;
+      .dashboard--top__ls {
+
+        .top--ls__header {
+          flex-wrap: wrap;
+          margin-bottom: 15px;
+          .top--ls__title {
+            width: 100%;
+            text-align: center;
+          }
+          .top--ls__date {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+
+      .dashboard--top__rs {
+        padding: 0;
+        transform: translateY(-30px);
+        justify-content: center;
+        width: 100%;
+        .dashboard--top__img {
+          width: 200px;
+        }
+      }
+    }
+
+    .dashboard--wrapper__content {
+      .dashboard--content__box {
+        width: 500px;
+        height: 250px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .dashboard--wrapper {
+    .dashboard--wrapper__content {
+      .dashboard--content__box {
+        margin: 10px 0 0 0;
+        width: 100%;
+        .content--box__ts {
+          .content--ts__rs {
+            width: 200px;
+            padding: 0 10px 0 0;
+            .content--ts__img {
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboard--wrapper {
+    .dashboard--wrapper__top {
+      margin: 30px 0;
+      .dashboard--top__ls {
+        padding: 0 15px 15px 15px;
+        .top--ls__header {
+          .top--ls__title {
+            font-size: 22px;
+          }
+        }
+      }
+
+      .dashboard--top__rs {
+        .dashboard--top__img {
+          width: 150px;
+        }
+      }
+    }
+    .dashboard--wrapper__content {
+      .dashboard--content__box {
+        height: auto;
+        .content--box__ts {
+          flex-direction: column-reverse;
+          flex-wrap: wrap;
+          .content--ts__ls {
+            text-align: center;
+            .content--box__title {
+            }
+          }
+          .content--ts__rs {
+            width: 100%;
+            height: 150px;
+            padding: 10px 0;
+            .content--ts__img {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import UserHeader from './user-header'
 import { Typography } from 'antd'
 import { Link } from 'react-router-dom'
-import avatar from '../../images/user/male_avatar.svg'
+import avatar from '../../images/user/profile.svg'
 import { EditFilled, CheckCircleFilled } from '@ant-design/icons'
 
 const { Title } = Typography
