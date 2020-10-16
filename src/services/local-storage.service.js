@@ -1,7 +1,7 @@
 // localstorage
 export const moduleLocalStorage = (function () {
   function setItem(key, value) {
-    return localStorage.setItem(key, JSON.stringify(value))
+    return localStorage.setItem(key, value)
   }
 
   function getItem(key) {

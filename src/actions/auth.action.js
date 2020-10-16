@@ -23,12 +23,10 @@ const setDisabled = () => {
   }
 }
 
-const successAuth = (type, msg, user = null, organization = null) => {
+const successAuth = (type, msg = '') => {
   return {
     type,
-    message: msg,
-    user,
-    organization
+    message: msg
   }
 }
 
@@ -55,9 +53,8 @@ const loginUser = (userData) => () => (dispatch) => {
 
   fetchLogin(userData)
     .then(({ data }) => {
-      const { user, organization, success } = data
       setLocalStorageAndCookie(data)
-      dispatch(successAuth(AUTHORIZATION_SUCCESSFUL, success, user, organization))
+      dispatch(successAuth(AUTHORIZATION_SUCCESSFUL))
     })
     .catch(() => {
       dispatch(failedAuth(AUTHORIZATION_FAILED))

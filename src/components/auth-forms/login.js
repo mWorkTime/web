@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { loginUser } from '../../actions'
 import { clearMessages, setDisabled } from '../../actions/auth.action'
 
-const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDisableFields, successConfirmMsg, errorConfirmMsg }) => {
+const Login = ({ disabled, clearMsg, cancelDisableFields, successConfirmMsg, errorConfirmMsg, onFinishAuthorization, redirect }) => {
   const [form] = Form.useForm()
 
   const clearFormFields = () => {
@@ -17,10 +17,6 @@ const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDi
   }
 
   useEffect(() => {
-    if (successMsg.login) {
-      message.success(successMsg.login)
-    }
-
     if (successConfirmMsg) {
       message.success(successConfirmMsg)
     }
@@ -28,9 +24,14 @@ const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDi
     if (errorConfirmMsg) {
       message.error(errorConfirmMsg)
     }
-  }, [successMsg.login, successConfirmMsg, errorConfirmMsg])
+  }, [successConfirmMsg, errorConfirmMsg])
 
   useEffect(() => clearMsg, [clearMsg])
+  useEffect(() => {
+    if (redirect) {
+      window.location.reload()
+    }
+  },[redirect])
 
   return (
     <Auth title={'Авторизация'}
@@ -40,8 +41,8 @@ const Login = ({ onFinishAuthorization, disabled, successMsg, clearMsg, cancelDi
   )
 }
 
-const mapStateToProps = ({ authUser: { successMsg, disabled }, confirmUser: { successConfirmMsg, errorConfirmMsg } }) => {
-  return { successMsg, disabled, successConfirmMsg, errorConfirmMsg }
+const mapStateToProps = ({ authUser: { disabled, redirect }, confirmUser: { successConfirmMsg, errorConfirmMsg } }) => {
+  return { disabled, successConfirmMsg, errorConfirmMsg, redirect }
 }
 
 const mapDispatchToProps = (dispatch) => {

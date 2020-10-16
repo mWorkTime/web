@@ -4,17 +4,17 @@ import App from './components/app'
 import ErrorBoundary from './components/error-boundary'
 import * as serviceWorker from './serviceWorker'
 import store from './store'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
-    <Provider store={store}>
-      <ErrorBoundary>
-        <Router>
-          <App />
-        </Router>
-      </ErrorBoundary>
-    </Provider>,
+  <Provider store={store}>
+    <ErrorBoundary>
+      <Router>
+      <App />
+      </Router>
+    </ErrorBoundary>
+  </Provider>,
   document.getElementById('root')
 )
 

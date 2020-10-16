@@ -17,13 +17,12 @@ const clearAllMessages = (state, typeForm) => {
 const updateAuthUser = (state, action) => {
   if (state === undefined) {
     return {
-      user: null,
-      organization: null,
       successMsg: {
         register: '',
         login: ''
       },
       disabled: false,
+      redirect: false,
       failed: false
     }
   }
@@ -45,12 +44,11 @@ const updateAuthUser = (state, action) => {
   case AUTHORIZATION_SUCCESSFUL: {
     return {
       ...state.authUser,
-      user: action.user,
       disabled: true,
-      organization: action.organization,
+      redirect: true,
       successMsg: {
         register: '',
-        login: action.message
+        login: ''
       }
     }
   }
