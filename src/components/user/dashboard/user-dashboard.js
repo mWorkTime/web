@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Dashboard from '../../layouts/user/dashboard'
+import UserDashboardTop from './user-dashboard-top'
 import UserHeader from '../user-header'
 import avatar from '../../../images/user/profile.svg'
 import { Spin } from 'antd'
@@ -7,17 +8,16 @@ import { Link } from 'react-router-dom'
 import { dashboardItems } from '../../../items'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserRequest } from '../../../actions'
-import UserDashboardTop from './user-dashboard-top'
 
 const UserDashboard = () => {
-  const { sidebarUser: { active }, userData: { user, loading, organization, token } } = useSelector((state) => state)
+  const { sidebarUser: { active }, userData: { user, loading, organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!(user && organization) && token) {
-      dispatch(fetchUserRequest(token))
+    if (!(user && organization)) {
+      dispatch(fetchUserRequest())
     }
-  }, [token, user, organization, dispatch])
+  }, [user, organization, dispatch])
 
   const renderItems = dashboardItems.map(({ key, title, text, imgLink, link }) => {
     return (

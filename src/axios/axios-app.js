@@ -1,5 +1,7 @@
 import Axios from 'axios'
 import { message } from 'antd'
+import store from '../store'
+import { moduleLocalStorage } from '../services/local-storage.service'
 
 const api = Axios.create({
   baseURL: 'http://localhost:5000',
@@ -7,6 +9,13 @@ const api = Axios.create({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
+})
+
+api.interceptors.request.use(function (config) {
+  const token = store.getState().userData.token || moduleLocalStorage.getItem('token')
+
+  config.headers.Authorization = `Bearer ${token}`
+  return config
 })
 
 // /** @type {Array} */

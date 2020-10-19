@@ -8,3 +8,6 @@ export const fetchLogin = (data) => {
   return api.post('/auth/login', data)
 }
 
+export const fetchLogout = () => {
+  return api.post('/auth/logout')
+}

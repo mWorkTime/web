@@ -5,7 +5,7 @@ import { moduleLocalStorage } from '../services/local-storage.service'
  * clearLocalStorageAndCookie. Remove all data from local storage, cookie and remove header 'Authorization'.
  * @return {void}
  */
-export const clearLocalStorageAndCookie = () => {
+export const clearLocalStorage = () => {
   api.defaults.headers.Authorization = null
   moduleLocalStorage.removeItem('refresh')
   moduleLocalStorage.removeItem('user')
@@ -18,7 +18,7 @@ export const clearLocalStorageAndCookie = () => {
  * @param {object} data
  * @return {void}
  */
-export const setLocalStorageAndCookie = (data) => {
+export const setLocalStorage = (data) => {
   api.defaults.headers.Authorization = `Bearer ${data.token}`
   moduleLocalStorage.setItem('user', data.user.username)
   moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + 86400)

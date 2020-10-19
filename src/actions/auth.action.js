@@ -1,10 +1,10 @@
 import {
   REGISTRATION_SUCCESSFUL, AUTHORIZATION_SUCCESSFUL,
   START_AUTHENTICATION, AUTHORIZATION_FAILED,
-  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED
+  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED, CLEAR_USER_DATA
 } from '../types'
-import { fetchRegister, fetchLogin } from '../services/auth.service'
-import { setLocalStorageAndCookie } from '../utils/clear-set-auth'
+import { fetchRegister, fetchLogin, fetchLogout } from '../services/auth.service'
+import { clearLocalStorage, setLocalStorage } from '../utils/clear-set-auth'
 import { clearConfirmAllMessages } from './confirm.action'
 import { setAuthToken } from './user.action'
 
@@ -55,7 +55,7 @@ const loginUser = (userData) => () => (dispatch) => {
   fetchLogin(userData)
     .then(({ data }) => {
       dispatch(setAuthToken(data.token))
-      setLocalStorageAndCookie(data)
+      setLocalStorage(data)
       dispatch(successAuth(AUTHORIZATION_SUCCESSFUL))
     })
     .catch(() => {
@@ -63,9 +63,19 @@ const loginUser = (userData) => () => (dispatch) => {
     })
 }
 
+const logoutUser = () => (dispatch) => {
+  fetchLogout()
+    .then(() => {
+      dispatch({ type: CLEAR_USER_DATA })
+      clearLocalStorage()
+    })
+    .catch((err) => console.log(err))
+}
+
 export {
   registerUser,
   loginUser,
   clearMessages,
-  setDisabled
+  setDisabled,
+  logoutUser
 }

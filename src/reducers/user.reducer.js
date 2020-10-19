@@ -1,4 +1,8 @@
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, SET_AUTH_TOKEN } from '../types'
+import {
+  FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE, SET_AUTH_TOKEN,
+  CLEAR_USER_DATA
+} from '../types'
 
 const updateUserData = (state, action) => {
   if (state === undefined) {
@@ -6,8 +10,9 @@ const updateUserData = (state, action) => {
       user: null,
       organization: null,
       token: null,
-      loading: false,
-      error: null
+      loading: true,
+      error: null,
+      redirectToMain: false
     }
   }
 
@@ -35,6 +40,15 @@ const updateUserData = (state, action) => {
     return {
       ...state.userData,
       token: action.payload
+    }
+  case CLEAR_USER_DATA:
+    return {
+      user: null,
+      organization: null,
+      token: null,
+      loading: false,
+      error: null,
+      redirectToMain: true
     }
   default:
     return state.userData

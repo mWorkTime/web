@@ -3,18 +3,24 @@ import { ExportOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../images/logo/timeline.svg'
-import { hideSidebar } from '../../actions'
+import { hideSidebar, logoutUser } from '../../actions'
 import { sidebarItems } from '../../items'
 
 const Sidebar = () => {
-  const active = useSelector(({ sidebarUser: { active } }) => active )
+  const { sidebarUser: { active }, userData: { redirectToMain } } = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (window.innerWidth < 768) {
       dispatch(hideSidebar)
     }
-  },[dispatch])
+  }, [dispatch])
+
+  useEffect(() => {
+    if (redirectToMain) {
+      window.location.reload()
+    }
+  }, [redirectToMain])
 
   const renderSidebarMenu = sidebarItems.map(({ key, label, icon, link, func }) => (
     <li className="sidebar--menu__li" key={key} onClick={func}>
@@ -39,8 +45,7 @@ const Sidebar = () => {
         {renderSidebarMenu}
       </ul>
 
-      <div className="sidebar--menu__footer" onClick={() => {
-      }}>
+      <div className="sidebar--menu__footer" onClick={() => dispatch(logoutUser())}>
         <span className="sidebar--menu--f__icon"><ExportOutlined className="sidebar--menu--f--i__logout" /></span>
         <span className="sidebar--menu--f__title">Выйти</span>
       </div>
