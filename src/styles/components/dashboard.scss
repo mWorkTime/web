@@ -29,6 +29,12 @@
       flex-direction: column;
       flex-grow: 1;
       padding: 30px;
+      .top--ls__loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+      }
 
       .top--ls__header {
         display: flex;
@@ -44,12 +50,12 @@
         }
       }
 
-      .dashboard--top__info {
+      .top--ls__info {
         border: 1px solid $border-color;
         border-radius: 10px;
         overflow: hidden;
 
-        .top--info__header {
+        .top--ls--info__header {
           padding: 10px 0 10px 20px;
           border-bottom: 1px solid $border-color;
           font-size: 18px;
@@ -57,7 +63,7 @@
           font-weight: 600;
         }
 
-        .top--info__content {
+        .top--ls--info__content {
           padding: 15px;
           display: flex;
           flex-wrap: wrap;
@@ -71,6 +77,9 @@
             .top--info__value {
               .top--info__value__confirm {
                 color: $color-success;
+              }
+              .top--info__value__not__confirm {
+                color: $color-danger;
               }
             }
           }

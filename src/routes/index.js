@@ -4,7 +4,7 @@ import Welcome from '../pages/welcome'
 import Register from '../components/auth-forms/register'
 import Login from '../components/auth-forms/login'
 import ConfirmPage from '../pages/confirm'
-import UserDashboard from '../components/user/user-dashboard'
+import UserDashboard from '../components/user/dashboard/user-dashboard'
 import PageNotFound from '../pages/page-404'
 
 export const useRoutes = isAuth => {

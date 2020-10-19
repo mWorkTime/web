@@ -10,6 +10,7 @@ export const clearLocalStorageAndCookie = () => {
   moduleLocalStorage.removeItem('refresh')
   moduleLocalStorage.removeItem('user')
   moduleLocalStorage.removeItem('exp')
+  moduleLocalStorage.removeItem('token')
 }
 
 /**
@@ -18,7 +19,7 @@ export const clearLocalStorageAndCookie = () => {
  * @return {void}
  */
 export const setLocalStorageAndCookie = (data) => {
-  api.defaults.headers.Authorization = `Bearer ${data.token.token}`
+  api.defaults.headers.Authorization = `Bearer ${data.token}`
   moduleLocalStorage.setItem('user', data.user.username)
   moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + 86400)
   moduleLocalStorage.setItem('exp', data.exp)

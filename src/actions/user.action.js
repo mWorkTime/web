@@ -1,9 +1,9 @@
 import { getUser } from '../services/user.service'
 import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, SET_AUTH_TOKEN } from '../types'
 
-const fetchUserRequest = () => (dispatch) => {
+const fetchUserRequest = (token) => (dispatch) => {
   dispatch({ type: FETCH_USER_REQUEST })
-  getUser()
+  getUser(token)
     .then(({ data: { user, organization } }) => {
       dispatch({ type: FETCH_USER_SUCCESS, user, organization })
     })

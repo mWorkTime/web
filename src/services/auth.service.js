@@ -7,3 +7,4 @@ export const fetchRegister = (data) => {
 export const fetchLogin = (data) => {
   return api.post('/auth/login', data)
 }
+

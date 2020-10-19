@@ -19,6 +19,7 @@ const updateUserData = (state, action) => {
     }
   case FETCH_USER_SUCCESS:
     return {
+      ...state.userData,
       user: action.user,
       organization: action.organization,
       loading: false,

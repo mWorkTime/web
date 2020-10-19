@@ -1,6 +1,6 @@
 import { registerUser, loginUser } from './auth.action'
 import { setConfirmSuccessMessage, setConfirmFailMessage, clearConfirmAllMessages, getNewConfirmLink } from './confirm.action'
-import { toggleSidebar, hideSidebar} from './sidebar.action'
+import { toggleSidebar, hideSidebar, showSidebar} from './sidebar.action'
 import { fetchUserRequest, setAuthToken } from './user.action'
 
 export {
@@ -13,5 +13,6 @@ export {
   setAuthToken,
   fetchUserRequest,
   toggleSidebar,
-  hideSidebar
+  hideSidebar,
+  showSidebar
 }

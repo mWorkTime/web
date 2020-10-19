@@ -1,46 +1,20 @@
-import React from 'react'
-import {
-  DashboardOutlined,
-  TeamOutlined,
-  CarryOutOutlined,
-  ReconciliationOutlined,
-  ExportOutlined
-} from '@ant-design/icons'
+import React, { useEffect } from 'react'
+import { ExportOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../images/logo/timeline.svg'
+import { hideSidebar } from '../../actions'
+import { sidebarItems } from '../../items'
 
 const Sidebar = () => {
   const active = useSelector(({ sidebarUser: { active } }) => active )
+  const dispatch = useDispatch()
 
-  const sidebarItems = [
-    {
-      key: 'dashboard',
-      link: '/',
-      label: 'Главная',
-      icon: <DashboardOutlined className="sidebar--menu--i__home" />
-
-    },
-    {
-      key: 'employees',
-      link: '/employees',
-      label: 'Работники',
-      icon: <TeamOutlined className="sidebar--menu--i__user" />
-    },
-    {
-      key: 'tasks',
-      label: 'Задания',
-      link: '/tasks',
-      icon: <CarryOutOutlined className="sidebar--menu--i__function" />
-    },
-    {
-      key: 'reports',
-      link: '/reports',
-      label: 'Отчёты', icon: <ReconciliationOutlined
-        className="sidebar--menu--i__customer" />
-
-    },
-  ]
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      dispatch(hideSidebar)
+    }
+  },[dispatch])
 
   const renderSidebarMenu = sidebarItems.map(({ key, label, icon, link, func }) => (
     <li className="sidebar--menu__li" key={key} onClick={func}>
