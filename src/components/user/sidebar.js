@@ -3,7 +3,7 @@ import { ExportOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../images/logo/timeline.svg'
-import { hideSidebar, logoutUser } from '../../actions'
+import { logoutUser, showSidebar } from '../../actions'
 import { sidebarItems } from '../../items'
 
 const Sidebar = () => {
@@ -11,8 +11,8 @@ const Sidebar = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      dispatch(hideSidebar)
+    if (window.innerWidth > 768) {
+      dispatch(showSidebar)
     }
   }, [dispatch])
 
