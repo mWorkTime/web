@@ -6,6 +6,7 @@ import {
 import { fetchRegister, fetchLogin } from '../services/auth.service'
 import { setLocalStorageAndCookie } from '../utils/clear-set-auth'
 import { clearConfirmAllMessages } from './confirm.action'
+import { setAuthToken } from './user.action'
 
 const startAuth = {
   type: START_AUTHENTICATION
@@ -53,6 +54,7 @@ const loginUser = (userData) => () => (dispatch) => {
 
   fetchLogin(userData)
     .then(({ data }) => {
+      dispatch(setAuthToken(data.token))
       setLocalStorageAndCookie(data)
       dispatch(successAuth(AUTHORIZATION_SUCCESSFUL))
     })

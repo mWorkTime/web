@@ -1,7 +1,7 @@
 import { registerUser, loginUser } from './auth.action'
 import { setConfirmSuccessMessage, setConfirmFailMessage, clearConfirmAllMessages, getNewConfirmLink } from './confirm.action'
 import { toggleSidebar, hideSidebar} from './sidebar.action'
-import { fetchUserRequest } from './user.action'
+import { fetchUserRequest, setAuthToken } from './user.action'
 
 export {
   registerUser,
@@ -10,6 +10,7 @@ export {
   setConfirmFailMessage,
   clearConfirmAllMessages,
   getNewConfirmLink,
+  setAuthToken,
   fetchUserRequest,
   toggleSidebar,
   hideSidebar

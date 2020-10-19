@@ -7,9 +7,11 @@ import { Form, message } from 'antd'
 import { connect } from 'react-redux'
 import { loginUser } from '../../actions'
 import { clearMessages, setDisabled } from '../../actions/auth.action'
+import { useHistory } from 'react-router'
 
 const Login = ({ disabled, clearMsg, cancelDisableFields, successConfirmMsg, errorConfirmMsg, onFinishAuthorization, redirect }) => {
   const [form] = Form.useForm()
+  const history = useHistory()
 
   const clearFormFields = () => {
     form.resetFields()
@@ -29,9 +31,9 @@ const Login = ({ disabled, clearMsg, cancelDisableFields, successConfirmMsg, err
   useEffect(() => clearMsg, [clearMsg])
   useEffect(() => {
     if (redirect) {
-      window.location.reload()
+      history.push('/dashboard')
     }
-  },[redirect])
+  },[redirect, history])
 
   return (
     <Auth title={'Авторизация'}
