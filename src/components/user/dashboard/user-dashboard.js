@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserRequest } from '../../../actions'
 
 const UserDashboard = () => {
-  const { sidebarUser: { active }, userData: { user, loading, organization } } = useSelector((state) => state)
+  const { sidebarUser: { active }, userData: { user, loading, token, organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!(user && organization)) {
+    if (token) {
       dispatch(fetchUserRequest())
     }
-  }, [user, organization, dispatch])
+  }, [token, dispatch])
 
   const renderItems = dashboardItems.map(({ key, title, text, imgLink, link }) => {
     return (
@@ -44,8 +44,7 @@ const UserDashboard = () => {
           <div className="dashboard--wrapper__top">
 
             <div className="dashboard--top__ls">
-              {
-                loading
+              { loading
                   ? <div className="top--ls__loader">
                     <Spin size='large' tip='Загрузка данных...' />
                   </div>
