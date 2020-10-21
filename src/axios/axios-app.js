@@ -7,7 +7,7 @@ import { setAuthToken } from '../actions'
 import { CLEAR_USER_DATA } from '../types'
 
 const api = Axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: process.env.REACT_APP_BASE_SERVER_URI,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -41,11 +41,6 @@ api.interceptors.response.use((res) => {
 
   if (response.status === 422 && response.data && typeof response.data === 'object' && response.data.error) {
     message.error(response.data.error)
-    return Promise.reject(err)
-  }
-
-  if (response.status === 500) {
-    return Promise.reject(err)
   }
 
   if (response.status === 401) {

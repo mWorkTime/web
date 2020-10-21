@@ -16,7 +16,7 @@ const Sidebar = () => {
     }
   }, [dispatch])
 
-  useEffect(() => {
+  useEffect(() => () => {
     if (redirectToMain) {
       window.location.reload()
     }

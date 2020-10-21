@@ -35,7 +35,7 @@ const getNewConfirmLink = (userData) => () => (dispatch) => {
     .then(({ data: { success } }) => {
       dispatch(setConfirmSuccessMessage(success))
     })
-    .catch((err) => { console.log(err.response.data.error) })
+    .catch((err) => { console.log(err.response.data.msg) })
 }
 
 export {

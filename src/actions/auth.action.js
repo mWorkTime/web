@@ -1,7 +1,8 @@
 import {
   REGISTRATION_SUCCESSFUL, AUTHORIZATION_SUCCESSFUL,
   START_AUTHENTICATION, AUTHORIZATION_FAILED,
-  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED, CLEAR_USER_DATA
+  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED, CLEAR_USER_DATA,
+  CLEAR_REDIRECT_TO_MAIN
 } from '../types'
 import { fetchRegister, fetchLogin, fetchLogout } from '../services/auth.service'
 import { clearLocalStorage, setLocalStorage } from '../utils/clear-set-auth'
@@ -70,6 +71,7 @@ const logoutUser = () => (dispatch) => {
       clearLocalStorage()
     })
     .catch((err) => console.log(err))
+    .finally(() => dispatch({ type: CLEAR_REDIRECT_TO_MAIN }))
 }
 
 export {

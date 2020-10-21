@@ -1,7 +1,7 @@
 import {
   FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE, SET_AUTH_TOKEN,
-  CLEAR_USER_DATA
+  CLEAR_USER_DATA, CLEAR_REDIRECT_TO_MAIN
 } from '../types'
 
 const updateUserData = (state, action) => {
@@ -49,6 +49,11 @@ const updateUserData = (state, action) => {
       loading: false,
       error: null,
       redirectToMain: true
+    }
+  case CLEAR_REDIRECT_TO_MAIN:
+    return {
+      ...state.userData,
+      redirectToMain: false
     }
   default:
     return state.userData
