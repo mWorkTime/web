@@ -1,63 +1,60 @@
 import React from 'react'
 import { CheckCircleFilled, EditFilled, CloseCircleFilled } from '@ant-design/icons'
-import { Typography } from 'antd'
+import { Typography, Tag } from 'antd'
 import { Link } from 'react-router-dom'
+import UserDashboardItem from './user-dashboard-item'
 
 const { Title } = Typography
 
 const UserDashboardTop = ({ user, organization }) => {
-  const { name, createdAt, isOwner, isVerified, email, id } = user
+  const { name, createdAt, isOwner, isVerified, email, id, role } = user
+
+  const renderRoles = role.map(({ name, code }) => {
+    let color = 'blue'
+    if (code === 2) {
+      color = 'green'
+    } else if (code === 3) {
+      color = 'gold'
+    } else if (code === 4) {
+      color = 'purple'
+    } else if (code === 5) {
+      color = 'red'
+    }
+
+    return (
+      <Tag key={code} color={color}>{name}</Tag>
+    )
+  })
 
   return (
     <>
       <div className="top--ls__header">
         <Title className="top--ls__title" level={1}>Приветствую {name}</Title>
-        <div className='top--ls__date'>Аккаунт создан: {new Date(createdAt).toLocaleString()}</div>
+        <div className='top--ls__date'>Аккаунт создан: {createdAt}</div>
       </div>
 
       <div className="top--ls__info">
         <div className="top--ls--info__header">Информация о пользователе</div>
         <div className="top--ls--info__content">
-          <div className="top--ls--info__col">
-            <div className="top--info">
-              <div className="top--info__label">
-                Вы являетесь {isOwner ? 'основателем' : 'частью'}:
-              </div>
-              <div className="top--info__value">
-                {organization.name}
-              </div>
-
-            </div>
-            <div className="top--info">
-              <div className="top--info__label">
-                Статус аккаунта:
-              </div>
-              <div className="top--info__value ">
-                {isVerified
+          <UserDashboardItem
+            firstItem={{ title: `Вы являетесь ${isOwner ? 'основателем' : 'частью'}:`, value: organization.name }}
+            secondItem={{
+              title: 'Статус аккаунта:', value:
+                isVerified
                   ? <><CheckCircleFilled className='top--info__value__confirm' /> Подтверждён </>
                   : <><CloseCircleFilled className='top--info__value__not__confirm' /> Не подтверждён</>
-                }
-              </div>
-            </div>
-          </div>
-          <div className="top--info__col">
-            <div className="top--info">
-              <div className="top--info__label">
-                Email:
-              </div>
-              <div className="top--info__value">
-                {email}
-              </div>
-            </div>
-            <div className="top--info">
-              <div className="top--info__label">
-                Код организации:
-              </div>
-              <div className="top--info__value">
-                {organization.code}
-              </div>
-            </div>
-          </div>
+            }}
+          />
+          <UserDashboardItem
+            firstItem={{ title: 'Email:', value: email }}
+            secondItem={{
+              title: 'Код организации:', value: organization.code
+            }}
+          />
+          <UserDashboardItem
+            firstItem={{ title: 'Вашы роли:', value: renderRoles }}
+            secondItem={{ title: '', value: '' }}
+          />
         </div>
         <div className="top--info__buttons">
           <Link to={`/profile/edit/${id}`}>
