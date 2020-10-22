@@ -47,13 +47,7 @@ const UserDashboardTop = ({ user, organization }) => {
           />
           <UserDashboardItem
             firstItem={{ title: 'Email:', value: email }}
-            secondItem={{
-              title: 'Код организации:', value: organization.code
-            }}
-          />
-          <UserDashboardItem
-            firstItem={{ title: 'Вашы роли:', value: renderRoles }}
-            secondItem={{ title: '', value: '' }}
+            secondItem={{ title: 'Ваши роли:', value: renderRoles }}
           />
         </div>
         <div className="top--info__buttons">

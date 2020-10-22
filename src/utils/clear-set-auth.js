@@ -17,7 +17,7 @@ export const clearLocalStorage = () => {
  * @return {void}
  */
 export const setLocalStorage = (data) => {
-  moduleLocalStorage.setItem('user', data.user.username)
+  moduleLocalStorage.setItem('user', data.user)
   moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + process.env.REACT_APP_REFRESH_TIME_TOKEN)
   moduleLocalStorage.setItem('exp', data.exp)
   moduleLocalStorage.setItem('token', data.token)

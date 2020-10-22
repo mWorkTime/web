@@ -7,6 +7,7 @@ import {
 } from './confirm.action'
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
 import { fetchUserRequest, setAuthToken } from './user.action'
+import { fetchAllEmployees } from './employee.action'
 
 export {
   registerUser,
@@ -18,6 +19,7 @@ export {
   getNewConfirmLink,
   setAuthToken,
   fetchUserRequest,
+  fetchAllEmployees,
   toggleSidebar,
   hideSidebar,
   showSidebar

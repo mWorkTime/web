@@ -1,30 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Employees from '../../layouts/user/employees'
 import UserHeader from '../user-header'
-import { useSelector } from 'react-redux'
-import { Typography, Table, Tag, Space } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { Typography, Table, Tag } from 'antd'
+import { fetchAllEmployees } from '../../../actions'
 
 const { Title } = Typography
 
 const UserEmployees = () => {
-  const { sidebarUser: { active } } = useSelector((state) => state)
+  const { sidebarUser: { active }, employeeData: { employees } } = useSelector((state) => state)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!employees) {
+      dispatch(fetchAllEmployees())
+    }
+  }, [dispatch, employees])
+
 
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
-      render: text => <a>{text}</a>,
+      key: 'name'
     },
     {
       title: 'Age',
       dataIndex: 'age',
-      key: 'age',
+      key: 'age'
     },
     {
       title: 'Address',
       dataIndex: 'address',
-      key: 'address',
+      key: 'address'
     },
     {
       title: 'Tags',
@@ -33,20 +41,20 @@ const UserEmployees = () => {
       render: tags => (
         <>
           {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
+            let color = tag.length > 5 ? 'geekblue' : 'green'
             if (tag === 'loser') {
-              color = 'volcano';
+              color = 'volcano'
             }
             return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}
               </Tag>
-            );
+            )
           })}
         </>
-      ),
-    },
-  ];
+      )
+    }
+  ]
 
   return (
     <Employees>
@@ -72,6 +80,7 @@ const UserEmployees = () => {
               </div>
             </div>
           </div>
+
           <div className="employees--wrapper__content">
             <Table columns={columns} bordered />
           </div>
