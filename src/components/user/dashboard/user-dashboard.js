@@ -14,10 +14,10 @@ const UserDashboard = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (token) {
+    if (!(user && organization) && token) {
       dispatch(fetchUserRequest())
     }
-  }, [token, dispatch])
+  }, [token, dispatch, user, organization])
 
   const renderItems = dashboardItems.map(({ key, title, text, imgLink, link }) => {
     return (
@@ -44,13 +44,13 @@ const UserDashboard = () => {
           <div className="dashboard--wrapper__top">
 
             <div className="dashboard--top__ls">
-              { loading
-                  ? <div className="top--ls__loader">
-                    <Spin size='large' tip='Загрузка данных...' />
-                  </div>
-                  : null
+              {loading
+                ? <div className="top--ls__loader">
+                  <Spin size='large' tip='Загрузка данных...' />
+                </div>
+                : null
               }
-              { user && typeof user === 'object' && organization && typeof organization === 'object'
+              {user && typeof user === 'object' && organization && typeof organization === 'object'
                 ? <UserDashboardTop user={user} organization={organization} />
                 : null
               }

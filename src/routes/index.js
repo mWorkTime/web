@@ -5,12 +5,14 @@ import Register from '../components/auth-forms/register'
 import Login from '../components/auth-forms/login'
 import ConfirmPage from '../pages/confirm'
 import UserDashboard from '../components/user/dashboard/user-dashboard'
+import UserEmployees from '../components/user/employees/user-employees'
 
 export const useRoutes = isAuth => {
   if (isAuth) {
     return (
       <Switch>
         <Route path='/dashboard' exact component={UserDashboard} />
+        <Route path='/employees' component={UserEmployees} />
         <Redirect to={'/dashboard'} />
       </Switch>
     )
