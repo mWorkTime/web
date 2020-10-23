@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react'
 import Employees from '../../layouts/user/employees'
 import UserHeader from '../user-header'
+import EmployeeModal from './employee-modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { Typography, Table, Tag } from 'antd'
+import { Typography, Table } from 'antd'
 import { fetchAllEmployees } from '../../../actions'
+import { UserAddOutlined } from '@ant-design/icons'
+import photo from '../../../images/user/Add_user.svg'
+import { employeeColumns } from './columns/employee-columns'
+import { SET_MODAL_CREATE_ACTIVE } from '../../../types'
+import DepartmentModal from '../department/department-modal'
 
 const { Title } = Typography
 
@@ -15,46 +21,8 @@ const UserEmployees = () => {
     if (!employees) {
       dispatch(fetchAllEmployees())
     }
+
   }, [dispatch, employees])
-
-
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name'
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age'
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address'
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: tags => (
-        <>
-          {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            )
-          })}
-        </>
-      )
-    }
-  ]
 
   return (
     <Employees>
@@ -66,26 +34,47 @@ const UserEmployees = () => {
               Работники организации TabUp
             </Title>
             <div className="wrapper--top__statistic">
-              <div className="top--statistic__box">
-                <div className="statistic--box__title">Кол-во основателей:</div>
-                <div className="statistic--box__text">1 чел.</div>
+              <div className="top--statistic__ls">
+                <div className="statistic--ls__title">Создайте, измените или удалите - аккаунт работника. Выберите для
+                  них роль "Работник" или "Управляющий".
+                </div>
+                <div className="statistic--ls__img">
+                  <img className="statistic--ls__img__employees" src={photo} alt="Работники" />
+                </div>
               </div>
-              <div className="top--statistic__box">
-                <div className="statistic--box__title">Кол-во управляющих:</div>
-                <div className="statistic--box__text">3 чел.</div>
-              </div>
-              <div className="top--statistic__box">
-                <div className="statistic--box__title">Кол-во работников:</div>
-                <div className="statistic--box__text">14 чел.</div>
+              <div className="top--statistic__rs">
+                <div className="statistic--rs__box statistic--rs__total">
+                  <div className="rs--box__title">Штат состоит из:</div>
+                  <div className="rs--box__value">32 чел.</div>
+                </div>
+                <div className="statistic--rs__box statistic--rs__owner">
+                  <div className="rs--box__title">Основатели:</div>
+                  <div className="rs--box__value">1 чел.</div>
+
+                </div>
+                <div className="statistic--rs__box statistic--rs__manager">
+                  <div className="rs--box__title">Управляющие:</div>
+                  <div className="rs--box__value">4 чел.</div>
+
+                </div>
+                <div className="statistic--rs__box statistic--rs__employee">
+                  <div className="rs--box__title">Работников:</div>
+                  <div className="rs--box__value">27 чел.</div>
+                </div>
               </div>
             </div>
-          </div>
 
+            <div className="wrapper--top__button" onClick={() => dispatch({ type: SET_MODAL_CREATE_ACTIVE })}>
+              <UserAddOutlined /> Создать нового работника
+            </div>
+          </div>
           <div className="employees--wrapper__content">
-            <Table columns={columns} bordered />
+            <Table columns={employeeColumns()} bordered />
           </div>
         </div>
       </div>
+      <EmployeeModal />
+      <DepartmentModal />
     </Employees>
   )
 }

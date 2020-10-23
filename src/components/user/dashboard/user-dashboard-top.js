@@ -7,7 +7,7 @@ import UserDashboardItem from './user-dashboard-item'
 const { Title } = Typography
 
 const UserDashboardTop = ({ user, organization }) => {
-  const { name, createdAt, isOwner, isVerified, email, id, role } = user
+  const { name, createdAt, isOwner, isVerified, email, id, role, phone, department } = user
 
   const renderRoles = role.map(({ name, code }) => {
     let color = 'blue'
@@ -22,7 +22,7 @@ const UserDashboardTop = ({ user, organization }) => {
     }
 
     return (
-      <Tag key={code} color={color}>{name}</Tag>
+      <Tag key={code}  className="top--info__tag" color={color}>{name}</Tag>
     )
   })
 
@@ -48,6 +48,10 @@ const UserDashboardTop = ({ user, organization }) => {
           <UserDashboardItem
             firstItem={{ title: 'Email:', value: email }}
             secondItem={{ title: 'Ваши роли:', value: renderRoles }}
+          />
+          <UserDashboardItem
+            firstItem={{ title: 'Ваш отдел:', value: department.name }}
+            secondItem={{ title: 'Ваш телефон:', value: phone }}
           />
         </div>
         <div className="top--info__buttons">

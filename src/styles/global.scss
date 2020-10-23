@@ -13,10 +13,7 @@
 @import "./components/header.scss";
 @import "./components/dashboard.scss";
 @import "./components/employees.scss";
-
-body, html {
-
-}
+@import "./components/employee-form.scss";
 
 #root {
   height: 100%;

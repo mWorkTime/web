@@ -1,6 +1,6 @@
 import {
   FETCH_ALL_EMPLOYEES_REQUEST, FETCH_ALL_EMPLOYEES_SUCCESS,
-  FETCH_ALL_EMPLOYEES_FAILURE
+  FETCH_ALL_EMPLOYEES_FAILURE, SET_MODAL_CREATE_ACTIVE
 } from '../types'
 
 const updateEmployeeData = (state, action) => {
@@ -8,7 +8,11 @@ const updateEmployeeData = (state, action) => {
     return {
       employees: null,
       loading: false,
-      error: null
+      error: null,
+      modal: {
+        create: false,
+        edit: false
+      }
     }
   }
 
@@ -30,6 +34,15 @@ const updateEmployeeData = (state, action) => {
       error: action.error,
       loading: false
     }
+  case SET_MODAL_CREATE_ACTIVE: {
+    return {
+      ...state.employeeData,
+      modal: {
+        ...state.employeeData.modal,
+        create: !state.employeeData.modal.create
+      }
+    }
+  }
   default:
     return state.employeeData
   }

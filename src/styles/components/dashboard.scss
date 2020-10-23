@@ -75,6 +75,9 @@
               font-weight: bold;
             }
             .top--info__value {
+              .top--info__tag {
+                margin: 8px 8px 0 0 !important;
+              }
               .top--info__value__confirm {
                 color: $color-success;
               }

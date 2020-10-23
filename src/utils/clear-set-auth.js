@@ -17,8 +17,9 @@ export const clearLocalStorage = () => {
  * @return {void}
  */
 export const setLocalStorage = (data) => {
+  const refreshTime = parseInt(process.env.REACT_APP_REFRESH_TIME_TOKEN)
   moduleLocalStorage.setItem('user', data.user)
-  moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + process.env.REACT_APP_REFRESH_TIME_TOKEN)
+  moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + refreshTime)
   moduleLocalStorage.setItem('exp', data.exp)
   moduleLocalStorage.setItem('token', data.token)
 }

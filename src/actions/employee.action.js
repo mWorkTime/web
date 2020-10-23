@@ -15,6 +15,7 @@ const fetchAllEmployees = () => (dispatch) => {
     })
 }
 
+
 export {
   fetchAllEmployees
 }

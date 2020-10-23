@@ -1,0 +1,9 @@
+@import "../shared/variables";
+
+.form--create--employee {
+  .form--employee__btn__department {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}

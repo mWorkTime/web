@@ -15,7 +15,7 @@ const UserDashboardItem = ({ firstItem = {}, secondItem = {} }) => (
       <div className="top--info__label">
         {secondItem.title}
       </div>
-      <div className="top--info__value ">
+      <div className="top--info__value">
         {secondItem.value}
       </div>
     </div>
