@@ -8,6 +8,7 @@ import {
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
 import { fetchUserRequest, setAuthToken } from './user.action'
 import { fetchAllEmployees } from './employee.action'
+import { fetchAllDepartments } from './department.action'
 
 export {
   registerUser,
@@ -20,6 +21,7 @@ export {
   setAuthToken,
   fetchUserRequest,
   fetchAllEmployees,
+  fetchAllDepartments,
   toggleSidebar,
   hideSidebar,
   showSidebar
