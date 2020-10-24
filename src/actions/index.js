@@ -7,8 +7,9 @@ import {
 } from './confirm.action'
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
 import { fetchUserRequest, setAuthToken } from './user.action'
-import { fetchAllEmployees } from './employee.action'
-import { fetchAllDepartments } from './department.action'
+import { fetchAllEmployees, fetchCreateEmployee } from './employee.action'
+import { fetchAllDepartments, fetchCreateDepartment } from './department.action'
+import { fetchAllRole } from './role.action'
 
 export {
   registerUser,
@@ -22,6 +23,9 @@ export {
   fetchUserRequest,
   fetchAllEmployees,
   fetchAllDepartments,
+  fetchCreateDepartment,
+  fetchAllRole,
+  fetchCreateEmployee,
   toggleSidebar,
   hideSidebar,
   showSidebar
