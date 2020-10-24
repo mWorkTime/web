@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SET_DEPARTMENT_MODAL_ACTIVE } from '../../../types'
-import { Modal, Form, Input } from 'antd'
+import { Modal, Form, Input, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserOutlined } from '@ant-design/icons'
-import { departmentValidator } from '../../../validators/department.validator'
+import { ReconciliationOutlined } from '@ant-design/icons'
+import { departmentValidator } from '../../../validators'
+import { fetchCreateDepartment } from '../../../actions'
 
 const DepartmentModal = () => {
   const [form] = Form.useForm()
-  const { departmentData: { active } } = useSelector(state => state)
+  const { departmentData: { active, successMsg } } = useSelector(state => state)
   const dispatch = useDispatch()
   const { validateDepartment } = departmentValidator
+
+  useEffect(() => {
+    if (successMsg) {
+      message.success(successMsg)
+    }
+  }, [successMsg])
 
   return (
     <Modal
@@ -23,11 +30,9 @@ const DepartmentModal = () => {
           .validateFields()
           .then((values) => {
             form.resetFields()
-            console.log(values)
+            dispatch(fetchCreateDepartment(values))
           })
-          .catch((info) => {
-            console.log('Validate Failed:', info)
-          })
+          .catch((info) => { console.log('Validate Failed:', info) })
       }}
     >
 
@@ -38,11 +43,11 @@ const DepartmentModal = () => {
       >
         <Form.Item
           name="name_department"
-          label="Название департамента"
+          label="Название отдела"
           rules={validateDepartment}
           hasFeedback
         >
-          <Input prefix={<UserOutlined />} placeholder='Введите название' />
+          <Input prefix={<ReconciliationOutlined />} placeholder='Введите название' />
         </Form.Item>
       </Form>
     </Modal>

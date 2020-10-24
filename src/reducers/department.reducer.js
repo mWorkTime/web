@@ -42,9 +42,9 @@ const updateDepartmentData = (state, action) => {
     }
   case FETCH_CREATE_DEPARTMENT_SUCCESS:
     return {
+      ...state.departmentData,
       error: null,
       loading: false,
-      departments: action.payload,
       successMsg: action.message
     }
   case FETCH_CREATE_DEPARTMENT_FAILURE:
