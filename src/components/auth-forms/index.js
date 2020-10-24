@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Input } from 'antd'
 import { UserOutlined, MailOutlined, LockOutlined, SolutionOutlined } from '@ant-design/icons'
-import { generalValidation, registerValidation} from '../../validators/auth.validator'
+import { generalValidation, registerValidation} from '../../validators'
 import { Link } from 'react-router-dom'
 
 const renderAuthForm = (typeForm, instanceForm,  funcFinish, funcClear, disable, cancelDisable) => {

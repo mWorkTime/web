@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Input, Typography } from 'antd'
 import { MailOutlined } from '@ant-design/icons'
-import { generalValidation } from '../../validators/auth.validator'
+import { generalValidation } from '../../validators'
 import { useDispatch, useSelector } from 'react-redux'
 import { getNewConfirmLink } from '../../actions'
 
