@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Alert, Button } from 'antd'
-import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons'
+import { UserOutlined, MailOutlined } from '@ant-design/icons'
 import { SET_DEPARTMENT_MODAL_ACTIVE } from '../../../types'
 import { useDispatch } from 'react-redux'
 import { generalValidation, registerValidation, phoneValidation, employeeValidator } from '../../../validators'
@@ -10,7 +10,7 @@ const { Option } = Select
 const EmployeeCreate = ({ formInst, departments, roles, disable }) => {
   const dispatch = useDispatch()
   const { validateEmail } = generalValidation
-  const { validateName, validateRegisterPassword, validateConfirmPassword } = registerValidation
+  const { validateName } = registerValidation
   const { validateGender, validateDepartment, validateRoles, validateSurname } = employeeValidator
   const { validateNumber } = phoneValidation
 
@@ -90,7 +90,6 @@ const EmployeeCreate = ({ formInst, departments, roles, disable }) => {
         <Button type='primary' onClick={() => dispatch({ type: SET_DEPARTMENT_MODAL_ACTIVE })}>Добавить новый
           отдел</Button>
       </div>
-
       <Form.Item
         name="roles"
         label="Роли"
@@ -104,25 +103,27 @@ const EmployeeCreate = ({ formInst, departments, roles, disable }) => {
           {roles && roles.map(({ id, normalName }) => (<Option key={id} value={id}>{normalName}</Option>))}
         </Select>
       </Form.Item>
-      <Form.Item
-        label="Пароль"
-        name="password"
-        rules={validateRegisterPassword}
-        hasFeedback
-      >
-        <Input.Password prefix={<LockOutlined />} placeholder="введите пароль" disabled={disable}/>
-      </Form.Item>
-      <Form.Item
-        name='confirm'
-        label='Потвердите пароль'
-        dependencies={['password']}
-        rules={validateConfirmPassword}
-        hasFeedback
-      >
-        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="потвердите пароль" disabled={disable} />
-      </Form.Item>
     </Form>
   )
 }
+
+
+// <Form.Item
+//   label="Пароль"
+//   name="password"
+//   rules={validateRegisterPassword}
+//   hasFeedback
+// >
+//   <Input.Password prefix={<LockOutlined />} placeholder="введите пароль" disabled={disable}/>
+// </Form.Item>
+// <Form.Item
+//   name='confirm'
+//   label='Потвердите пароль'
+//   dependencies={['password']}
+//   rules={validateConfirmPassword}
+//   hasFeedback
+// >
+//   <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="потвердите пароль" disabled={disable} />
+// </Form.Item>
 
 export default EmployeeCreate
