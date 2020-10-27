@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
 import Employees from '../../layouts/user/employees'
 import UserHeader from '../user-header'
-import EmployeeModal from './employee-modal'
+import DepartmentModal from '../department/department-modal'
+import photo from '../../../images/user/Add_user.svg'
+import EmployeeStatistic from './employee-statistic'
+import EmployeeCreate from './employee-create'
+import EmployeeEdit from './employee-edit'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Table } from 'antd'
 import { fetchAllEmployees } from '../../../actions'
 import { UserAddOutlined } from '@ant-design/icons'
 import { getEmployeeColumns } from './columns/employee-columns'
-import { SET_MODAL_CREATE_ACTIVE } from '../../../types'
-import DepartmentModal from '../department/department-modal'
+import { SET_MODAL_CREATE_ACTIVE, SET_MODAL_EDIT_ACTIVE } from '../../../types'
 import { moduleLocalStorage } from '../../../services/local-storage.service'
-
-import photo from '../../../images/user/Add_user.svg'
-import EmployeeStatistic from './employee-statistic'
 
 const { Title } = Typography
 
@@ -33,7 +34,7 @@ const UserEmployees = () => {
   }
 
   const editUser = (id) => {
-    console.log(id)
+    dispatch({ type: SET_MODAL_EDIT_ACTIVE })
   }
 
   return (
@@ -71,7 +72,8 @@ const UserEmployees = () => {
           </div>
         </div>
       </div>
-      <EmployeeModal />
+      <EmployeeEdit />
+      <EmployeeCreate />
       <DepartmentModal />
     </Employees>
   )

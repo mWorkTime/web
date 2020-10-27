@@ -15,7 +15,7 @@ export const getEmployeeColumns = (funcEdit, funcDel) => [
     title: 'Имя',
     dataIndex: 'name',
     key: 'name',
-    width: 160,
+    width: 120,
     fixed: 'left',
     render: text => <span className='table--employee__name'>{text}</span>
   },
