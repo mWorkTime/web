@@ -15,6 +15,12 @@ const updateEmployeeData = (state, action) => {
         create: false,
         edit: false
       },
+      quantity: {
+        total: 0,
+        managers: 0,
+        workers: 0,
+        owners: 0
+      },
       disable: false,
       successMsg: ''
     }
@@ -28,10 +34,12 @@ const updateEmployeeData = (state, action) => {
       successMsg: ''
     }
   case FETCH_ALL_EMPLOYEES_SUCCESS:
+    const { total, managers, workers, owners, payload } = action
     return {
       ...state.employeeData,
       loading: false,
-      employees: action.payload
+      employees: payload,
+      quantity: { total, managers, workers, owners }
     }
   case FETCH_ALL_EMPLOYEES_FAILURE:
     return {

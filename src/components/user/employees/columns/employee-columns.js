@@ -1,40 +1,90 @@
-import { Tag } from 'antd'
 import React from 'react'
+import { Tag,Button } from 'antd'
+import { getColorByCode } from '../../../../utils'
+import { dictionaryRoles } from '../../../../items'
+import { EditFilled, DeleteFilled } from '@ant-design/icons'
 
-export const employeeColumns = () => [
+/**
+ *
+ * @param {function} funcEdit
+ * @param {function} funcDel
+ * @return {array} []
+ */
+export const getEmployeeColumns = (funcEdit, funcDel) => [
   {
-    title: 'Name',
+    title: 'Имя',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    width: 160,
+    fixed: 'left',
+    render: text => <span className='table--employee__name'>{text}</span>
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age'
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+    width: 200,
+    render: text => <a href={`mailto: ${text}`}>{text}</a>
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address'
+    title: 'Отдел',
+    dataIndex: 'department',
+    key: 'department',
+    width: 160
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: tags => (
-      <>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green'
-          if (tag === 'loser') {
-            color = 'volcano'
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          )
-        })}
-      </>
-    )
+    title: 'Телефон',
+    dataIndex: 'phone',
+    key: 'phone',
+    width: 150,
+    render: text => <a href={`tel: +38 ${text}`}>{text}</a>
+  },
+  {
+    title: 'Роли',
+    dataIndex: 'role',
+    key: 'role',
+    width: 250,
+    render: role => role.map(tag => {
+      const color = getColorByCode(tag.code)
+      const name = dictionaryRoles[tag.name]
+
+      return (
+        <Tag color={color} key={name}>
+          {name.toUpperCase()}
+        </Tag>
+      )
+    })
+  },
+  {
+    title: 'Статус работника',
+    dataIndex: 'isSacked',
+    key: 'isSacked',
+    width: 110,
+    render: text => text ? 'уволен' : 'не уволен'
+  },
+  {
+    title: 'Дата регистрации',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    width: 120
+  },
+  {
+    title: 'Действия',
+    key: 'action',
+    width: 100,
+    fixed: 'right',
+    render: (text) => {
+      return (
+        <div className='table--employee__actions'>
+          <Button type='primary' size='small'
+                  onClick={() => funcEdit(text.id)}
+          ><EditFilled /></Button>
+          &nbsp;&nbsp;
+          <Button type='danger' size='small'
+                  onClick={() => funcDel(text.id)}
+          ><DeleteFilled /></Button>
+        </div>
+      )
+    }
   }
 ]
