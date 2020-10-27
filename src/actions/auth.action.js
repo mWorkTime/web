@@ -5,7 +5,7 @@ import {
   CLEAR_REDIRECT_TO_MAIN
 } from '../types'
 import { fetchRegister, fetchLogin, fetchLogout } from '../services/auth.service'
-import { clearLocalStorage, setLocalStorage } from '../utils/clear-set-auth'
+import { clearLocalStorage, setLocalStorage } from '../utils'
 import { clearConfirmAllMessages } from './confirm.action'
 import { setAuthToken } from './user.action'
 

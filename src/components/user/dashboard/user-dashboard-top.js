@@ -3,6 +3,7 @@ import { CheckCircleFilled, EditFilled, CloseCircleFilled } from '@ant-design/ic
 import { Typography, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import UserDashboardItem from './user-dashboard-item'
+import { getColorByCode } from '../../../utils'
 
 const { Title } = Typography
 
@@ -10,16 +11,7 @@ const UserDashboardTop = ({ user, organization }) => {
   const { name, createdAt, isOwner, isVerified, email, id, role, phone, department } = user
 
   const renderRoles = role.map(({ name, code }) => {
-    let color = 'blue'
-    if (code === 2) {
-      color = 'green'
-    } else if (code === 3) {
-      color = 'gold'
-    } else if (code === 4) {
-      color = 'purple'
-    } else if (code === 5) {
-      color = 'red'
-    }
+    let color = getColorByCode(code)
 
     return (
       <Tag key={code}  className="top--info__tag" color={color}>{name}</Tag>

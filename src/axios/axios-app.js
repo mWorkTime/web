@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { message } from 'antd'
 import store from '../store'
 import { moduleLocalStorage } from '../services/local-storage.service'
-import { clearLocalStorage, setLocalStorage } from '../utils/clear-set-auth'
+import { clearLocalStorage, setLocalStorage } from '../utils'
 import { setAuthToken } from '../actions'
 import { CLEAR_USER_DATA } from '../types'
 
@@ -46,6 +46,7 @@ api.interceptors.response.use((res) => {
   if (response.status === 401) {
     const currentToken =  moduleLocalStorage.getItem('token')
     const refresh = moduleLocalStorage.getItem('refresh')
+    const nameOrg = moduleLocalStorage.getItem('nameOrg')
 
     if (!currentToken) {
       return Promise.reject(err)
@@ -54,7 +55,7 @@ api.interceptors.response.use((res) => {
     if (!isRefreshRequesting) {
       isRefreshRequesting = true
 
-      api.post('/auth/refresh', { refresh })
+      api.post('/auth/refresh', { refresh, nameOrg })
         .then((resp) => {
           store.dispatch(setAuthToken(resp.data.token))
 

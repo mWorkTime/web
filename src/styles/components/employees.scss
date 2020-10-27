@@ -105,6 +105,15 @@
     width: 100%;
     .ant-table-wrapper {
       margin: 30px;
+      .ant-table-thead > tr > th {
+        color: #fff;
+        background: $color_4th;
+        border-bottom: 1px solid $color-3th;
+      }
+    }
+
+    .table--employee__name {
+      color: $color-3th;
     }
   }
 }
@@ -158,6 +167,12 @@
             padding: 10px;
           }
         }
+      }
+    }
+    &__content {
+      .ant-table-wrapper {
+        padding: 5px;
+        margin: 20px 0;
       }
     }
   }
