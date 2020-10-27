@@ -10,7 +10,7 @@ export const departmentValidator = {
       message: dictionary.mustBeNameOfDepartment
     },
     {
-      pattern: /^(?=.{3,32}$)/,
+      pattern: /^(?=.{3,50}$)/,
       message: dictionary.mustBeNameOfDepartmentThreeDigits
     }
   ]

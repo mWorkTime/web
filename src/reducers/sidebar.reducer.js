@@ -3,7 +3,7 @@ import { HIDE_SIDEBAR, TOGGLE_SIDEBAR, SHOW_SIDEBAR } from '../types'
 const updateSidebar = (state, action) => {
   if (state === undefined) {
     return {
-      active: false
+      active: true
     }
   }
 

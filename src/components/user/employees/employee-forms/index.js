@@ -12,23 +12,21 @@ const { Option } = Select
  * @param {array} departments
  * @param {array} roles
  * @param {function} showFormDepartment
+ * @param {object} data
  * @return {JSX.Element}
  */
-const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, showFormDepartment) => {
+const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, showFormDepartment, data = {}) => {
   const { validateGender, validateDepartment, validateRoles } = employeeValidator
 
   const renderFormCreateItems = formCreateItems.map((item) => (
     <Form.Item
-      key={item.key}
-      name={item.name}
-      label={item.label}
-      rules={item.rules}
-      hasFeedback
-      normalize={item?.normalize}
-    >
+      key={item.key} name={item.name}
+      label={item.label} rules={item.rules}
+      hasFeedback normalize={item?.normalize}>
       <Input prefix={item?.icon} addonBefore={item?.addonBefore} placeholder={item.placeholder} disabled={disable} />
     </Form.Item>
   ))
+
 
   return (
     <Form
@@ -36,6 +34,14 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
       layout="vertical"
       name={typeForm === 'create' ? 'form-create-employee' : 'form-edit-employee'}
       className={typeForm === 'create' ? 'form--create--employee' : 'form--edit--employee'}
+      initialValues={{
+        name: data?.name,
+        surname: data?.surname,
+        email: data?.email,
+        phone: data?.phone,
+        gender: data?.gender,
+        department: data?.department
+      }}
     >
       {renderFormCreateItems}
       <Form.Item
@@ -65,13 +71,18 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
           {departments && departments.map(({ id, name }) => (<Option key={id} value={id}>{name}</Option>))}
         </Select>
       </Form.Item>
-      <Alert
-        showIcon
-        message={'Если не нашли нужного отдела, нажмите на кнопку ниже --> впишите нужное название и добавьте отдел.'} />
-      <div className="form--employee__btn__department">
-        <Button type='primary' onClick={showFormDepartment}>Добавить новый
-          отдел</Button>
-      </div>
+      { typeForm === 'create'
+        ? <>
+            <Alert
+              showIcon
+              message={'Если не нашли нужного отдела, нажмите на кнопку ниже --> впишите нужное название и добавьте отдел.'} />
+            <div className="form--employee__btn__department">
+              <Button type='primary' onClick={showFormDepartment}>Добавить новый отдел</Button>
+            </div>
+          </>
+        : null
+      }
+
       <Form.Item
         name="roles"
         label="Роли"

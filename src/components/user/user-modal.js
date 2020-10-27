@@ -38,7 +38,7 @@ const UserModal = ({ children, onCancel, func, title, okText, active, formInst }
 }
 
 UserModal.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
   title: PropTypes.string.isRequired,
   okText: PropTypes.string.isRequired,
   onCancel: PropTypes.func.isRequired,

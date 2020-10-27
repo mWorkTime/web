@@ -3,18 +3,12 @@ import { ExportOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../images/logo/timeline.svg'
-import { logoutUser, showSidebar } from '../../actions'
+import { logoutUser } from '../../actions'
 import { sidebarItems } from '../../items'
 
 const Sidebar = () => {
   const { sidebarUser: { active }, userData: { redirectToMain } } = useSelector((state) => state)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (window.innerWidth > 768) {
-      dispatch(showSidebar)
-    }
-  }, [dispatch])
 
   useEffect(() => () => {
     if (redirectToMain) {

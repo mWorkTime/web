@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Employees from '../../layouts/user/employees'
 import UserHeader from '../user-header'
 import DepartmentModal from '../department/department-modal'
@@ -21,6 +21,7 @@ const UserEmployees = () => {
   const { sidebarUser: { active }, employeeData: { employees, quantity, loading }, userData: { organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
   const nameOrg = organization?.name || moduleLocalStorage.getItem('nameOrg')
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     if (!employees) {
@@ -33,7 +34,8 @@ const UserEmployees = () => {
     console.log(id)
   }
 
-  const editUser = (id) => {
+  const showModal = (id) => {
+    setUserId(id)
     dispatch({ type: SET_MODAL_EDIT_ACTIVE })
   }
 
@@ -68,11 +70,12 @@ const UserEmployees = () => {
             </div>
           </div>
           <div className="employees--wrapper__content">
-            <Table dataSource={employees} columns={getEmployeeColumns(editUser, deleteUser)} scroll={{ x: 600 }} loading={loading} />
+            <Table dataSource={employees} columns={getEmployeeColumns(showModal, deleteUser)} scroll={{ x: 600 }}
+                   loading={loading} />
           </div>
         </div>
       </div>
-      <EmployeeEdit />
+      <EmployeeEdit userId={userId}/>
       <EmployeeCreate />
       <DepartmentModal />
     </Employees>
