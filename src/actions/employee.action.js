@@ -22,8 +22,10 @@ const fetchAllEmployees = () => (dispatch) => {
 }
 
 const fetchCreateEmployee = (userData) => (dispatch) => {
+  const convertingData = { ...userData, department: { id: userData.department } }
+
   dispatch({ type: FETCH_CREATE_EMPLOYEE_REQUEST })
-  createEmployee(userData)
+  createEmployee(convertingData)
     .then(({ data }) => {
       dispatch(fetchAllEmployees())
       dispatch({ type: FETCH_CREATE_EMPLOYEE_SUCCESS, message: data.success })

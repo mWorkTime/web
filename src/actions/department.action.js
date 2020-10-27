@@ -3,7 +3,7 @@ import {
   FETCH_ALL_DEPARTMENT_SUCCESS,
   FETCH_ALL_DEPARTMENT_FAILURE,
   FETCH_CREATE_DEPARTMENT_FAILURE,
-  FETCH_CREATE_DEPARTMENT_SUCCESS
+  FETCH_CREATE_DEPARTMENT_SUCCESS, SET_DEPARTMENT_MODAL_ACTIVE
 } from '../types'
 
 const fetchAllDepartments = () => (dispatch) => {
@@ -24,7 +24,10 @@ const fetchCreateDepartment = (departmentData) => (dispatch) => {
     }))
 }
 
+const showFormDepartment = { type: SET_DEPARTMENT_MODAL_ACTIVE }
+
 export {
   fetchAllDepartments,
-  fetchCreateDepartment
+  fetchCreateDepartment,
+  showFormDepartment
 }
