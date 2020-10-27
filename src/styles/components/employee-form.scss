@@ -1,9 +1,16 @@
 @import "../shared/variables";
 
-.form--create--employee {
+.form--create--employee, .form--edit--employee {
   .form--employee__btn__department {
     margin: 10px 0;
     display: flex;
     flex-direction: row-reverse;
+  }
+}
+.form--edit--employee {
+  &__loader {
+    min-height: 400px;
+    text-align: center;
+    line-height: 400px;
   }
 }

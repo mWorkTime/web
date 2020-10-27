@@ -7,3 +7,7 @@ export const getAllEmployees = () => {
 export const createEmployee = (data) => {
   return api.post('/employee/create', data)
 }
+
+export const getEmployee = (id) => {
+  return api.get(`/employee/${id}`)
+}

@@ -2,7 +2,8 @@ import {
   FETCH_ALL_EMPLOYEES_REQUEST, FETCH_ALL_EMPLOYEES_SUCCESS,
   FETCH_ALL_EMPLOYEES_FAILURE, SET_MODAL_CREATE_ACTIVE,
   FETCH_CREATE_EMPLOYEE_REQUEST, FETCH_CREATE_EMPLOYEE_SUCCESS,
-  FETCH_CREATE_EMPLOYEE_FAILURE
+  FETCH_CREATE_EMPLOYEE_FAILURE, SET_MODAL_EDIT_ACTIVE, FETCH_EMPLOYEE_REQUEST,
+  FETCH_EMPLOYEE_SUCCESS, FETCH_EMPLOYEE_FAILURE, HIDE_MODAL_EMPLOYEE_EDIT
 } from '../types'
 
 const updateEmployeeData = (state, action) => {
@@ -11,6 +12,8 @@ const updateEmployeeData = (state, action) => {
       employees: null,
       loading: false,
       error: null,
+      employee: null,
+      fetching: false,
       modal: {
         create: false,
         edit: false
@@ -47,15 +50,6 @@ const updateEmployeeData = (state, action) => {
       error: action.error,
       loading: false
     }
-  case SET_MODAL_CREATE_ACTIVE:
-    return {
-      ...state.employeeData,
-      successMsg: '',
-      modal: {
-        ...state.employeeData.modal,
-        create: !state.employeeData.modal.create
-      }
-    }
   case FETCH_CREATE_EMPLOYEE_REQUEST:
     return {
       ...state.employeeData,
@@ -73,6 +67,50 @@ const updateEmployeeData = (state, action) => {
       disable: false,
       successMsg: '',
       error: action.error
+    }
+  case FETCH_EMPLOYEE_REQUEST:
+    return {
+      ...state.employeeData,
+      employee: null,
+      fetching: true
+    }
+  case FETCH_EMPLOYEE_SUCCESS:
+    return {
+      ...state.employeeData,
+      employee: action.payload,
+      fetching: false
+    }
+  case FETCH_EMPLOYEE_FAILURE:
+    return {
+      ...state.employeeData,
+      error: action.error,
+      fetching: false
+    }
+  case SET_MODAL_CREATE_ACTIVE:
+    return {
+      ...state.employeeData,
+      successMsg: '',
+      modal: {
+        ...state.employeeData.modal,
+        create: !state.employeeData.modal.create
+      }
+    }
+  case SET_MODAL_EDIT_ACTIVE:
+    return {
+      ...state.employeeData,
+      modal: {
+        ...state.employeeData.modal,
+        edit: !state.employeeData.modal.edit
+      }
+    }
+  case HIDE_MODAL_EMPLOYEE_EDIT:
+    return {
+      ...state.employeeData,
+      successMsg: '',
+      modal: {
+        ...state.employeeData.modal,
+        edit: false
+      }
     }
   default:
     return state.employeeData
