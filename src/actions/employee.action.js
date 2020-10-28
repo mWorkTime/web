@@ -3,20 +3,23 @@ import {
   FETCH_ALL_EMPLOYEES_SUCCESS, FETCH_CREATE_EMPLOYEE_REQUEST,
   FETCH_CREATE_EMPLOYEE_SUCCESS, FETCH_CREATE_EMPLOYEE_FAILURE,
   FETCH_EMPLOYEE_FAILURE, FETCH_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_SUCCESS,
+  FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
+  FETCH_EDIT_EMPLOYEE_FAILURE
 } from '../types'
-import { createEmployee, getAllEmployees, getEmployee } from '../services/employee.service'
-
-const getErrorMsg = (err) => err?.message || err?.response?.data?.msg
+import { createEmployee, getAllEmployees, getEmployee, editEmployee } from '../services/employee.service'
+import { getErrorMsg } from '../utils'
 
 const fetchAllEmployees = () => (dispatch) => {
   dispatch({ type: FETCH_ALL_EMPLOYEES_REQUEST })
   getAllEmployees()
     .then(({ data: { employees, quantity: { total, managers, owners, workers } } }) => {
       const convertEmployees = employees.reduce((acc, employee) => {
-        acc.push({ ...employee, createdAt: new Date(employee.createdAt).toLocaleDateString(),
-          department: employee.department.name, key: employee.id })
+        acc.push({
+          ...employee, createdAt: new Date(employee.createdAt).toLocaleDateString(),
+          department: employee.department.name, key: employee.id
+        })
         return acc
-      },[])
+      }, [])
       dispatch({ type: FETCH_ALL_EMPLOYEES_SUCCESS, payload: convertEmployees, total, managers, owners, workers })
     })
     .catch((err) => {
@@ -24,7 +27,7 @@ const fetchAllEmployees = () => (dispatch) => {
     })
 }
 
-const fetchCreateEmployee = (userData) => (dispatch) => {
+const fetchCreateEmployee = (userData) => () => (dispatch) => {
   const convertingData = { ...userData, department: { id: userData.department } }
 
   dispatch({ type: FETCH_CREATE_EMPLOYEE_REQUEST })
@@ -38,17 +41,50 @@ const fetchCreateEmployee = (userData) => (dispatch) => {
     })
 }
 
-const fetchEmployeeById = (id) => (dispatch) => {
+const fetchEmployeeById = (id) => (roles) => (dispatch) => {
   dispatch({ type: FETCH_EMPLOYEE_REQUEST })
   getEmployee(id)
     .then(({ data: { user } }) => {
-      dispatch({ type: FETCH_EMPLOYEE_SUCCESS, payload: { ...user, department: user.department.name } })
+      let convertRoles = []
+
+      for (let i = 0; i < roles.length; i++) {
+        for (let j = 0; j < user.role.length; j++) {
+          if (roles[i].name === user.role[j].name) {
+            convertRoles.push(roles[i].id)
+          }
+        }
+      }
+
+      dispatch({
+        type: FETCH_EMPLOYEE_SUCCESS,
+        payload: { ...user, department: user.department.name, role: convertRoles }
+      })
     })
     .catch((err) => dispatch({ type: FETCH_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
+}
+
+const fetchEmployeeEdit = (editData) => (obj) => (dispatch) => {
+  dispatch({ type: FETCH_EDIT_EMPLOYEE_REQUEST })
+  const { departmentsObj, rolesObj } = obj
+  const department = departmentsObj[editData.department] ? departmentsObj[editData.department] : editData.department
+
+  const roles = editData.roles.reduce((acc, item) => {
+    acc.push({ name: rolesObj[item].name, 'role-code': rolesObj[item].code })
+    return acc
+  }, [])
+  const changedData = { ...editData, department: { name: department }, roles }
+
+  editEmployee(changedData)
+    .then(({ data }) => {
+      console.log(data)
+      dispatch({ type: FETCH_EDIT_EMPLOYEE_SUCCESS, message: data.success })
+    })
+    .catch((err) => dispatch({ type: FETCH_EDIT_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
 }
 
 export {
   fetchAllEmployees,
   fetchCreateEmployee,
-  fetchEmployeeById
+  fetchEmployeeById,
+  fetchEmployeeEdit
 }

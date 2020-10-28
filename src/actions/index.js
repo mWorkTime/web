@@ -7,7 +7,7 @@ import {
 } from './confirm.action'
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
 import { fetchUserRequest, setAuthToken } from './user.action'
-import { fetchAllEmployees, fetchCreateEmployee, fetchEmployeeById } from './employee.action'
+import { fetchAllEmployees, fetchCreateEmployee, fetchEmployeeById, fetchEmployeeEdit } from './employee.action'
 import { fetchAllDepartments, fetchCreateDepartment, showFormDepartment } from './department.action'
 import { fetchAllRole } from './role.action'
 
@@ -27,6 +27,7 @@ export {
   fetchAllRole,
   fetchCreateEmployee,
   fetchEmployeeById,
+  fetchEmployeeEdit,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,

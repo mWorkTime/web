@@ -3,7 +3,9 @@ import {
   FETCH_ALL_EMPLOYEES_FAILURE, SET_MODAL_CREATE_ACTIVE,
   FETCH_CREATE_EMPLOYEE_REQUEST, FETCH_CREATE_EMPLOYEE_SUCCESS,
   FETCH_CREATE_EMPLOYEE_FAILURE, SET_MODAL_EDIT_ACTIVE, FETCH_EMPLOYEE_REQUEST,
-  FETCH_EMPLOYEE_SUCCESS, FETCH_EMPLOYEE_FAILURE, HIDE_MODAL_EMPLOYEE_EDIT
+  FETCH_EMPLOYEE_SUCCESS, FETCH_EMPLOYEE_FAILURE, HIDE_MODAL_EMPLOYEE_EDIT,
+  FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
+  FETCH_EDIT_EMPLOYEE_FAILURE
 } from '../types'
 
 const updateEmployeeData = (state, action) => {
@@ -25,7 +27,8 @@ const updateEmployeeData = (state, action) => {
         owners: 0
       },
       disable: false,
-      successMsg: ''
+      successMsg: '',
+      editSuccess: ''
     }
   }
 
@@ -86,6 +89,24 @@ const updateEmployeeData = (state, action) => {
       error: action.error,
       fetching: false
     }
+  case FETCH_EDIT_EMPLOYEE_REQUEST:
+    return {
+      ...state.employeeData,
+      editSuccess: '',
+      disable: true,
+    }
+  case FETCH_EDIT_EMPLOYEE_SUCCESS:
+    return {
+      ...state.employeeData,
+      editSuccess: action.message,
+      disable: false,
+    }
+  case FETCH_EDIT_EMPLOYEE_FAILURE:
+    return {
+      ...state.employeeData,
+      error: action.error,
+      disable: false,
+    }
   case SET_MODAL_CREATE_ACTIVE:
     return {
       ...state.employeeData,
@@ -106,7 +127,7 @@ const updateEmployeeData = (state, action) => {
   case HIDE_MODAL_EMPLOYEE_EDIT:
     return {
       ...state.employeeData,
-      successMsg: '',
+      editSuccess: '',
       modal: {
         ...state.employeeData.modal,
         edit: false
