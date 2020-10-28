@@ -6,6 +6,7 @@ const updateDepartmentData = (state, action) => {
   if (state === undefined) {
     return  {
       departments: null,
+      departmentsObj: null,
       error: null,
       loading: false,
       active: false,
@@ -22,7 +23,8 @@ const updateDepartmentData = (state, action) => {
   case FETCH_ALL_DEPARTMENT_SUCCESS:
     return {
       ...state.departmentData,
-      departments: action.payload,
+      departments: action.departments,
+      departmentsObj: action.payload,
       loading: false,
       successMsg: ''
     }

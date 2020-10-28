@@ -21,7 +21,7 @@ const UserEmployees = () => {
   const { sidebarUser: { active }, employeeData: { employees, quantity, loading }, userData: { organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
   const nameOrg = organization?.name || moduleLocalStorage.getItem('nameOrg')
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState('')
 
   useEffect(() => {
     if (!employees) {

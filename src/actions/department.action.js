@@ -1,15 +1,23 @@
 import { createDepartment, getAllDepartments } from '../services/department.service'
 import {
-  FETCH_ALL_DEPARTMENT_SUCCESS,
-  FETCH_ALL_DEPARTMENT_FAILURE,
-  FETCH_CREATE_DEPARTMENT_FAILURE,
-  FETCH_CREATE_DEPARTMENT_SUCCESS, SET_DEPARTMENT_MODAL_ACTIVE
+  FETCH_ALL_DEPARTMENT_SUCCESS, FETCH_ALL_DEPARTMENT_FAILURE,
+  FETCH_CREATE_DEPARTMENT_FAILURE, FETCH_CREATE_DEPARTMENT_SUCCESS, SET_DEPARTMENT_MODAL_ACTIVE
 } from '../types'
+import { getErrorMsg } from '../utils'
 
 const fetchAllDepartments = () => (dispatch) => {
   getAllDepartments()
-    .then(({ data }) => dispatch({ type: FETCH_ALL_DEPARTMENT_SUCCESS, payload: data.departments }))
-    .catch((err) => dispatch({ type: FETCH_ALL_DEPARTMENT_FAILURE, message: err?.message || err?.response?.data?.msg }))
+    .then(({ data: { departments } }) => {
+      const convertingToObj = departments.reduce((acc, item) => {
+        return {
+          ...acc,
+          [item['id']]: item.name
+        }
+      }, {})
+
+      dispatch({ type: FETCH_ALL_DEPARTMENT_SUCCESS, departments, payload: convertingToObj })
+    })
+    .catch((err) => dispatch({ type: FETCH_ALL_DEPARTMENT_FAILURE, message: getErrorMsg(err) }))
 }
 
 const fetchCreateDepartment = (departmentData) => (dispatch) => {
@@ -19,8 +27,7 @@ const fetchCreateDepartment = (departmentData) => (dispatch) => {
       dispatch(fetchAllDepartments())
     })
     .catch((err) => dispatch({
-      type: FETCH_CREATE_DEPARTMENT_FAILURE,
-      message: err?.message || err?.response?.data?.msg
+      type: FETCH_CREATE_DEPARTMENT_FAILURE, message: getErrorMsg(err)
     }))
 }
 
