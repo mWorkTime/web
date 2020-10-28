@@ -11,3 +11,7 @@ export const createEmployee = (data) => {
 export const getEmployee = (id) => {
   return api.get(`/employee/${id}`)
 }
+
+export const editEmployee = (data) => {
+  return api.put('/employee/edit', data)
+}

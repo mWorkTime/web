@@ -1,30 +1,37 @@
 import React, { useEffect } from 'react'
 import UserModal from '../user-modal'
-
-import { Form, Spin } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchCreateEmployee, fetchEmployeeById, showFormDepartment } from '../../../actions'
+import PropTypes from 'prop-types'
 import renderEmployeeForm from './employee-forms'
+
+import { Form, message, Spin } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchEmployeeById, showFormDepartment, fetchEmployeeEdit } from '../../../actions'
 import { HIDE_MODAL_EMPLOYEE_EDIT } from '../../../types'
 
 const EmployeeEdit = ({ userId }) => {
   const {
-    employeeData: { disable, modal: { edit }, fetching, employee },
-    departmentData: { departments }, roleData: { roles }
+    employeeData: { disable, modal: { edit }, editSuccess, fetching, employee },
+    departmentData: { departments, departmentsObj }, roleData: { roles, rolesObj }
   } = useSelector(state => state)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
 
   const showDepartmentForm = () => dispatch(showFormDepartment)
 
-  useEffect(() => () => form.resetFields(),[employee, form])
+  useEffect(() => () => form.resetFields(), [employee, form])
+
+  useEffect(() => {
+    if (editSuccess) {
+      message.success(editSuccess)
+    }
+  }, [editSuccess])
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchEmployeeById(userId))
+      dispatch(fetchEmployeeById(userId)(roles))
     }
 
-  }, [userId, dispatch])
+  }, [userId, roles, dispatch])
 
   return (
     <UserModal
@@ -33,16 +40,21 @@ const EmployeeEdit = ({ userId }) => {
       active={edit}
       okText={'Изменить'}
       formInst={form}
-      func={fetchCreateEmployee}
+      func={fetchEmployeeEdit}
+      obj={{ departmentsObj, rolesObj }}
     >
       <>
-        {employee && typeof employee === 'object' && !fetching
+        { employee && typeof employee === 'object' && !fetching
           ? renderEmployeeForm('edit', disable, form, departments, roles, showDepartmentForm, employee)
           : <div className="form--edit--employee__loader"><Spin size='large' tip={'Loading...'} /></div>
         }
       </>
     </UserModal>
   )
+}
+
+EmployeeEdit.propTypes = {
+  userId: PropTypes.string.isRequired
 }
 
 export default EmployeeEdit
