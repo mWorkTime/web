@@ -27,7 +27,6 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
     </Form.Item>
   ))
 
-
   return (
     <Form
       form={formInst}
@@ -40,10 +39,20 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
         email: data?.email,
         phone: data?.phone,
         gender: data?.gender,
-        department: data?.department
+        department: data?.department,
+        roles: data?.role
       }}
     >
       {renderFormCreateItems}
+      {
+        typeForm !== 'create'
+          ?
+          <>
+            <Form.Item name="userId" initialValue={data?._id} hidden ><Input/></Form.Item>
+            <Form.Item name="orgId" initialValue={data?.organization} hidden><Input/></Form.Item>
+          </>
+          : null
+      }
       <Form.Item
         name="gender"
         label="Пол"
@@ -71,15 +80,15 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
           {departments && departments.map(({ id, name }) => (<Option key={id} value={id}>{name}</Option>))}
         </Select>
       </Form.Item>
-      { typeForm === 'create'
+      {typeForm === 'create'
         ? <>
-            <Alert
-              showIcon
-              message={'Если не нашли нужного отдела, нажмите на кнопку ниже --> впишите нужное название и добавьте отдел.'} />
-            <div className="form--employee__btn__department">
-              <Button type='primary' onClick={showFormDepartment}>Добавить новый отдел</Button>
-            </div>
-          </>
+          <Alert
+            showIcon
+            message={'Если не нашли нужного отдела, нажмите на кнопку ниже --> впишите нужное название и добавьте отдел.'} />
+          <div className="form--employee__btn__department">
+            <Button type='primary' onClick={showFormDepartment}>Добавить новый отдел</Button>
+          </div>
+        </>
         : null
       }
 

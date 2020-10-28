@@ -4,6 +4,7 @@ const updateRoleData = (state, action) => {
   if (state === undefined) {
     return {
       roles: null,
+      rolesObj: null,
       loading: false,
       error: null
     }
@@ -13,7 +14,8 @@ const updateRoleData = (state, action) => {
   case FETCH_ALL_ROLE_SUCCESS:
     return {
       ...state.roleData,
-      roles: action.payload,
+      roles: action.roles,
+      rolesObj: action.payload,
       loading: false
     }
   case FETCH_ALL_ROLE_FAILURE:
