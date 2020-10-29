@@ -69,15 +69,20 @@ const fetchEmployeeEdit = (editData) => (obj) => (dispatch) => {
   const department = departmentsObj[editData.department] ? departmentsObj[editData.department] : editData.department
 
   const roles = editData.roles.reduce((acc, item) => {
-    acc.push({ name: rolesObj[item].name, 'role-code': rolesObj[item].code })
+    acc.push({ name: rolesObj[item].name, code: rolesObj[item].code })
     return acc
   }, [])
   const changedData = { ...editData, department: { name: department }, roles }
 
   editEmployee(changedData)
-    .then(({ data }) => {
-      console.log(data)
-      dispatch({ type: FETCH_EDIT_EMPLOYEE_SUCCESS, message: data.success })
+    .then(({ data: { user, success } }) => {
+      const { _id, isSacked, isVerified, name, department, email, role, phone, createdAt } = user
+      const newEmployee = {
+        id: _id, createdAt: new Date(createdAt).toLocaleDateString(),
+        key: _id, department: department.name, email, role,
+        isSacked, isVerified, name: `${name} ${user?.surname}`, phone }
+
+      dispatch({ type: FETCH_EDIT_EMPLOYEE_SUCCESS, message: success, employee: newEmployee })
     })
     .catch((err) => dispatch({ type: FETCH_EDIT_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
 }

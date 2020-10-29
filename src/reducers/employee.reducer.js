@@ -8,6 +8,20 @@ import {
   FETCH_EDIT_EMPLOYEE_FAILURE
 } from '../types'
 
+const updateEmployee = (employees, item, idx) => {
+  if (idx === -1) {
+    return [
+      ...employees,
+      item
+    ]
+  }
+  return [
+    ...employees.slice(0, idx),
+    item,
+    ...employees.slice(idx + 1)
+  ]
+}
+
 const updateEmployeeData = (state, action) => {
   if (state === undefined) {
     return {
@@ -16,6 +30,7 @@ const updateEmployeeData = (state, action) => {
       error: null,
       employee: null,
       fetching: false,
+      needClearForm: false,
       modal: {
         create: false,
         edit: false
@@ -93,19 +108,23 @@ const updateEmployeeData = (state, action) => {
     return {
       ...state.employeeData,
       editSuccess: '',
-      disable: true,
+      disable: true
     }
   case FETCH_EDIT_EMPLOYEE_SUCCESS:
+    const { employee } = action
+    const findIndex = state.employeeData.employees.findIndex(({ id }) => id === employee.id)
+
     return {
       ...state.employeeData,
+      employees:  updateEmployee(state.employeeData.employees, employee, findIndex),
       editSuccess: action.message,
-      disable: false,
+      disable: false
     }
   case FETCH_EDIT_EMPLOYEE_FAILURE:
     return {
       ...state.employeeData,
       error: action.error,
-      disable: false,
+      disable: false
     }
   case SET_MODAL_CREATE_ACTIVE:
     return {

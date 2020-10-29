@@ -75,7 +75,7 @@ const UserEmployees = () => {
           </div>
         </div>
       </div>
-      <EmployeeEdit userId={userId}/>
+      <EmployeeEdit userId={userId} />
       <EmployeeCreate />
       <DepartmentModal />
     </Employees>

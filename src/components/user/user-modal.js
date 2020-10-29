@@ -17,7 +17,6 @@ const UserModal = ({ children, onCancel, func, title, okText, active, formInst, 
         formInst
           .validateFields()
           .then((values) => {
-            formInst.resetFields()
             dispatch(func(values)(obj))
           })
           .catch((info) => {
