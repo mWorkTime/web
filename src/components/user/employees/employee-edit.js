@@ -18,7 +18,11 @@ const EmployeeEdit = ({ userId }) => {
 
   const showDepartmentForm = () => dispatch(showFormDepartment)
 
-  useEffect(() => () => form.resetFields(), [employee, form])
+  useEffect(() => () => {
+    if (fetching) {
+      form.resetFields()
+    }
+  }, [fetching, form])
 
   useEffect(() => {
     if (editSuccess) {
@@ -43,12 +47,10 @@ const EmployeeEdit = ({ userId }) => {
       func={fetchEmployeeEdit}
       obj={{ departmentsObj, rolesObj }}
     >
-      <>
-        { employee && typeof employee === 'object' && !fetching
-          ? renderEmployeeForm('edit', disable, form, departments, roles, showDepartmentForm, employee)
-          : <div className="form--edit--employee__loader"><Spin size='large' tip={'Loading...'} /></div>
-        }
-      </>
+      {employee && typeof employee === 'object' && !fetching
+        ? renderEmployeeForm('edit', disable, form, departments, roles, showDepartmentForm, employee)
+        : <div className="form--edit--employee__loader"><Spin size='large' tip={'Loading...'} /></div>
+      }
     </UserModal>
   )
 }
