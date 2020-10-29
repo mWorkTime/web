@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/mWorkTime/web/compare/v0.2.0...v0.2.1) (2020-10-29)
+
+
+### Features
+
+* **server: email:** add email template - registration-employee. Add new logic (send mail to employee) to employee.service. Add new styles and blocks to registration (mail template). ([88c6e8f](https://github.com/mWorkTime/web/commit/88c6e8f3b2ef554906212cfb36998fab95b80840))
+* **web: dashboard, utils:** add util - getColorByCode. Add new item --> 'nameOrg' to util clear-set-auth. Add some styles to dashboard, employees and global - .scss. Change renderRoles in user-dashboard-top. ([de2d211](https://github.com/mWorkTime/web/commit/de2d2115149ce5246310d58110f0f6299fc00aa7))
+* **web: department:** add department - reducer, action, types, service, validator, component department-modal with form inside for create new department. ([a1d52dc](https://github.com/mWorkTime/web/commit/a1d52dc28d40551a577f9c5b7f0fb162983655b5))
+* **web: department:** add department object to the reducer. Add action for converting departments from array to object to the action. ([7bee5d9](https://github.com/mWorkTime/web/commit/7bee5d99dcd2e8a4b802e78abf7ac3064e8f3747))
+* **web: department:** add to action function fetchCreateDepartment. Add to department-modal - useEffect with message, action to send data to the server. ([480de44](https://github.com/mWorkTime/web/commit/480de44fce523ee6e764b0809e3a4c97f2726de9))
+* **web: dismiss employee:** add component employee-delete, add function showDeleteConfirm, add new types, actions for dismiss employee. ([ebb7093](https://github.com/mWorkTime/web/commit/ebb7093a50b1c0e8acfa7ac01fbea251cbe415c4))
+* **web: employee:** add component EmployeeStatistic. Add field 'quantity' to employee.reducer. Adding display of number of employees in user-employees. Add new elements to employee-columns.js. Add converting employees to employee.action. ([6edb78c](https://github.com/mWorkTime/web/commit/6edb78c3ef8b555c9a7c570d6c4dc7774605e0df))
+* **web: employee:** add employee - action, reducer, service, types. Adding data receiving from the server to the component user-employees. ([73cb9a0](https://github.com/mWorkTime/web/commit/73cb9a0f618eb1103b5b64279ce84ef5717a6442))
+* **web: employee:** add employee.validator. Add create employee - types, reducer, action. Add validators to form createEmployee. Add the logic of data conversion and sending to the server to create a new employee. ([0a29590](https://github.com/mWorkTime/web/commit/0a295903e2edbdf159d5d7cc6da7194390bbfbf5))
+* **web: employee:** add employees - page, layout, component, route and styles. Add to dependencies - user and organization in useEffect in user-dashboard. ([17b88fa](https://github.com/mWorkTime/web/commit/17b88fabcb6e69ca5e95e9d72d4498935fe2fda9))
+* **web: employee:** add field 'modal' to employee.reducer. Add new information and styles to component user-employees. Add folder columns to employees. Add modal with form for create new Employee. ([06de833](https://github.com/mWorkTime/web/commit/06de83348561700c2263fff312a2386a2de52a4e))
+* **web: employee:** add to the service - getEmployee. Add to the reducer - new types of action. Add to the action - fetchEmployeeById. Add some styles for employee-form. ([6114bf3](https://github.com/mWorkTime/web/commit/6114bf3b5f84abb20bbb016c10a5c2dd6ec81351))
+* **web: employee form:** refactor component employee-create. Add the employee-create to user-employees. Add employee-forms-items. ([488308b](https://github.com/mWorkTime/web/commit/488308b61b1673cc481922e1db02a0acbfd649f8))
+* **web: employee-edit:** add  edit-employee service, add some changes to employee-create and employee-edit. ([967c598](https://github.com/mWorkTime/web/commit/967c598d473fd40e9e2d67a239c815fa8c231c8a))
+* **web: employee-edit:** add  edit-employee types, reducer and action. ([33828fd](https://github.com/mWorkTime/web/commit/33828fdc76cff42c355b26746326ba99d2740418))
+* **web: employee-edit:** Add items for form employee-edit to formCreateItems. Add updateEmployee (local) - to employee.reducer. Some changes in employee-forms and user modal. ([b35fe3a](https://github.com/mWorkTime/web/commit/b35fe3aaf08aacf4418fa4401db8adc2d27ab61f))
+* **web: form edit employee:** add component with form for edit employee. Add to user-employees - state with userId and function for display modal with the form. Add initialValues to employee-forms. ([3b48667](https://github.com/mWorkTime/web/commit/3b48667788e656e1d0003b58e025dcdd6910897a))
+* **web: hoc, user:** add component user-modal. Add function for render items of employee forms. Add hoc - withDepartmentsAndRoles. ([deba60b](https://github.com/mWorkTime/web/commit/deba60bab05b5bdc6a1ba17572200a1c47cba789))
+* **web: role:** add role - action, service, reducer. Add phone validator to the validators. ([64749f4](https://github.com/mWorkTime/web/commit/64749f45ef1b5c4b279fdaa1654119a16b358976))
+* **web: roles:**  add roles object to the reducer. Add action for converting roles from array to object to the action. ([02bd233](https://github.com/mWorkTime/web/commit/02bd23312bb452c940347e8f899ff83e46851c73))
+* **web: user-modal:** adding a parameter that activates the form fields reset if necessary. Rename department-modal to department-form.  Adding the parameter of resetting fields on forms - employee-edit,create and department-form. Some changes employee-forms. ([d83d1dd](https://github.com/mWorkTime/web/commit/d83d1dd098b7f6b91f547dc42b10293ffaaae2ea))
+* **web: utils:** Add utils - generate-role-tags and normalize-employee-object. Rename object formCreateItems --> formEmployeeItems. Some changes in employee-columns, employee-edit and employee forms. ([7363393](https://github.com/mWorkTime/web/commit/736339385a93e24935f3a5955a0cb0d25358f9dd))
+
+
+### Bug Fixes
+
+* **web: employee-edit:** fix Instance created by `useForm` is not connected to any Form element.Instance created by `useForm` is not connected to any Form element in component employee-edit. ([5388f86](https://github.com/mWorkTime/web/commit/5388f86abbd1a725a24938844909177cfc32cd4f))
+
 ## 0.2.0 (2020-10-21)
 
 
