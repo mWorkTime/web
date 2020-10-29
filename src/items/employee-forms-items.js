@@ -7,7 +7,7 @@ const { validateName } = registerValidation
 const { validateSurname } = employeeValidator
 const { validateNumber } = phoneValidation
 
-export const formCreateItems = {
+export const formEmployeeItems = {
   create: [
     {
       key: 'hggt77g7ygy',

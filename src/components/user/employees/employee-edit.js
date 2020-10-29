@@ -50,7 +50,7 @@ const EmployeeEdit = ({ userId }) => {
     >
       {employee && typeof employee === 'object' && !fetching
         ? renderEmployeeForm('edit', disable, form, departments, roles, showDepartmentForm, employee)
-        : <div className="form--edit--employee__loader"><Spin size='large' tip={'Loading...'} /></div>
+        : <div className="form--edit--employee__loader"><Spin size='large' tip={'Загрузка данных...'} /></div>
       }
     </UserModal>
   )

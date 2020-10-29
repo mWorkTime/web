@@ -1,11 +1,9 @@
 import React from 'react'
-import { Tag,Button } from 'antd'
-import { getColorByCode } from '../../../../utils'
-import { dictionaryRoles } from '../../../../items'
+import { Button } from 'antd'
+import { generateRoleTags } from '../../../../utils'
 import { EditFilled, DeleteFilled } from '@ant-design/icons'
 
 /**
- *
  * @param {function} funcEdit
  * @param {function} funcDel
  * @return {array} []
@@ -44,29 +42,24 @@ export const getEmployeeColumns = (funcEdit, funcDel) => [
     dataIndex: 'role',
     key: 'role',
     width: 250,
-    render: role => role.map(tag => {
-      const color = getColorByCode(tag.code)
-      const name = dictionaryRoles[tag.name]
-
-      return (
-        <Tag color={color} key={name}>
-          {name.toUpperCase()}
-        </Tag>
-      )
-    })
-  },
-  {
-    title: 'Статус работника',
-    dataIndex: 'isSacked',
-    key: 'isSacked',
-    width: 110,
-    render: text => text ? 'уволен' : 'не уволен'
+    render: role => generateRoleTags(role)
   },
   {
     title: 'Дата регистрации',
     dataIndex: 'createdAt',
     key: 'createdAt',
     width: 120
+  },
+  {
+    title: 'Статус работника',
+    dataIndex: 'isSacked',
+    key: 'isSacked',
+    width: 120,
+    render: text => {
+      return text
+        ? <span className="tag table--employee__dismiss">уволен</span>
+        : <span className="tag table--employee__success">не уволен</span>
+    }
   },
   {
     title: 'Действия',
@@ -81,7 +74,7 @@ export const getEmployeeColumns = (funcEdit, funcDel) => [
           ><EditFilled /></Button>
           &nbsp;&nbsp;
           <Button type='danger' size='small'
-                  onClick={() => funcDel(text.id)}
+                  onClick={() => funcDel(text.id, text)}
           ><DeleteFilled /></Button>
         </div>
       )

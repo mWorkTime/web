@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Button, Form, Input, Select } from 'antd'
 import { employeeValidator } from '../../../../validators'
-import { formCreateItems } from '../../../../items'
+import { formEmployeeItems } from '../../../../items'
 
 const { Option } = Select
 
@@ -18,7 +18,7 @@ const { Option } = Select
 const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, showFormDepartment, data = {}) => {
   const { validateGender, validateDepartment, validateRoles } = employeeValidator
 
-  const renderFormCreateItems = formCreateItems[typeForm].map((item) => (
+  const renderFormCreateItems = formEmployeeItems[typeForm].map((item) => (
     <Form.Item
       key={item.key} name={item.name}
       label={item.label} rules={item.rules}

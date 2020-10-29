@@ -115,6 +115,20 @@
     .table--employee__name {
       color: $color-3th;
     }
+    .tag {
+      padding: 5px 7px;
+      border-radius: 5px;
+      &.table--employee__success {
+        color: #1890ff;
+        background: #e6f7ff;
+        border: 1px solid #91d5ff;
+      }
+      &.table--employee__dismiss {
+        color: #f5222d;
+        background: #fff1f0;
+        border: 1px solid #ffa39e;
+      }
+    }
   }
 }
 
