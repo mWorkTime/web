@@ -4,10 +4,17 @@ import {
   FETCH_CREATE_EMPLOYEE_SUCCESS, FETCH_CREATE_EMPLOYEE_FAILURE,
   FETCH_EMPLOYEE_FAILURE, FETCH_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_SUCCESS,
   FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
-  FETCH_EDIT_EMPLOYEE_FAILURE
+  FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_EMPLOYEE_SUCCESS,
+  FETCH_DISMISS_EMPLOYEE_FAILURE
 } from '../types'
-import { createEmployee, getAllEmployees, getEmployee, editEmployee } from '../services/employee.service'
-import { getErrorMsg } from '../utils'
+import {
+  createEmployee,
+  getAllEmployees,
+  getEmployee,
+  editEmployee,
+  dismissEmployee
+} from '../services/employee.service'
+import { getErrorMsg, normalizeEmployeeObject } from '../utils'
 
 const fetchAllEmployees = () => (dispatch) => {
   dispatch({ type: FETCH_ALL_EMPLOYEES_REQUEST })
@@ -76,20 +83,26 @@ const fetchEmployeeEdit = (editData) => (obj) => (dispatch) => {
 
   editEmployee(changedData)
     .then(({ data: { user, success } }) => {
-      const { _id, isSacked, isVerified, name, department, email, role, phone, createdAt } = user
-      const newEmployee = {
-        id: _id, createdAt: new Date(createdAt).toLocaleDateString(),
-        key: _id, department: department.name, email, role,
-        isSacked, isVerified, name: `${name} ${user?.surname}`, phone }
-
-      dispatch({ type: FETCH_EDIT_EMPLOYEE_SUCCESS, message: success, employee: newEmployee })
+      dispatch({
+        type: FETCH_EDIT_EMPLOYEE_SUCCESS,
+        message: success, employee: normalizeEmployeeObject(user)
+      })
     })
     .catch((err) => dispatch({ type: FETCH_EDIT_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
+}
+
+const fetchEmployeeDismiss = (dataUser) => () => (dispatch) => {
+  dismissEmployee(dataUser)
+    .then(({ data: { success, user } }) => {
+      dispatch({ type: FETCH_DISMISS_EMPLOYEE_SUCCESS, message: success, newEmployee: normalizeEmployeeObject(user) })
+    })
+    .catch((err) => dispatch({ type: FETCH_DISMISS_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
 }
 
 export {
   fetchAllEmployees,
   fetchCreateEmployee,
   fetchEmployeeById,
-  fetchEmployeeEdit
+  fetchEmployeeEdit,
+  fetchEmployeeDismiss
 }
