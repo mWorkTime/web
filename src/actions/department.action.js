@@ -20,7 +20,7 @@ const fetchAllDepartments = () => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_ALL_DEPARTMENT_FAILURE, message: getErrorMsg(err) }))
 }
 
-const fetchCreateDepartment = (departmentData) => (dispatch) => {
+const fetchCreateDepartment = (departmentData) => () => (dispatch) => {
   createDepartment(departmentData)
     .then(({ data }) => {
       dispatch({ type: FETCH_CREATE_DEPARTMENT_SUCCESS, message: data.success })

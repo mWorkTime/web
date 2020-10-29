@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { SET_DEPARTMENT_MODAL_ACTIVE } from '../../../types'
-import { Modal, Form, Input, message } from 'antd'
+import { Form, Input, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { ReconciliationOutlined } from '@ant-design/icons'
 import { departmentValidator } from '../../../validators'
 import { fetchCreateDepartment } from '../../../actions'
+import UserModal from '../user-modal'
 
-const DepartmentModal = () => {
+const DepartmentForm = () => {
   const [form] = Form.useForm()
   const { departmentData: { active, successMsg } } = useSelector(state => state)
   const dispatch = useDispatch()
@@ -19,23 +20,9 @@ const DepartmentModal = () => {
   }, [successMsg])
 
   return (
-    <Modal
-      visible={active}
-      title="Создайте новый отдел"
-      okText="Создать"
-      cancelText="Отмена"
-      onCancel={() => dispatch({ type: SET_DEPARTMENT_MODAL_ACTIVE })}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields()
-            dispatch(fetchCreateDepartment(values))
-          })
-          .catch((info) => { console.log('Validate Failed:', info) })
-      }}
-    >
-
+    <UserModal
+      formInst={form} okText={"Создать"} active={active} func={fetchCreateDepartment} reset={true}
+      onCancel={() => dispatch({ type: SET_DEPARTMENT_MODAL_ACTIVE })} title={"Создайте новый отдел"}>
       <Form
         form={form}
         layout="vertical"
@@ -50,7 +37,8 @@ const DepartmentModal = () => {
           <Input prefix={<ReconciliationOutlined />} placeholder='Введите название' />
         </Form.Item>
       </Form>
-    </Modal>
+    </UserModal>
   )
 }
-export default DepartmentModal
+
+export default DepartmentForm

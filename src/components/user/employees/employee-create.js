@@ -26,6 +26,7 @@ const EmployeeCreate = ({ func, departments, roles }) => {
       active={create}
       okText={'Создать'}
       formInst={form}
+      reset={true}
       func={fetchCreateEmployee}
     >
       {renderEmployeeForm('create', disable, form, departments, roles, func)}

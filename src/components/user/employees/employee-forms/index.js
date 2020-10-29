@@ -104,12 +104,6 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
           {roles && roles.map(({ id, normalName }) => (<Option key={id} value={id}>{normalName}</Option>))}
         </Select>
       </Form.Item>
-      { typeForm === 'create'
-        ? <div className="form--employee__btn__clear">
-          <Button type='link' onClick={() => formInst.resetFields()} block>Очистить форму</Button>
-        </div>
-        : null
-      }
     </Form>
   )
 }

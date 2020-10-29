@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Employees from '../../layouts/user/employees'
 import UserHeader from '../user-header'
-import DepartmentModal from '../department/department-modal'
+import DepartmentForm from '../department/department-form'
 import photo from '../../../images/user/Add_user.svg'
 import EmployeeStatistic from './employee-statistic'
 import EmployeeCreate from './employee-create'
@@ -77,7 +77,7 @@ const UserEmployees = () => {
       </div>
       <EmployeeEdit userId={userId} />
       <EmployeeCreate />
-      <DepartmentModal />
+      <DepartmentForm />
     </Employees>
   )
 }

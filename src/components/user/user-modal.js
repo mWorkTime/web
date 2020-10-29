@@ -3,7 +3,7 @@ import { Modal } from 'antd'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const UserModal = ({ children, onCancel, func, title, okText, active, formInst, obj }) => {
+const UserModal = ({ children, onCancel, func, title, okText, active, formInst, reset, obj }) => {
   const dispatch = useDispatch()
 
   return (
@@ -17,6 +17,9 @@ const UserModal = ({ children, onCancel, func, title, okText, active, formInst, 
         formInst
           .validateFields()
           .then((values) => {
+            if (reset) {
+              formInst.resetFields()
+            }
             dispatch(func(values)(obj))
           })
           .catch((info) => {
@@ -37,6 +40,7 @@ UserModal.propTypes = {
   active: PropTypes.bool.isRequired,
   formInst: PropTypes.object.isRequired,
   func: PropTypes.func.isRequired,
+  reset: PropTypes.bool.isRequired,
   obj: PropTypes.object
 }
 

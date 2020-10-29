@@ -45,6 +45,7 @@ const EmployeeEdit = ({ userId }) => {
       okText={'Изменить'}
       formInst={form}
       func={fetchEmployeeEdit}
+      reset={false}
       obj={{ departmentsObj, rolesObj }}
     >
       {employee && typeof employee === 'object' && !fetching
