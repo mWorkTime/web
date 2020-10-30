@@ -4,15 +4,16 @@ import {
   FETCH_CREATE_EMPLOYEE_SUCCESS, FETCH_CREATE_EMPLOYEE_FAILURE,
   FETCH_EMPLOYEE_FAILURE, FETCH_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_SUCCESS,
   FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
-  FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_EMPLOYEE_SUCCESS,
-  FETCH_DISMISS_EMPLOYEE_FAILURE
+  FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_OR_RECOVER_EMPLOYEE_SUCCESS,
+  FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE
 } from '../types'
 import {
   createEmployee,
   getAllEmployees,
   getEmployee,
   editEmployee,
-  dismissEmployee
+  dismissEmployee,
+  recoverEmployee
 } from '../services/employee.service'
 import { getErrorMsg, normalizeEmployeeObject } from '../utils'
 
@@ -39,9 +40,9 @@ const fetchCreateEmployee = (userData) => () => (dispatch) => {
 
   dispatch({ type: FETCH_CREATE_EMPLOYEE_REQUEST })
   createEmployee(convertingData)
-    .then(({ data }) => {
+    .then(() => {
       dispatch(fetchAllEmployees())
-      dispatch({ type: FETCH_CREATE_EMPLOYEE_SUCCESS, message: data.success })
+      dispatch({ type: FETCH_CREATE_EMPLOYEE_SUCCESS })
     })
     .catch((err) => {
       dispatch({ type: FETCH_CREATE_EMPLOYEE_FAILURE, error: getErrorMsg(err) })
@@ -82,21 +83,32 @@ const fetchEmployeeEdit = (editData) => (obj) => (dispatch) => {
   const changedData = { ...editData, department: { name: department }, roles }
 
   editEmployee(changedData)
-    .then(({ data: { user, success } }) => {
+    .then(({ data: { user } }) => {
       dispatch({
         type: FETCH_EDIT_EMPLOYEE_SUCCESS,
-        message: success, employee: normalizeEmployeeObject(user)
+        employee: normalizeEmployeeObject(user)
       })
     })
     .catch((err) => dispatch({ type: FETCH_EDIT_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
 }
 
-const fetchEmployeeDismiss = (dataUser) => () => (dispatch) => {
-  dismissEmployee(dataUser)
-    .then(({ data: { success, user } }) => {
-      dispatch({ type: FETCH_DISMISS_EMPLOYEE_SUCCESS, message: success, newEmployee: normalizeEmployeeObject(user) })
+const fetchEmployeeRecoverOrDismiss = (dataUser, func, dispatch) => {
+  return func(dataUser)
+    .then(({ data: { user } }) => {
+      dispatch({
+        type: FETCH_DISMISS_OR_RECOVER_EMPLOYEE_SUCCESS,
+        newEmployee: normalizeEmployeeObject(user)
+      })
     })
-    .catch((err) => dispatch({ type: FETCH_DISMISS_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
+    .catch((err) => dispatch({ type: FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
+}
+
+const fetchEmployeeDismiss = (dataUser) => () => (dispatch) => {
+  fetchEmployeeRecoverOrDismiss(dataUser, dismissEmployee, dispatch)
+}
+
+const fetchEmployeeRecover = (dataUser) => () => (dispatch) => {
+  fetchEmployeeRecoverOrDismiss(dataUser, recoverEmployee, dispatch)
 }
 
 export {
@@ -104,5 +116,6 @@ export {
   fetchCreateEmployee,
   fetchEmployeeById,
   fetchEmployeeEdit,
-  fetchEmployeeDismiss
+  fetchEmployeeDismiss,
+  fetchEmployeeRecover
 }

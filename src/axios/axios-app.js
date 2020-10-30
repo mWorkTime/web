@@ -28,6 +28,11 @@ let requestsToRefresh = []
 let isRefreshRequesting = false
 
 api.interceptors.response.use((res) => {
+  const { data } = res
+  if(data && typeof data === 'object' && data.success) {
+    message.success(data.success)
+  }
+
   return res
 }, (err) => {
   const { response, config } = err
@@ -62,8 +67,6 @@ api.interceptors.response.use((res) => {
           clearLocalStorage()
           setLocalStorage(resp.data)
           requestsToRefresh.forEach((cb) => cb(resp.data.token))
-          message.success(resp.data.success)
-
         })
         .catch(() => {
           store.dispatch({ type: CLEAR_USER_DATA })

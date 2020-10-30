@@ -1,14 +1,15 @@
 import React from 'react'
 import { Button } from 'antd'
 import { generateRoleTags } from '../../../../utils'
-import { EditFilled, DeleteFilled } from '@ant-design/icons'
+import { EditFilled, DeleteFilled, UndoOutlined } from '@ant-design/icons'
 
 /**
  * @param {function} funcEdit
  * @param {function} funcDel
+ * @param {function} funcRec
  * @return {array} []
  */
-export const getEmployeeColumns = (funcEdit, funcDel) => [
+export const getEmployeeColumns = (funcEdit, funcDel, funcRec) => [
   {
     title: 'Имя',
     dataIndex: 'name',
@@ -69,15 +70,26 @@ export const getEmployeeColumns = (funcEdit, funcDel) => [
     render: (text) => {
       return (
         <div className='table--employee__actions'>
-          <Button type='primary' size='small'
+
+          <Button type='primary' size='small' disabled={text.isSacked}
                   onClick={() => funcEdit(text.id)}
           ><EditFilled /></Button>
           &nbsp;&nbsp;
-          <Button type='danger' size='small'
-                  onClick={() => funcDel(text.id, text)}
-          ><DeleteFilled /></Button>
+          {text.isSacked
+            ? <Button size='small' className={'btn--recovery'}
+            onClick={() => funcRec(text.id, text)}
+            >
+                <UndoOutlined  />
+              </Button>
+            : <Button type='danger' size='small'
+                      onClick={() => funcDel(text.id, text)}>
+                <DeleteFilled />
+              </Button>
+          }
         </div>
       )
     }
   }
 ]
+
+

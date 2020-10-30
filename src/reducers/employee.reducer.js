@@ -5,8 +5,8 @@ import {
   FETCH_CREATE_EMPLOYEE_FAILURE, SET_MODAL_EDIT_ACTIVE, FETCH_EMPLOYEE_REQUEST,
   FETCH_EMPLOYEE_SUCCESS, FETCH_EMPLOYEE_FAILURE, HIDE_MODAL_EMPLOYEE_EDIT,
   FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
-  FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_EMPLOYEE_SUCCESS,
-  FETCH_DISMISS_EMPLOYEE_FAILURE
+  FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_OR_RECOVER_EMPLOYEE_SUCCESS,
+  FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE
 } from '../types'
 
 const updateEmployee = (employees, item, idx) => {
@@ -31,7 +31,6 @@ const updateEmployeeData = (state, action) => {
       error: null,
       employee: null,
       fetching: false,
-      needClearForm: false,
       modal: {
         create: false,
         edit: false
@@ -42,10 +41,7 @@ const updateEmployeeData = (state, action) => {
         workers: 0,
         owners: 0
       },
-      disable: false,
-      successMsg: '',
-      editSuccess: '',
-      dismissSuccess: ''
+      disable: false
     }
   }
 
@@ -54,7 +50,6 @@ const updateEmployeeData = (state, action) => {
     return {
       ...state.employeeData,
       loading: true,
-      successMsg: ''
     }
   case FETCH_ALL_EMPLOYEES_SUCCESS:
     const { total, managers, workers, owners, payload } = action
@@ -78,14 +73,12 @@ const updateEmployeeData = (state, action) => {
   case FETCH_CREATE_EMPLOYEE_SUCCESS:
     return {
       ...state.employeeData,
-      successMsg: action.message,
       disable: false
     }
   case FETCH_CREATE_EMPLOYEE_FAILURE:
     return {
       ...state.employeeData,
       disable: false,
-      successMsg: '',
       error: action.error
     }
   case FETCH_EMPLOYEE_REQUEST:
@@ -109,7 +102,6 @@ const updateEmployeeData = (state, action) => {
   case FETCH_EDIT_EMPLOYEE_REQUEST:
     return {
       ...state.employeeData,
-      editSuccess: '',
       disable: true
     }
   case FETCH_EDIT_EMPLOYEE_SUCCESS:
@@ -119,7 +111,6 @@ const updateEmployeeData = (state, action) => {
     return {
       ...state.employeeData,
       employees:  updateEmployee(state.employeeData.employees, employee, findIndex),
-      editSuccess: action.message,
       disable: false
     }
   case FETCH_EDIT_EMPLOYEE_FAILURE:
@@ -128,15 +119,14 @@ const updateEmployeeData = (state, action) => {
       error: action.error,
       disable: false
     }
-  case FETCH_DISMISS_EMPLOYEE_SUCCESS:
+  case FETCH_DISMISS_OR_RECOVER_EMPLOYEE_SUCCESS:
     const { newEmployee } = action
     const findIndexOld = state.employeeData.employees.findIndex(({ id }) => id === newEmployee.id)
     return {
       ...state.employeeData,
-      dismissSuccess: action.message,
       employees:  updateEmployee(state.employeeData.employees, newEmployee, findIndexOld),
     }
-  case FETCH_DISMISS_EMPLOYEE_FAILURE:
+  case FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE:
     return {
       ...state.employeeData,
       error: action.error,
@@ -144,8 +134,6 @@ const updateEmployeeData = (state, action) => {
   case SET_MODAL_CREATE_ACTIVE:
     return {
       ...state.employeeData,
-      successMsg: '',
-      dismissSuccess: '',
       modal: {
         ...state.employeeData.modal,
         create: !state.employeeData.modal.create
@@ -162,8 +150,6 @@ const updateEmployeeData = (state, action) => {
   case HIDE_MODAL_EMPLOYEE_EDIT:
     return {
       ...state.employeeData,
-      editSuccess: '',
-      dismissSuccess: '',
       modal: {
         ...state.employeeData.modal,
         edit: false

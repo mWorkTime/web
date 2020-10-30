@@ -3,14 +3,14 @@ import UserModal from '../user-modal'
 import PropTypes from 'prop-types'
 import renderEmployeeForm from './employee-forms'
 
-import { Form, message, Spin } from 'antd'
+import { Form, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEmployeeById, showFormDepartment, fetchEmployeeEdit } from '../../../actions'
 import { HIDE_MODAL_EMPLOYEE_EDIT } from '../../../types'
 
 const EmployeeEdit = ({ userId }) => {
   const {
-    employeeData: { disable, modal: { edit }, editSuccess, fetching, employee },
+    employeeData: { disable, modal: { edit }, fetching, employee },
     departmentData: { departments, departmentsObj }, roleData: { roles, rolesObj }
   } = useSelector(state => state)
   const dispatch = useDispatch()
@@ -23,12 +23,6 @@ const EmployeeEdit = ({ userId }) => {
       form.resetFields()
     }
   }, [fetching, form])
-
-  useEffect(() => {
-    if (editSuccess) {
-      message.success(editSuccess)
-    }
-  }, [editSuccess])
 
   useEffect(() => {
     if (userId) {

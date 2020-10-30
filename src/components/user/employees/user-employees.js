@@ -8,18 +8,18 @@ import EmployeeCreate from './employee-create'
 import EmployeeEdit from './employee-edit'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { Typography, Table, message } from 'antd'
+import { Typography, Table } from 'antd'
 import { fetchAllEmployees } from '../../../actions'
 import { UserAddOutlined } from '@ant-design/icons'
 import { getEmployeeColumns } from './columns/employee-columns'
 import { SET_MODAL_CREATE_ACTIVE, SET_MODAL_EDIT_ACTIVE } from '../../../types'
 import { moduleLocalStorage } from '../../../services/local-storage.service'
-import { showDeleteConfirm } from './employee-delete'
+import { showDismissConfirm, showRecoverConfirm } from './employee-dismiss'
 
 const { Title } = Typography
 
 const UserEmployees = () => {
-  const { sidebarUser: { active }, employeeData: { employees, quantity, loading, dismissSuccess }, userData: { organization } } = useSelector((state) => state)
+  const { sidebarUser: { active }, employeeData: { employees, quantity, loading }, userData: { organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
   const nameOrg = organization?.name || moduleLocalStorage.getItem('nameOrg')
   const [userId, setUserId] = useState('')
@@ -29,12 +29,6 @@ const UserEmployees = () => {
       dispatch(fetchAllEmployees())
     }
   }, [dispatch, employees])
-
-  useEffect(() => {
-    if (dismissSuccess) {
-      message.success(dismissSuccess)
-    }
-  }, [dismissSuccess])
 
   const showModal = (id) => {
     setUserId(id)
@@ -72,7 +66,7 @@ const UserEmployees = () => {
             </div>
           </div>
           <div className="employees--wrapper__content">
-            <Table dataSource={employees} columns={getEmployeeColumns(showModal, showDeleteConfirm)} scroll={{ x: 600 }}
+            <Table dataSource={employees} columns={getEmployeeColumns(showModal, showDismissConfirm, showRecoverConfirm)} scroll={{ x: 600 }}
                    loading={loading} />
           </div>
         </div>

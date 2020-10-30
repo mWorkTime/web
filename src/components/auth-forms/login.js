@@ -50,7 +50,7 @@ const mapStateToProps = ({ authUser: { disabled, redirect }, confirmUser: { succ
 const mapDispatchToProps = (dispatch) => {
   return {
     onFinishAuthorization: (data) => dispatch(loginUser(data)()),
-    clearMsg: () => dispatch(clearMessages('login')),
+    clearMsg: () => dispatch(clearMessages()),
     cancelDisableFields: () => dispatch(setDisabled())
   }
 }

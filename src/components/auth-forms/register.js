@@ -6,7 +6,7 @@ import { Form, message } from 'antd'
 import { registerUser } from '../../actions'
 import { clearMessages, setDisabled } from '../../actions/auth.action'
 
-const Register = ({ onFinishRegistration, disabled, successMsg, clearMsg, cancelDisableFields, errorConfirmMsg }) => {
+const Register = ({ onFinishRegistration, disabled, clearMsg, cancelDisableFields, errorConfirmMsg }) => {
   const [form] = Form.useForm()
 
   const clearFormFields = () => {
@@ -15,14 +15,10 @@ const Register = ({ onFinishRegistration, disabled, successMsg, clearMsg, cancel
   }
 
   useEffect(() => {
-    if (successMsg.register) {
-      message.success(successMsg.register)
-    }
-
     if (errorConfirmMsg) {
       message.error(errorConfirmMsg)
     }
-  }, [successMsg.register, errorConfirmMsg])
+  }, [errorConfirmMsg])
 
   useEffect(() => clearMsg, [clearMsg])
 
@@ -32,14 +28,14 @@ const Register = ({ onFinishRegistration, disabled, successMsg, clearMsg, cancel
   )
 }
 
-const mapStateToProps = ({ authUser: { successMsg, disabled }, confirmUser: { errorConfirmMsg } }) => {
-  return { successMsg, disabled, errorConfirmMsg }
+const mapStateToProps = ({ authUser: { disabled }, confirmUser: { errorConfirmMsg } }) => {
+  return { disabled, errorConfirmMsg }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onFinishRegistration: (data) => dispatch(registerUser(data)()),
-    clearMsg: () => dispatch(clearMessages('register')),
+    clearMsg: () => dispatch(clearMessages()),
     cancelDisableFields: () => dispatch(setDisabled())
   }
 }

@@ -19,3 +19,8 @@ export const editEmployee = (data) => {
 export const dismissEmployee = (data) => {
   return api.put('/employee/dismiss', data)
 }
+
+
+export const recoverEmployee = (data) => {
+  return api.put('/employee/recover', data)
+}

@@ -8,7 +8,6 @@ import {
 const updateConfirm = (state, action) => {
   if (state === undefined) {
     return {
-      successConfirmMsg: '',
       errorConfirmMsg: '',
       disabled: true
     }
@@ -17,20 +16,17 @@ const updateConfirm = (state, action) => {
   switch (action.type) {
   case SET_CONFIRM_SUCCESS_MESSAGE:
     return {
-      successConfirmMsg: action.message,
       errorConfirmMsg: '',
       disabled: true
     }
   case SET_CONFIRM_FAIL_MESSAGE:
     return {
-      successConfirmMsg: '',
       errorConfirmMsg: action.message,
       disabled: false
     }
   case CLEAR_CONFIRM_ALL_MESSAGES:
     return {
       ...state.confirmUser,
-      successConfirmMsg: '',
       errorConfirmMsg: ''
     }
   case SET_DISABLED:

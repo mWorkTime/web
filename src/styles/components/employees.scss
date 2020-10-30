@@ -45,6 +45,7 @@
           }
         }
       }
+
       .top--statistic__rs {
         padding: 10px 0;
         line-height: 30px;
@@ -129,6 +130,14 @@
         border: 1px solid #ffa39e;
       }
     }
+
+    .table--employee__actions {
+      .btn--recovery {
+        background: $color-success;
+        border-color: #52c41a;
+        color: $primary-background-color;
+      }
+    }
   }
 }
 
@@ -162,8 +171,6 @@
     }
   }
 }
-
-
 
 @media screen and (max-width: 480px) {
   .employees--wrapper {

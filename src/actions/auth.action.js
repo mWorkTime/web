@@ -1,22 +1,16 @@
 import {
   REGISTRATION_SUCCESSFUL, AUTHORIZATION_SUCCESSFUL,
   START_AUTHENTICATION, AUTHORIZATION_FAILED,
-  REGISTRATION_FAILED, CLEAR_AUTH_MESSAGES, SET_DISABLED, CLEAR_USER_DATA,
+  REGISTRATION_FAILED, SET_DISABLED, CLEAR_USER_DATA,
   CLEAR_REDIRECT_TO_MAIN
 } from '../types'
 import { fetchRegister, fetchLogin, fetchLogout } from '../services/auth.service'
-import { clearLocalStorage, setLocalStorage } from '../utils'
+import { clearLocalStorage, getErrorMsg, setLocalStorage } from '../utils'
 import { clearConfirmAllMessages } from './confirm.action'
 import { setAuthToken } from './user.action'
 
 const startAuth = {
   type: START_AUTHENTICATION
-}
-
-const failedAuth = (type) => {
-  return {
-    type: type
-  }
 }
 
 const setDisabled = () => {
@@ -25,27 +19,19 @@ const setDisabled = () => {
   }
 }
 
-const successAuth = (type, msg = '') => {
-  return {
-    type,
-    message: msg
-  }
-}
-
-const clearMessages = (typeForm) => (dispatch) => {
+const clearMessages = () => (dispatch) => {
   dispatch(clearConfirmAllMessages())
-  dispatch({ type: CLEAR_AUTH_MESSAGES, form: typeForm })
 }
 
 const registerUser = (userData) => () => (dispatch) => {
   dispatch(startAuth)
 
   fetchRegister(userData)
-    .then(({ data: { success } }) => {
-      dispatch(successAuth(REGISTRATION_SUCCESSFUL, success))
+    .then(() => {
+      dispatch({ type: REGISTRATION_SUCCESSFUL })
     })
     .catch(() => {
-      dispatch(failedAuth(REGISTRATION_FAILED))
+      dispatch({ type: REGISTRATION_FAILED })
     })
 }
 
@@ -57,10 +43,10 @@ const loginUser = (userData) => () => (dispatch) => {
     .then(({ data }) => {
       dispatch(setAuthToken(data.token))
       setLocalStorage(data)
-      dispatch(successAuth(AUTHORIZATION_SUCCESSFUL))
+      dispatch({ type: AUTHORIZATION_SUCCESSFUL })
     })
     .catch(() => {
-      dispatch(failedAuth(AUTHORIZATION_FAILED))
+      dispatch({ type: AUTHORIZATION_FAILED })
     })
 }
 
@@ -70,7 +56,7 @@ const logoutUser = () => (dispatch) => {
       dispatch({ type: CLEAR_USER_DATA })
       clearLocalStorage()
     })
-    .catch((err) => console.log(err))
+    .catch((err) => getErrorMsg(err))
     .finally(() => dispatch({ type: CLEAR_REDIRECT_TO_MAIN }))
 }
 
