@@ -6,13 +6,13 @@
 export const getColorByCode = (code) => {
   let color
 
-  if (code === 2) {
+  if (+code === 2) {
     color = 'green'
-  } else if (code === 3) {
+  } else if (+code === 3) {
     color = 'gold'
-  } else if (code === 4) {
+  } else if (+code === 4) {
     color = 'purple'
-  } else if (code === 5) {
+  } else if (+code === 5) {
     color = 'red'
   } else {
     color = 'blue'

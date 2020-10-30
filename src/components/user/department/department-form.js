@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { SET_DEPARTMENT_MODAL_ACTIVE } from '../../../types'
-import { Form, Input, message } from 'antd'
+import { Form, Input } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { ReconciliationOutlined } from '@ant-design/icons'
 import { departmentValidator } from '../../../validators'
@@ -9,15 +9,9 @@ import UserModal from '../user-modal'
 
 const DepartmentForm = () => {
   const [form] = Form.useForm()
-  const { departmentData: { active, successMsg } } = useSelector(state => state)
+  const { departmentData: { active } } = useSelector(state => state)
   const dispatch = useDispatch()
   const { validateDepartment } = departmentValidator
-
-  useEffect(() => {
-    if (successMsg) {
-      message.success(successMsg)
-    }
-  }, [successMsg])
 
   return (
     <UserModal

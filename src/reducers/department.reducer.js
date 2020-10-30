@@ -10,7 +10,6 @@ const updateDepartmentData = (state, action) => {
       error: null,
       loading: false,
       active: false,
-      successMsg: ''
     }
   }
   switch (action.type) {
@@ -18,7 +17,6 @@ const updateDepartmentData = (state, action) => {
     return {
       ...state.departmentData,
       active: !state.departmentData.active,
-      successMsg: ''
     }
   case FETCH_ALL_DEPARTMENT_SUCCESS:
     return {
@@ -26,28 +24,24 @@ const updateDepartmentData = (state, action) => {
       departments: action.departments,
       departmentsObj: action.payload,
       loading: false,
-      successMsg: ''
     }
   case FETCH_ALL_DEPARTMENT_FAILURE:
     return {
       ...state.departmentData,
       error: action.message,
       loading: false,
-      successMsg: ''
     }
   case FETCH_CREATE_DEPARTMENT_REQUEST:
     return {
       ...state.departmentData,
       loading: true,
       error: null,
-      successMsg: ''
     }
   case FETCH_CREATE_DEPARTMENT_SUCCESS:
     return {
       ...state.departmentData,
       error: null,
       loading: false,
-      successMsg: action.message
     }
   case FETCH_CREATE_DEPARTMENT_FAILURE:
     return {

@@ -23,7 +23,7 @@ const fetchAllDepartments = () => (dispatch) => {
 const fetchCreateDepartment = (departmentData) => () => (dispatch) => {
   createDepartment(departmentData)
     .then(({ data }) => {
-      dispatch({ type: FETCH_CREATE_DEPARTMENT_SUCCESS, message: data.success })
+      dispatch({ type: FETCH_CREATE_DEPARTMENT_SUCCESS })
       dispatch(fetchAllDepartments())
     })
     .catch((err) => dispatch({

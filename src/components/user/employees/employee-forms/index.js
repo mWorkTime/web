@@ -45,13 +45,10 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
       {renderFormCreateItems}
       {
         typeForm !== 'create'
-          ?
-          <>
-            <Form.Item name="userId" initialValue={data?._id} hidden><Input /></Form.Item>
-            <Form.Item name="orgId" initialValue={data?.organization} hidden><Input /></Form.Item>
-          </>
+          ? <Form.Item name="orgId" initialValue={data?.organization} hidden><Input /></Form.Item>
           : null
       }
+      <Form.Item name="userId" initialValue={data?._id} hidden><Input /></Form.Item>
       <Form.Item
         name="gender"
         label="Пол"
