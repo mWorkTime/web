@@ -14,7 +14,7 @@ import { UserAddOutlined } from '@ant-design/icons'
 import { getEmployeeColumns } from './columns/employee-columns'
 import { SET_MODAL_CREATE_ACTIVE, SET_MODAL_EDIT_ACTIVE } from '../../../types'
 import { moduleLocalStorage } from '../../../services/local-storage.service'
-import { showDismissConfirm, showRecoverConfirm } from './employee-dismiss'
+import { showDismissConfirm, showRecoverConfirm } from './employee-modal-confirm'
 
 const { Title } = Typography
 
