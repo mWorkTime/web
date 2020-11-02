@@ -1,7 +1,13 @@
-import { getUser } from '../services/user.service'
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, SET_AUTH_TOKEN } from '../types'
+import { getUser, getUserData } from '../services/user.service'
+import {
+  FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE, SET_AUTH_TOKEN,
+  FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
+  FETCH_USER_DATA_FAILURE
+} from '../types'
 import { logoutUser } from './index'
 import { dictionaryRoles } from '../items'
+import { getErrorMsg } from '../utils'
 
 const fetchUserRequest = () => (dispatch) => {
   dispatch({ type: FETCH_USER_REQUEST })
@@ -22,6 +28,16 @@ const fetchUserRequest = () => (dispatch) => {
     })
 }
 
+const fetchUserData = () => (dispatch) => {
+  dispatch({ type: FETCH_USER_DATA_REQUEST })
+
+  getUserData()
+    .then(({ data }) => {
+      dispatch({ type: FETCH_USER_DATA_SUCCESS, user: data.user })
+    })
+    .catch((err) => dispatch({ type: FETCH_USER_DATA_FAILURE, error: getErrorMsg(err) }))
+}
+
 const setAuthToken = (token) => {
   return {
     type: SET_AUTH_TOKEN,
@@ -31,5 +47,6 @@ const setAuthToken = (token) => {
 
 export {
   fetchUserRequest,
-  setAuthToken
+  setAuthToken,
+  fetchUserData
 }
