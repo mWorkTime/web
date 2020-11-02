@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const UserDashboardItem = ({ firstItem = {}, secondItem = {} }) => (
   <div className="top--ls--info__col">
@@ -21,5 +22,10 @@ const UserDashboardItem = ({ firstItem = {}, secondItem = {} }) => (
     </div>
   </div>
 )
+
+UserDashboardItem.propTypes = {
+  firstItem: PropTypes.object.isRequired,
+  secondItem: PropTypes.object.isRequired
+}
 
 export default UserDashboardItem

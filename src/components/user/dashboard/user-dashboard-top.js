@@ -8,7 +8,7 @@ import { getColorByCode } from '../../../utils'
 const { Title } = Typography
 
 const UserDashboardTop = ({ user, organization }) => {
-  const { name, createdAt, isOwner, isVerified, email, id, role, phone, department } = user
+  const { name, createdAt, isOwner, isVerified, email, role, phone, department } = user
 
   const renderRoles = role.map(({ name, code }) => {
     let color = getColorByCode(code)
@@ -47,7 +47,7 @@ const UserDashboardTop = ({ user, organization }) => {
           />
         </div>
         <div className="top--info__buttons">
-          <Link to={`/profile/edit/${id}`}>
+          <Link to={`/dashboard/user/edit`}>
             <EditFilled /> Редактировать профиль
           </Link>
         </div>

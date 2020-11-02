@@ -1,0 +1,44 @@
+@import "../shared/variables";
+
+.user--edit--wrapper {
+  margin: 0 auto;
+  padding-top: 30px;
+  .user--edit {
+    max-width: 1000px;
+    border: 1px solid $border-color;
+    border-radius: 25px;
+
+    .user--edit--header {
+      border-bottom: 1px solid $border-color;
+      padding: 10px 20px;
+      .user--header__title {
+        color: $color-4th;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .user--edit--content {
+      display: flex;
+      justify-content: space-evenly;
+      .user--content--loader {
+        width: 500px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .user--content--ls {
+        padding: 30px;
+
+        .form--edit--regular {
+
+        }
+      }
+      .user--content--rs {
+        padding: 30px;
+      }
+    }
+  }
+}

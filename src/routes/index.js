@@ -6,6 +6,7 @@ import Login from '../components/auth-forms/login'
 import ConfirmPage from '../pages/confirm'
 import UserDashboard from '../components/user/dashboard/user-dashboard'
 import UserEmployees from '../components/user/employees/user-employees'
+import UserDashboardEdit from '../components/user/dashboard/user-dashboard-edit'
 
 export const useRoutes = isAuth => {
   if (isAuth) {
@@ -13,6 +14,7 @@ export const useRoutes = isAuth => {
       <Switch>
         <Route path='/dashboard' exact component={UserDashboard} />
         <Route path='/employees' component={UserEmployees} />
+        <Route path='/dashboard/user/edit' component={UserDashboardEdit}/>
         <Redirect to={'/dashboard'} />
       </Switch>
     )
