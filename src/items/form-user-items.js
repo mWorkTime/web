@@ -1,11 +1,10 @@
 import React from 'react'
-import { MailOutlined, UserOutlined } from '@ant-design/icons'
-import { employeeValidator, phoneValidation, registerValidation, generalValidation } from '../validators'
+import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { employeeValidator, phoneValidation, registerValidation } from '../validators'
 
-const { validateName } = registerValidation
+const { validateName, validateRegisterPassword, validateConfirmPassword } = registerValidation
 const { validateSurname } = employeeValidator
 const { validateNumber } = phoneValidation
-const { validateEmail } = generalValidation
 
 export const formUserItems = {
   editRegular: [{
@@ -33,12 +32,23 @@ export const formUserItems = {
         return values.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4')
       }
     }],
-  editEmail: {
-    key: 'buybbb8b77',
-    name: 'email',
-    label: 'Email',
-    rules: validateEmail,
-    icon: <MailOutlined />,
-    placeholder: 'example@gmail.com'
-  }
+  editPassword: [
+    {
+      key: 'dhu8b2g7',
+      name: 'password',
+      label: 'Новый пароль',
+      rules: validateRegisterPassword,
+      placeholder: 'введите новый пароль',
+      icon: <LockOutlined />
+    },
+    {
+      key: 'jkinh99n9',
+      name: 'confirm',
+      label: 'Подвердите пароль',
+      rules: validateConfirmPassword,
+      placeholder: 'потвердите новый пароль',
+      dependencies: ['password'],
+      icon: <LockOutlined />
+    }
+  ]
 }

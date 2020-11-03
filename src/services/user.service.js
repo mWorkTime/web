@@ -11,3 +11,7 @@ export const getUserData = () => {
 export const editUserRegular = (data) => {
   return api.put('/user/edit/regular', data)
 }
+
+export const confirmPassword = (data) => {
+  return api.post('/user/confirm/password', data)
+}

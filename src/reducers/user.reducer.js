@@ -4,7 +4,8 @@ import {
   CLEAR_USER_DATA, CLEAR_REDIRECT_TO_MAIN,
   FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
   FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS,
-  FETCH_EDIT_USER_REGULAR_FAILURE
+  FETCH_EDIT_USER_REGULAR_FAILURE, FETCH_CONFIRM_PASSWORD_SUCCESS,
+  FETCH_CONFIRM_PASSWORD_FAILURE
 } from '../types'
 
 const updateUserData = (state, action) => {
@@ -19,6 +20,7 @@ const updateUserData = (state, action) => {
       edit: {
         userData: null,
         loading: false,
+        disable: true,
         error: null
       }
     }
@@ -44,6 +46,66 @@ const updateUserData = (state, action) => {
       loading: false,
       error: action.error
     }
+  case FETCH_USER_DATA_REQUEST:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        loading: true
+      }
+    }
+  case FETCH_USER_DATA_SUCCESS:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        user: action.user,
+        error: null,
+        loading: false,
+      }
+    }
+  case FETCH_USER_DATA_FAILURE:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        loading: false,
+        error: action.error
+      }
+    }
+  case FETCH_EDIT_USER_REGULAR_SUCCESS:
+    return {
+      ...state.userData,
+      user: action.dashboard,
+      edit: {
+        ...state.userData.edit,
+        user: action.payload
+      }
+    }
+  case FETCH_EDIT_USER_REGULAR_FAILURE:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        error: action.error
+      }
+    }
+  case FETCH_CONFIRM_PASSWORD_SUCCESS:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        disable: false
+      }
+    }
+  case FETCH_CONFIRM_PASSWORD_FAILURE:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        error: action.error
+      }
+    }
   case SET_AUTH_TOKEN:
     return {
       ...state.userData,
@@ -60,6 +122,7 @@ const updateUserData = (state, action) => {
       edit: {
         userData: null,
         loading: false,
+        disable: true,
         error: null
       }
     }
@@ -67,49 +130,6 @@ const updateUserData = (state, action) => {
     return {
       ...state.userData,
       redirectToMain: false
-    }
-
-  case FETCH_USER_DATA_REQUEST:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        loading: true
-      }
-    }
-  case FETCH_USER_DATA_SUCCESS:
-    return {
-      ...state.userData,
-      edit: {
-        user: action.user,
-        error: null,
-        loading: false
-      }
-    }
-  case FETCH_USER_DATA_FAILURE:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        loading: false,
-        error: action.error
-      }
-    }
-  case FETCH_EDIT_USER_REGULAR_SUCCESS:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        user: action.user
-      }
-    }
-  case FETCH_EDIT_USER_REGULAR_FAILURE:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        error: action.error
-      }
     }
   default:
     return state.userData

@@ -6,7 +6,7 @@ import {
   getNewConfirmLink
 } from './confirm.action'
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
-import { fetchUserRequest, setAuthToken, fetchUserData, fetchEditUserRegular } from './user.action'
+import { fetchUserRequest, setAuthToken, fetchUserData, fetchEditUserRegular, fetchConfirmPassword } from './user.action'
 import { fetchAllEmployees, fetchCreateEmployee,
          fetchEmployeeById, fetchEmployeeEdit,
          fetchEmployeeDismiss, fetchEmployeeRecover } from './employee.action'
@@ -34,6 +34,7 @@ export {
   fetchEmployeeRecover,
   fetchUserData,
   fetchEditUserRegular,
+  fetchConfirmPassword,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,

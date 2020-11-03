@@ -4,13 +4,14 @@ import Dashboard from '../../layouts/user/dashboard'
 import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Spin } from 'antd'
 import EditRegular from './user-edit-forms/edit-regular'
-import EditEmail from './user-edit-forms/edit-email'
-import { fetchEditUserRegular, fetchUserData } from '../../../actions'
+import EditPassword from './user-edit-forms/edit-password'
+import { fetchEditUserRegular, fetchUserData, fetchConfirmPassword } from '../../../actions'
+import CheckOldPassword from './user-edit-forms/check-old-password'
 
 const { Title } = Typography
 
 const UserDashboardEdit = () => {
-  const { sidebarUser: { active }, userData: { edit: { loading, user } } } = useSelector(state => state)
+  const { sidebarUser: { active }, userData: { edit: { user, loading, disable } } } = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,8 +24,12 @@ const UserDashboardEdit = () => {
    dispatch(fetchEditUserRegular(values))
   }
 
-  const onFinishEmail = values => {
+  const onFinishPassword = values => {
     console.log('Success:', values)
+  }
+
+  const onFinishCheck = value => {
+   dispatch(fetchConfirmPassword(value))
   }
 
   return (
@@ -51,10 +56,10 @@ const UserDashboardEdit = () => {
                   </div>
                   <div className="user--content--rs">
                     <div className="content--rs--top">
-                      <EditEmail onFinish={onFinishEmail} initialData={user?.email} />
+                      <CheckOldPassword onFinishOldPass={onFinishCheck} disable={disable}/>
                     </div>
                     <div className="content--rs--bottom">
-
+                      <EditPassword onFinish={onFinishPassword} disable={disable}/>
                     </div>
                   </div>
                 </>
@@ -62,7 +67,6 @@ const UserDashboardEdit = () => {
               }
 
             </div>
-
           </div>
         </div>
       </div>

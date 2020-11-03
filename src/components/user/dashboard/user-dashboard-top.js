@@ -4,6 +4,7 @@ import { Typography, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import UserDashboardItem from './user-dashboard-item'
 import { getColorByCode } from '../../../utils'
+import { moduleLocalStorage } from '../../../services/local-storage.service'
 
 const { Title } = Typography
 
@@ -29,7 +30,8 @@ const UserDashboardTop = ({ user, organization }) => {
         <div className="top--ls--info__header">Информация о пользователе</div>
         <div className="top--ls--info__content">
           <UserDashboardItem
-            firstItem={{ title: `Вы являетесь ${isOwner ? 'основателем' : 'частью'}:`, value: organization.name }}
+            firstItem={{ title: `Вы являетесь ${isOwner ? 'основателем' : 'частью'}:`,
+              value: moduleLocalStorage.getItem('nameOrg') || organization.name }}
             secondItem={{
               title: 'Статус аккаунта:', value:
                 isVerified

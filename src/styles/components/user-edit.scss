@@ -31,18 +31,17 @@
       }
       .user--content--ls {
         padding: 30px;
+        border-right: 1px solid $border-color;
 
         .form--edit--regular {
-
+          width: 300px;
         }
       }
       .user--content--rs {
         padding: 30px;
 
-        .content--rs--top {
-          .form--edit--email {
-            padding-top: 10px;
-          }
+        .form--check--password, .form--edit--password {
+          width: 300px;
         }
       }
     }

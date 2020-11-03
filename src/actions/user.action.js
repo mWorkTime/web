@@ -1,9 +1,15 @@
-import { editUserRegular, getUser, getUserData } from '../services/user.service'
+import { confirmPassword, editUserRegular, getUser, getUserData } from '../services/user.service'
 import {
-  FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE, SET_AUTH_TOKEN,
-  FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
-  FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS, FETCH_EDIT_USER_REGULAR_FAILURE
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
+  SET_AUTH_TOKEN,
+  FETCH_USER_DATA_REQUEST,
+  FETCH_USER_DATA_SUCCESS,
+  FETCH_USER_DATA_FAILURE,
+  FETCH_EDIT_USER_REGULAR_SUCCESS,
+  FETCH_EDIT_USER_REGULAR_FAILURE,
+  FETCH_CONFIRM_PASSWORD_FAILURE, FETCH_CONFIRM_PASSWORD_SUCCESS
 } from '../types'
 import { logoutUser } from './index'
 import { dictionaryRoles } from '../items'
@@ -40,10 +46,29 @@ const fetchUserData = () => (dispatch) => {
 
 const fetchEditUserRegular = (userData) => (dispatch) => {
   editUserRegular(userData)
-    .then(({ data: { user} }) => {
-      dispatch({ type: FETCH_EDIT_USER_REGULAR_SUCCESS, user })
+    .then(({ data: { user } }) => {
+      const modifiedData = {
+        name: user.name, surname: user.surname, phone: user.phone, gender: user.gender
+      }
+
+      const transformedRoles = user.role.reduce((acc, role) => {
+        acc.push({ name: dictionaryRoles[role.name], code: role.code })
+        return acc
+      }, [])
+
+      const transformedDate = new Date(user.createdAt).toLocaleString()
+      dispatch({
+        type: FETCH_EDIT_USER_REGULAR_SUCCESS, payload: modifiedData,
+        dashboard: { ...user, id: user._id, createdAt: transformedDate, role: transformedRoles }
+      })
     })
-    .catch((err) =>  dispatch({ type: FETCH_EDIT_USER_REGULAR_FAILURE, error: getErrorMsg(err)}))
+    .catch((err) => dispatch({ type: FETCH_EDIT_USER_REGULAR_FAILURE, error: getErrorMsg(err) }))
+}
+
+const fetchConfirmPassword = (password) => (dispatch) => {
+  confirmPassword(password)
+    .then(() => dispatch({ type: FETCH_CONFIRM_PASSWORD_SUCCESS }))
+    .catch((err) => dispatch({ type: FETCH_CONFIRM_PASSWORD_FAILURE, error: getErrorMsg(err)}))
 }
 
 const setAuthToken = (token) => {
@@ -56,6 +81,7 @@ const setAuthToken = (token) => {
 export {
   fetchUserRequest,
   fetchEditUserRegular,
+  fetchConfirmPassword,
   setAuthToken,
   fetchUserData
 }
