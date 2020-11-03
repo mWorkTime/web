@@ -5,8 +5,21 @@ import {
   FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
   FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS,
   FETCH_EDIT_USER_REGULAR_FAILURE, FETCH_CONFIRM_PASSWORD_SUCCESS,
-  FETCH_CONFIRM_PASSWORD_FAILURE
+  FETCH_CONFIRM_PASSWORD_FAILURE, FETCH_EDIT_PASSWORD_SUCCESS,
+  FETCH_EDIT_PASSWORD_FAILURE
 } from '../types'
+
+/**
+ * @param {object} state
+ * @param {object} edit
+ * @return {{edit: {disable: *, error: *, loading: *}}}
+ */
+const updateData = (state,edit) => {
+  return {
+    ...state,
+    edit
+  }
+}
 
 const updateUserData = (state, action) => {
   if (state === undefined) {
@@ -18,7 +31,7 @@ const updateUserData = (state, action) => {
       error: null,
       redirectToMain: false,
       edit: {
-        userData: null,
+        user: null,
         loading: false,
         disable: true,
         error: null
@@ -47,13 +60,7 @@ const updateUserData = (state, action) => {
       error: action.error
     }
   case FETCH_USER_DATA_REQUEST:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        loading: true
-      }
-    }
+    return updateData(state.userData, { ...state.userData.edit, loading: true })
   case FETCH_USER_DATA_SUCCESS:
     return {
       ...state.userData,
@@ -61,18 +68,11 @@ const updateUserData = (state, action) => {
         ...state.userData.edit,
         user: action.user,
         error: null,
-        loading: false,
+        loading: false
       }
     }
   case FETCH_USER_DATA_FAILURE:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        loading: false,
-        error: action.error
-      }
-    }
+    return updateData(state.userData, { ...state.userData.edit, loading: false, error: action.error })
   case FETCH_EDIT_USER_REGULAR_SUCCESS:
     return {
       ...state.userData,
@@ -83,29 +83,15 @@ const updateUserData = (state, action) => {
       }
     }
   case FETCH_EDIT_USER_REGULAR_FAILURE:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        error: action.error
-      }
-    }
+    return updateData(state.userData, { ...state.userData.edit, error: action.error })
   case FETCH_CONFIRM_PASSWORD_SUCCESS:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        disable: false
-      }
-    }
+    return updateData(state.userData, { ...state.userData.edit, disable: false, error: null })
   case FETCH_CONFIRM_PASSWORD_FAILURE:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        error: action.error
-      }
-    }
+    return updateData(state.userData, {...state.userData.edit, error: action.error })
+  case FETCH_EDIT_PASSWORD_SUCCESS:
+    return updateData(state.userData, {...state.userData.edit, disable: true, error: null })
+  case FETCH_EDIT_PASSWORD_FAILURE:
+    return updateData(state.userData, {...state.userData.edit, error: action.error })
   case SET_AUTH_TOKEN:
     return {
       ...state.userData,
@@ -120,7 +106,7 @@ const updateUserData = (state, action) => {
       error: null,
       redirectToMain: true,
       edit: {
-        userData: null,
+        user: null,
         loading: false,
         disable: true,
         error: null

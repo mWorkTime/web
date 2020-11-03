@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Spin } from 'antd'
 import EditRegular from './user-edit-forms/edit-regular'
 import EditPassword from './user-edit-forms/edit-password'
-import { fetchEditUserRegular, fetchUserData, fetchConfirmPassword } from '../../../actions'
+import { fetchEditUserRegular, fetchUserData, fetchEditPassword } from '../../../actions'
 import CheckOldPassword from './user-edit-forms/check-old-password'
 
 const { Title } = Typography
@@ -21,15 +21,11 @@ const UserDashboardEdit = () => {
   }, [user, dispatch])
 
   const onFinishRegular = values => {
-   dispatch(fetchEditUserRegular(values))
+    dispatch(fetchEditUserRegular(values))
   }
 
   const onFinishPassword = values => {
-    console.log('Success:', values)
-  }
-
-  const onFinishCheck = value => {
-   dispatch(fetchConfirmPassword(value))
+    dispatch(fetchEditPassword(values))
   }
 
   return (
@@ -56,10 +52,10 @@ const UserDashboardEdit = () => {
                   </div>
                   <div className="user--content--rs">
                     <div className="content--rs--top">
-                      <CheckOldPassword onFinishOldPass={onFinishCheck} disable={disable}/>
+                      <CheckOldPassword disable={disable} />
                     </div>
                     <div className="content--rs--bottom">
-                      <EditPassword onFinish={onFinishPassword} disable={disable}/>
+                      <EditPassword onFinish={onFinishPassword} disable={disable} />
                     </div>
                   </div>
                 </>

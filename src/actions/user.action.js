@@ -1,15 +1,12 @@
-import { confirmPassword, editUserRegular, getUser, getUserData } from '../services/user.service'
+import { confirmPassword, editUserRegular, getUser, getUserData, editUserPassword } from '../services/user.service'
 import {
-  FETCH_USER_REQUEST,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
-  SET_AUTH_TOKEN,
-  FETCH_USER_DATA_REQUEST,
-  FETCH_USER_DATA_SUCCESS,
-  FETCH_USER_DATA_FAILURE,
-  FETCH_EDIT_USER_REGULAR_SUCCESS,
-  FETCH_EDIT_USER_REGULAR_FAILURE,
-  FETCH_CONFIRM_PASSWORD_FAILURE, FETCH_CONFIRM_PASSWORD_SUCCESS
+  FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE, SET_AUTH_TOKEN,
+  FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
+  FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS,
+  FETCH_EDIT_USER_REGULAR_FAILURE, FETCH_CONFIRM_PASSWORD_FAILURE,
+  FETCH_CONFIRM_PASSWORD_SUCCESS, FETCH_EDIT_PASSWORD_SUCCESS,
+  FETCH_EDIT_PASSWORD_FAILURE
 } from '../types'
 import { logoutUser } from './index'
 import { dictionaryRoles } from '../items'
@@ -65,10 +62,22 @@ const fetchEditUserRegular = (userData) => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_EDIT_USER_REGULAR_FAILURE, error: getErrorMsg(err) }))
 }
 
+const confirmOrEditPassword = (dataUser, func, dispatch, obj = {}) => {
+  return func(dataUser)
+    .then(() => dispatch({ type: obj.typeSuccess }))
+    .catch((err) => dispatch({ type: obj.typeFailure, error: getErrorMsg(err) }))
+}
+
 const fetchConfirmPassword = (password) => (dispatch) => {
-  confirmPassword(password)
-    .then(() => dispatch({ type: FETCH_CONFIRM_PASSWORD_SUCCESS }))
-    .catch((err) => dispatch({ type: FETCH_CONFIRM_PASSWORD_FAILURE, error: getErrorMsg(err)}))
+  confirmOrEditPassword(password, confirmPassword, dispatch, {
+    typeSuccess: FETCH_CONFIRM_PASSWORD_SUCCESS, typeFailure: FETCH_CONFIRM_PASSWORD_FAILURE
+  })
+}
+
+const fetchEditPassword = (password) => (dispatch) => {
+  confirmOrEditPassword(password, editUserPassword, dispatch, {
+    typeSuccess: FETCH_EDIT_PASSWORD_SUCCESS, typeFailure: FETCH_EDIT_PASSWORD_FAILURE
+  })
 }
 
 const setAuthToken = (token) => {
@@ -82,6 +91,7 @@ export {
   fetchUserRequest,
   fetchEditUserRegular,
   fetchConfirmPassword,
+  fetchEditPassword,
   setAuthToken,
   fetchUserData
 }
