@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Spin } from 'antd'
 import EditRegular from './user-edit-forms/edit-regular'
 import EditEmail from './user-edit-forms/edit-email'
-import { fetchUserData } from '../../../actions'
+import { fetchEditUserRegular, fetchUserData } from '../../../actions'
 
 const { Title } = Typography
 
@@ -20,7 +20,7 @@ const UserDashboardEdit = () => {
   }, [user, dispatch])
 
   const onFinishRegular = values => {
-    console.log('Success:', values)
+   dispatch(fetchEditUserRegular(values))
   }
 
   const onFinishEmail = values => {

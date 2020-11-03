@@ -3,7 +3,8 @@ import {
   FETCH_USER_FAILURE, SET_AUTH_TOKEN,
   CLEAR_USER_DATA, CLEAR_REDIRECT_TO_MAIN,
   FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
-  FETCH_USER_DATA_FAILURE
+  FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS,
+  FETCH_EDIT_USER_REGULAR_FAILURE
 } from '../types'
 
 const updateUserData = (state, action) => {
@@ -12,7 +13,7 @@ const updateUserData = (state, action) => {
       user: null,
       organization: null,
       token: null,
-      loading: true,
+      loading: false,
       error: null,
       redirectToMain: false,
       edit: {
@@ -91,6 +92,22 @@ const updateUserData = (state, action) => {
       edit: {
         ...state.userData.edit,
         loading: false,
+        error: action.error
+      }
+    }
+  case FETCH_EDIT_USER_REGULAR_SUCCESS:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
+        user: action.user
+      }
+    }
+  case FETCH_EDIT_USER_REGULAR_FAILURE:
+    return {
+      ...state.userData,
+      edit: {
+        ...state.userData.edit,
         error: action.error
       }
     }

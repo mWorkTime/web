@@ -1,9 +1,9 @@
-import { getUser, getUserData } from '../services/user.service'
+import { editUserRegular, getUser, getUserData } from '../services/user.service'
 import {
   FETCH_USER_REQUEST, FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE, SET_AUTH_TOKEN,
   FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS,
-  FETCH_USER_DATA_FAILURE
+  FETCH_USER_DATA_FAILURE, FETCH_EDIT_USER_REGULAR_SUCCESS, FETCH_EDIT_USER_REGULAR_FAILURE
 } from '../types'
 import { logoutUser } from './index'
 import { dictionaryRoles } from '../items'
@@ -38,6 +38,14 @@ const fetchUserData = () => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_USER_DATA_FAILURE, error: getErrorMsg(err) }))
 }
 
+const fetchEditUserRegular = (userData) => (dispatch) => {
+  editUserRegular(userData)
+    .then(({ data: { user} }) => {
+      dispatch({ type: FETCH_EDIT_USER_REGULAR_SUCCESS, user })
+    })
+    .catch((err) =>  dispatch({ type: FETCH_EDIT_USER_REGULAR_FAILURE, error: getErrorMsg(err)}))
+}
+
 const setAuthToken = (token) => {
   return {
     type: SET_AUTH_TOKEN,
@@ -47,6 +55,7 @@ const setAuthToken = (token) => {
 
 export {
   fetchUserRequest,
+  fetchEditUserRegular,
   setAuthToken,
   fetchUserData
 }

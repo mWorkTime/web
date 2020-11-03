@@ -7,3 +7,7 @@ export const getUser = () => {
 export const getUserData = () => {
   return api.get('/user/edit')
 }
+
+export const editUserRegular = (data) => {
+  return api.put('/user/edit/regular', data)
+}

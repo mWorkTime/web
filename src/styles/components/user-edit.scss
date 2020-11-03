@@ -2,7 +2,7 @@
 
 .user--edit--wrapper {
   margin: 0 auto;
-  padding-top: 30px;
+  padding: 30px;
   .user--edit {
     max-width: 1000px;
     border: 1px solid $border-color;
@@ -38,6 +38,12 @@
       }
       .user--content--rs {
         padding: 30px;
+
+        .content--rs--top {
+          .form--edit--email {
+            padding-top: 10px;
+          }
+        }
       }
     }
   }
