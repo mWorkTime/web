@@ -27,7 +27,7 @@ const CheckOldPassword = ({ disable }) => {
         <Input.Password prefix={<LockOutlined />} placeholder="введите ваш пароль" disabled={!disable} />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" shape='round' disabled={!disable} >
+        <Button type="primary" htmlType="submit" shape='round' disabled={!disable} block>
           Подтвердить
         </Button>
       </Form.Item>

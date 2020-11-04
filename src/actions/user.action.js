@@ -8,7 +8,6 @@ import {
   FETCH_CONFIRM_PASSWORD_SUCCESS, FETCH_EDIT_PASSWORD_SUCCESS,
   FETCH_EDIT_PASSWORD_FAILURE
 } from '../types'
-import { logoutUser } from './index'
 import { dictionaryRoles } from '../items'
 import { getErrorMsg } from '../utils'
 
@@ -17,17 +16,13 @@ const fetchUserRequest = () => (dispatch) => {
   getUser()
     .then(({ data: { user, organization } }) => {
       const transformedDate = new Date(user.createdAt).toLocaleString()
-      const transformedRoles = user.role.reduce((acc, role) => {
-        acc.push({ name: dictionaryRoles[role.name], code: role.code })
-        return acc
-      }, [])
+      const transformedRole = { name: dictionaryRoles[user.role.name], code: user.role.code }
+      const transformedUser = { ...user, createdAt: transformedDate, role: transformedRole }
 
-      const transformedUser = { ...user, createdAt: transformedDate, role: transformedRoles }
       dispatch({ type: FETCH_USER_SUCCESS, user: transformedUser, organization })
     })
     .catch((err) => {
-      dispatch(logoutUser())
-      dispatch({ type: FETCH_USER_FAILURE, error: err.response.data.msg })
+      dispatch({ type: FETCH_USER_FAILURE, error: getErrorMsg(err) })
     })
 }
 
@@ -44,19 +39,13 @@ const fetchUserData = () => (dispatch) => {
 const fetchEditUserRegular = (userData) => (dispatch) => {
   editUserRegular(userData)
     .then(({ data: { user } }) => {
-      const modifiedData = {
-        name: user.name, surname: user.surname, phone: user.phone, gender: user.gender
-      }
-
-      const transformedRoles = user.role.reduce((acc, role) => {
-        acc.push({ name: dictionaryRoles[role.name], code: role.code })
-        return acc
-      }, [])
-
+      const modifiedData = { name: user.name, surname: user.surname, phone: user.phone, gender: user.gender }
       const transformedDate = new Date(user.createdAt).toLocaleString()
+      const transformedRole = { name: dictionaryRoles[user.role.name], code: user.role.code }
+
       dispatch({
         type: FETCH_EDIT_USER_REGULAR_SUCCESS, payload: modifiedData,
-        dashboard: { ...user, id: user._id, createdAt: transformedDate, role: transformedRoles }
+        dashboard: { ...user, id: user._id, createdAt: transformedDate, role: transformedRole }
       })
     })
     .catch((err) => dispatch({ type: FETCH_EDIT_USER_REGULAR_FAILURE, error: getErrorMsg(err) }))

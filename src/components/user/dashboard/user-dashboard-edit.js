@@ -47,6 +47,9 @@ const UserDashboardEdit = () => {
                     <EditRegular onFinish={onFinishRegular} initialData={user} />
                   </div>
                   <div className="user--content--rs">
+                    <div className="content--rs--title">
+                      Смена пароля
+                    </div>
                     <div className="content--rs--top">
                       <CheckOldPassword disable={disable} />
                     </div>

@@ -43,7 +43,7 @@ const EditRegular = ({ onFinish, initialData = {} }) => {
       </Select>
     </Form.Item>
     <Form.Item>
-      <Button type="primary" htmlType="submit" shape='round'>
+      <Button type="primary" htmlType="submit" shape='round' block>
         Редактировать
       </Button>
     </Form.Item>

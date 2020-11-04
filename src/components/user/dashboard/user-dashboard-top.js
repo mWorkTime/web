@@ -11,14 +11,6 @@ const { Title } = Typography
 const UserDashboardTop = ({ user, organization }) => {
   const { name, createdAt, isOwner, isVerified, email, role, phone, department } = user
 
-  const renderRoles = role.map(({ name, code }) => {
-    let color = getColorByCode(code)
-
-    return (
-      <Tag key={code}  className="top--info__tag" color={color}>{name}</Tag>
-    )
-  })
-
   return (
     <>
       <div className="top--ls__header">
@@ -41,7 +33,9 @@ const UserDashboardTop = ({ user, organization }) => {
           />
           <UserDashboardItem
             firstItem={{ title: 'Email:', value: email }}
-            secondItem={{ title: 'Ваши роли:', value: renderRoles }}
+            secondItem={{ title: 'Ваша роль:',
+              value: <Tag key={role.code}  className="top--info__tag" color={getColorByCode(role.code)}>{role.name}</Tag>
+            }}
           />
           <UserDashboardItem
             firstItem={{ title: 'Ваш отдел:', value: department.name }}

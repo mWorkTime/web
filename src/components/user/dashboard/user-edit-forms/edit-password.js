@@ -29,7 +29,7 @@ const EditPassword = ({ disable }) => {
           layout="vertical" className='form--edit--password' onFinish={onFinishPassword}>
       {renderItems}
       <Form.Item>
-        <Button type="primary" htmlType="submit" shape='round' disabled={disable}>
+        <Button type="primary" htmlType="submit" shape='round' disabled={disable} block>
           Редактировать
         </Button>
       </Form.Item>
