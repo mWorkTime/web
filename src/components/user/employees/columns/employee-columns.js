@@ -39,10 +39,10 @@ export const getEmployeeColumns = (funcEdit, funcDel, funcRec) => [
     render: text => <a href={`tel: +38 ${text}`}>{text}</a>
   },
   {
-    title: 'Роли',
+    title: 'Роль',
     dataIndex: 'role',
     key: 'role',
-    width: 250,
+    width: 120,
     render: role => generateRoleTags(role)
   },
   {

@@ -9,7 +9,7 @@ import { fetchCreateEmployee } from '../../../actions'
 import { withDepartmentsAndRoles } from '../../hoc/with-departments-and-roles'
 
 const EmployeeCreate = ({ func, departments, roles }) => {
-  const { employeeData: { modal: { create }, disable }} = useSelector(state => state)
+  const { employeeData: { modal: { create }, disable }, roleData: { rolesObj }} = useSelector(state => state)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
 
@@ -22,6 +22,7 @@ const EmployeeCreate = ({ func, departments, roles }) => {
       formInst={form}
       reset={true}
       func={fetchCreateEmployee}
+      obj={{ rolesObj }}
     >
       {renderEmployeeForm('create', disable, form, departments, roles, func)}
     </UserModal>

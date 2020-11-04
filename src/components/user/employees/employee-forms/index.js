@@ -39,16 +39,19 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
         phone: data?.phone,
         gender: data?.gender,
         department: data?.department,
-        roles: data?.role
+        role: data?.role
       }}
     >
       {renderFormCreateItems}
       {
         typeForm !== 'create'
-          ? <Form.Item name="orgId" initialValue={data?.organization} hidden><Input /></Form.Item>
+          ? <>
+            <Form.Item name="userId" initialValue={data?._id} hidden><Input /></Form.Item>
+            <Form.Item name="orgId" initialValue={data?.organization} hidden><Input /></Form.Item>
+          </>
           : null
       }
-      <Form.Item name="userId" initialValue={data?._id} hidden><Input /></Form.Item>
+
       <Form.Item
         name="gender"
         label="Пол"
@@ -89,15 +92,14 @@ const renderEmployeeForm = (typeForm, disable, formInst, departments, roles, sho
       }
 
       <Form.Item
-        name="roles"
-        label="Роли"
+        name="role"
+        label="Роль"
         rules={validateRoles}
         hasFeedback
       >
         <Select
-          placeholder="Выберите роли"
-          disabled={disable}
-          mode="multiple">
+          placeholder="Выберите роль"
+          disabled={disable}>
           {roles && roles.map(({ id, normalName }) => (<Option key={id} value={id}>{normalName}</Option>))}
         </Select>
       </Form.Item>

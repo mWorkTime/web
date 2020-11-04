@@ -15,7 +15,7 @@ import {
   dismissEmployee,
   recoverEmployee
 } from '../services/employee.service'
-import { getErrorMsg, normalizeEmployeeObject } from '../utils'
+import { getErrorMsg, normalizeEmployeeObject, convertRole } from '../utils'
 
 const fetchAllEmployees = () => (dispatch) => {
   dispatch({ type: FETCH_ALL_EMPLOYEES_REQUEST })
@@ -35,8 +35,9 @@ const fetchAllEmployees = () => (dispatch) => {
     })
 }
 
-const fetchCreateEmployee = (userData) => () => (dispatch) => {
-  const convertingData = { ...userData, department: { id: userData.department } }
+const fetchCreateEmployee = (userData) => (obj) => (dispatch) => {
+  const userRoles = convertRole({ ...obj, data: userData })
+  const convertingData = { ...userData, department: { id: userData.department }, role: userRoles }
 
   dispatch({ type: FETCH_CREATE_EMPLOYEE_REQUEST })
   createEmployee(convertingData)
@@ -53,19 +54,18 @@ const fetchEmployeeById = (id) => (roles) => (dispatch) => {
   dispatch({ type: FETCH_EMPLOYEE_REQUEST })
   getEmployee(id)
     .then(({ data: { user } }) => {
-      let convertRoles = []
-
-      for (let i = 0; i < roles.length; i++) {
-        for (let j = 0; j < user.role.length; j++) {
-          if (roles[i].name === user.role[j].name) {
-            convertRoles.push(roles[i].id)
-          }
+      const getIdRole = roles.reduce((acc, item) => {
+        if (item['role-code'] === user.role.code)
+        {
+          acc = item._id
         }
-      }
+
+        return acc
+      }, '')
 
       dispatch({
         type: FETCH_EMPLOYEE_SUCCESS,
-        payload: { ...user, department: user.department.name, role: convertRoles }
+        payload: { ...user, department: user.department.name, role: getIdRole }
       })
     })
     .catch((err) => dispatch({ type: FETCH_EMPLOYEE_FAILURE, error: getErrorMsg(err) }))
@@ -73,14 +73,11 @@ const fetchEmployeeById = (id) => (roles) => (dispatch) => {
 
 const fetchEmployeeEdit = (editData) => (obj) => (dispatch) => {
   dispatch({ type: FETCH_EDIT_EMPLOYEE_REQUEST })
+
   const { departmentsObj, rolesObj } = obj
   const department = departmentsObj[editData.department] ? departmentsObj[editData.department] : editData.department
-
-  const roles = editData.roles.reduce((acc, item) => {
-    acc.push({ name: rolesObj[item].name, code: rolesObj[item].code })
-    return acc
-  }, [])
-  const changedData = { ...editData, department: { name: department }, roles }
+  const userRoles = convertRole({ rolesObj, data: editData })
+  const changedData = { ...editData, department: { name: department }, role: userRoles}
 
   editEmployee(changedData)
     .then(({ data: { user } }) => {

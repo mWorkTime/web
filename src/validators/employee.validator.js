@@ -1,6 +1,6 @@
 const dictionary = {
   mustBeGender: 'Пожалуйста, выберите пол',
-  mustBeRoles: 'Пожалуйста, выберите роль(и)',
+  mustBeRoles: 'Пожалуйста, выберите роль',
   mustBeDepartment: 'Пожалуйста, выберите отдел',
   mustBeSurname: 'Введите фамилию',
   mustBeSurnameThreeDigits: 'Фамилия должна состоять более чем с 3 символов, но не более 20',
