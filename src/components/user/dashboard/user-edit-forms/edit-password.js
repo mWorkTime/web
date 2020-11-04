@@ -2,11 +2,18 @@ import React from 'react'
 import { Button, Form, Input } from 'antd'
 import { formUserItems } from '../../../../items'
 import PropTypes from 'prop-types'
+import { fetchEditPassword } from '../../../../actions'
+import { useDispatch } from 'react-redux'
 
 const { editPassword } = formUserItems
 
-const EditPassword = ({ onFinish, disable }) => {
+const EditPassword = ({ disable }) => {
   const [form] = Form.useForm()
+  const dispatch = useDispatch()
+  const onFinishPassword = values => {
+    dispatch(fetchEditPassword(values))
+    form.resetFields()
+  }
 
   const renderItems = editPassword.map(({ key, name, label, dependencies, rules, placeholder, icon }) => (
     <Form.Item key={key} name={name}
@@ -19,7 +26,7 @@ const EditPassword = ({ onFinish, disable }) => {
 
   return (
     <Form form={form} name='form-edit-password'
-          layout="vertical" className='form--edit--password' onFinish={onFinish}>
+          layout="vertical" className='form--edit--password' onFinish={onFinishPassword}>
       {renderItems}
       <Form.Item>
         <Button type="primary" htmlType="submit" shape='round' disabled={disable}>
@@ -31,7 +38,6 @@ const EditPassword = ({ onFinish, disable }) => {
 }
 
 EditPassword.propTypes = {
-  onFinish: PropTypes.func.isRequired,
   disable: PropTypes.bool.isRequired
 }
 

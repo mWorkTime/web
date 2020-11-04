@@ -14,7 +14,7 @@ import {
  * @param {object} edit
  * @return {{edit: {disable: *, error: *, loading: *}}}
  */
-const updateData = (state,edit) => {
+const updateEditData = (state,edit) => {
   return {
     ...state,
     edit
@@ -60,19 +60,11 @@ const updateUserData = (state, action) => {
       error: action.error
     }
   case FETCH_USER_DATA_REQUEST:
-    return updateData(state.userData, { ...state.userData.edit, loading: true })
+    return updateEditData(state.userData, { ...state.userData.edit, loading: true })
   case FETCH_USER_DATA_SUCCESS:
-    return {
-      ...state.userData,
-      edit: {
-        ...state.userData.edit,
-        user: action.user,
-        error: null,
-        loading: false
-      }
-    }
+    return updateEditData(state.userData, {  ...state.userData.edit,  user: action.user, error: null, loading: false })
   case FETCH_USER_DATA_FAILURE:
-    return updateData(state.userData, { ...state.userData.edit, loading: false, error: action.error })
+    return updateEditData(state.userData, { ...state.userData.edit, loading: false, error: action.error })
   case FETCH_EDIT_USER_REGULAR_SUCCESS:
     return {
       ...state.userData,
@@ -83,15 +75,15 @@ const updateUserData = (state, action) => {
       }
     }
   case FETCH_EDIT_USER_REGULAR_FAILURE:
-    return updateData(state.userData, { ...state.userData.edit, error: action.error })
+    return updateEditData(state.userData, { ...state.userData.edit, error: action.error })
   case FETCH_CONFIRM_PASSWORD_SUCCESS:
-    return updateData(state.userData, { ...state.userData.edit, disable: false, error: null })
+    return updateEditData(state.userData, { ...state.userData.edit, disable: false, error: null })
   case FETCH_CONFIRM_PASSWORD_FAILURE:
-    return updateData(state.userData, {...state.userData.edit, error: action.error })
+    return updateEditData(state.userData, {...state.userData.edit, error: action.error })
   case FETCH_EDIT_PASSWORD_SUCCESS:
-    return updateData(state.userData, {...state.userData.edit, disable: true, error: null })
+    return updateEditData(state.userData, {...state.userData.edit, disable: true, error: null })
   case FETCH_EDIT_PASSWORD_FAILURE:
-    return updateData(state.userData, {...state.userData.edit, error: action.error })
+    return updateEditData(state.userData, {...state.userData.edit, error: action.error })
   case SET_AUTH_TOKEN:
     return {
       ...state.userData,
