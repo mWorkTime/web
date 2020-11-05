@@ -5,6 +5,7 @@ import updateUserData from './user.reducer'
 import updateEmployeeData from './employee.reducer'
 import updateDepartmentData from './department.reducer'
 import updateRoleData from './role.reducer'
+import updatePaginationData from './pagination.reducer'
 
 const Reducer = (state, action) => {
   return {
@@ -14,7 +15,8 @@ const Reducer = (state, action) => {
     userData: updateUserData(state, action),
     employeeData: updateEmployeeData(state, action),
     departmentData: updateDepartmentData(state, action),
-    roleData: updateRoleData(state, action)
+    roleData: updateRoleData(state, action),
+    paginationData: updatePaginationData(state, action)
   }
 }
 

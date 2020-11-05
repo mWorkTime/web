@@ -49,7 +49,7 @@ const updateEmployeeData = (state, action) => {
   case FETCH_ALL_EMPLOYEES_REQUEST:
     return {
       ...state.employeeData,
-      loading: true,
+      loading: true
     }
   case FETCH_ALL_EMPLOYEES_SUCCESS:
     const { total, managers, workers, owners, payload } = action
@@ -110,7 +110,7 @@ const updateEmployeeData = (state, action) => {
 
     return {
       ...state.employeeData,
-      employees:  updateEmployee(state.employeeData.employees, employee, findIndex),
+      employees: updateEmployee(state.employeeData.employees, employee, findIndex),
       disable: false
     }
   case FETCH_EDIT_EMPLOYEE_FAILURE:
@@ -124,12 +124,12 @@ const updateEmployeeData = (state, action) => {
     const findIndexOld = state.employeeData.employees.findIndex(({ id }) => id === newEmployee.id)
     return {
       ...state.employeeData,
-      employees:  updateEmployee(state.employeeData.employees, newEmployee, findIndexOld),
+      employees: updateEmployee(state.employeeData.employees, newEmployee, findIndexOld)
     }
   case FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE:
     return {
       ...state.employeeData,
-      error: action.error,
+      error: action.error
     }
   case SET_MODAL_CREATE_ACTIVE:
     return {

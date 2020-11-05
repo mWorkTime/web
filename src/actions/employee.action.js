@@ -5,7 +5,7 @@ import {
   FETCH_EMPLOYEE_FAILURE, FETCH_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_SUCCESS,
   FETCH_EDIT_EMPLOYEE_REQUEST, FETCH_EDIT_EMPLOYEE_SUCCESS,
   FETCH_EDIT_EMPLOYEE_FAILURE, FETCH_DISMISS_OR_RECOVER_EMPLOYEE_SUCCESS,
-  FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE
+  FETCH_DISMISS_OR_RECOVER_EMPLOYEE_FAILURE, SET_PAGINATION_EMPLOYEES
 } from '../types'
 import {
   createEmployee,
@@ -17,18 +17,20 @@ import {
 } from '../services/employee.service'
 import { getErrorMsg, normalizeEmployeeObject, convertRole } from '../utils'
 
-const fetchAllEmployees = () => (dispatch) => {
+const fetchAllEmployees = (queryParams) => (dispatch) => {
   dispatch({ type: FETCH_ALL_EMPLOYEES_REQUEST })
-  getAllEmployees()
-    .then(({ data: { employees, quantity: { total, managers, owners, workers } } }) => {
+
+  getAllEmployees(queryParams)
+    .then(({ data: { employees, quantity: { total, managers, owners, workers }, currentPage } }) => {
       const convertEmployees = employees.reduce((acc, employee) => {
         acc.push({
           ...employee, createdAt: new Date(employee.createdAt).toLocaleDateString(),
-          department: employee.department.name, key: employee.id
+          department: employee.department.name
         })
         return acc
       }, [])
       dispatch({ type: FETCH_ALL_EMPLOYEES_SUCCESS, payload: convertEmployees, total, managers, owners, workers })
+      dispatch({ type: SET_PAGINATION_EMPLOYEES, total, curPage: currentPage })
     })
     .catch((err) => {
       dispatch({ type: FETCH_ALL_EMPLOYEES_FAILURE, error: getErrorMsg(err) })
@@ -42,7 +44,7 @@ const fetchCreateEmployee = (userData) => (obj) => (dispatch) => {
   dispatch({ type: FETCH_CREATE_EMPLOYEE_REQUEST })
   createEmployee(convertingData)
     .then(() => {
-      dispatch(fetchAllEmployees())
+      dispatch(fetchAllEmployees({ currentPage: 1, limit: 10 }))
       dispatch({ type: FETCH_CREATE_EMPLOYEE_SUCCESS })
     })
     .catch((err) => {

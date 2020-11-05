@@ -1,7 +1,8 @@
 import api from '../axios/axios-app'
 
-export const getAllEmployees = () => {
-  return api.get('/employee')
+export const getAllEmployees = (query) => {
+  const { currentPage, limit } = query
+  return api.get(`/employee?currentPage=${currentPage}&limit=${limit}`)
 }
 
 export const createEmployee = (data) => {

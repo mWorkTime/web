@@ -19,20 +19,36 @@ import { showDismissConfirm, showRecoverConfirm } from './employee-modal-confirm
 const { Title } = Typography
 
 const UserEmployees = () => {
-  const { sidebarUser: { active }, employeeData: { employees, quantity, loading }, userData: { organization } } = useSelector((state) => state)
+  const { sidebarUser: { active }, employeeData: { employees, quantity, loading }, paginationData: { paginationEmployees }, userData: { organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
   const nameOrg = organization?.name || moduleLocalStorage.getItem('nameOrg')
   const [userId, setUserId] = useState('')
 
   useEffect(() => {
     if (!employees) {
-      dispatch(fetchAllEmployees())
+      const { currentPage, pageSize } = paginationEmployees
+      const queryParams = { currentPage, limit: pageSize }
+      dispatch(fetchAllEmployees(queryParams))
     }
-  }, [dispatch, employees])
+  }, [dispatch, paginationEmployees, employees])
 
   const showModal = (id) => {
     setUserId(id)
     dispatch({ type: SET_MODAL_EDIT_ACTIVE })
+  }
+
+  const getUsersByParams = params => {
+    return {
+      results: params.pagination.pageSize,
+      page: params.pagination.current,
+      ...params
+    }
+  }
+
+  const handleTableChange = (pagination) => {
+    const { results, page } = getUsersByParams({ pagination })
+    const queryParams = { currentPage: page, limit: results }
+    dispatch(fetchAllEmployees(queryParams))
   }
 
   return (
@@ -66,7 +82,11 @@ const UserEmployees = () => {
             </div>
           </div>
           <div className="employees--wrapper__content">
-            <Table dataSource={employees} columns={getEmployeeColumns(showModal, showDismissConfirm, showRecoverConfirm)} scroll={{ x: 600 }}
+            <Table dataSource={employees} rowKey={record => record.id}
+                   columns={getEmployeeColumns(showModal, showDismissConfirm, showRecoverConfirm)}
+                   scroll={{ x: 600 }}
+                   pagination={paginationEmployees}
+                   onChange={handleTableChange}
                    loading={loading} />
           </div>
         </div>
