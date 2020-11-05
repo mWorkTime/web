@@ -3,5 +3,6 @@ export const dictionaryRoles = {
   Admin: 'Администратор',
   Manager: 'Управляющий',
   Owner: 'Основатель',
-  Moderator: 'Редактор'
+  Moderator: 'Редактор',
+  'Interim-manager': 'Временный управляющий'
 }

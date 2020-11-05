@@ -19,7 +19,7 @@
     background: $primary-background-color;
     border: 1px solid $border-color;
     border-radius: 10px;
-    margin: 30px;
+    margin: 30px 30px 20px 30px;
     display: flex;
     justify-content: space-between;
     z-index: 1;
@@ -119,13 +119,13 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     .dashboard--content__box {
       background: $primary-background-color;
       position: relative;
       width: 400px;
-      margin: 20px 5px 0 0;
+      margin: 20px;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -227,11 +227,57 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
   .dashboard--wrapper {
+    .dashboard--wrapper__top {
+      margin: 30px 30px 20px 30px;
+    }
+
     .dashboard--wrapper__content {
       .dashboard--content__box {
-        margin: 10px 0 0 0;
+        margin: 20px 0;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+  .dashboard--wrapper {
+    .dashboard--wrapper__top {
+      margin: 30px 0 15px 0;
+      .dashboard--top__ls {
+        .top--ls__header {
+          .top--ls__title {
+            font-size: 22px;
+          }
+        }
+
+        .top--ls__info {
+          border: 1px solid $border-color;
+          border-radius: 10px;
+          overflow: hidden;
+
+          .top--ls--info__header {
+            padding: 10px 0 10px 0;
+            text-align: center;
+            font-size: 16px;
+          }
+
+
+          .top--info__buttons {
+            a {
+              padding: 10px 0 15px 0;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    .dashboard--wrapper__content {
+      .dashboard--content__box {
+        margin: 15px 0;
         width: 100%;
         .content--box__ts {
           .content--ts__rs {
@@ -242,6 +288,12 @@
             }
           }
         }
+        .content--box__btn {
+          a {
+            padding: 10px 0;
+            text-align: center;
+          }
+        }
       }
     }
   }
@@ -250,7 +302,6 @@
 @media screen and (max-width: 480px) {
   .dashboard--wrapper {
     .dashboard--wrapper__top {
-      margin: 30px 0;
       .dashboard--top__ls {
         padding: 0 15px 15px 15px;
         .top--ls__header {

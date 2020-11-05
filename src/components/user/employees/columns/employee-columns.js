@@ -42,7 +42,7 @@ export const getEmployeeColumns = (funcEdit, funcDel, funcRec) => [
     title: 'Роль',
     dataIndex: 'role',
     key: 'role',
-    width: 120,
+    width: 200,
     render: role => generateRoleTags(role)
   },
   {

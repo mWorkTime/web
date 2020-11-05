@@ -5,8 +5,9 @@
  */
 export const getColorByCode = (code) => {
   let color
-
-  if (+code === 2) {
+  if (+code === 1) {
+    color = 'magenta'
+  } else if (+code === 2) {
     color = 'green'
   } else if (+code === 3) {
     color = 'gold'
