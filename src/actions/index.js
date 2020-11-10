@@ -13,6 +13,7 @@ import { fetchAllEmployees, fetchCreateEmployee,
          fetchEmployeeDismiss, fetchEmployeeRecover } from './employee.action'
 import { fetchAllDepartments, fetchCreateDepartment, showFormDepartment } from './department.action'
 import { fetchAllRole } from './role.action'
+import { fetchAllTasks } from './task.action'
 
 export {
   registerUser,
@@ -37,6 +38,7 @@ export {
   fetchEditUserRegular,
   fetchConfirmPassword,
   fetchEditPassword,
+  fetchAllTasks,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,
