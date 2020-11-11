@@ -4,9 +4,10 @@ const updateTaskData = (state, action) => {
   if (state === undefined) {
     return {
       employees: null,
+      role: 0,
       tasks: null,
       loading: false,
-      error: null,
+      error: null
     }
   }
 
@@ -21,6 +22,7 @@ const updateTaskData = (state, action) => {
       ...state.taskData,
       loading: false,
       error: null,
+      role: action.role,
       employees: action.employees,
       tasks: action.tasks
     }
