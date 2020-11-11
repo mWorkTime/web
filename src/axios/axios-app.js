@@ -52,6 +52,7 @@ api.interceptors.response.use((res) => {
     const currentToken =  moduleLocalStorage.getItem('token')
     const refresh = moduleLocalStorage.getItem('refresh')
     const nameOrg = moduleLocalStorage.getItem('nameOrg')
+    const name = moduleLocalStorage.getItem('name')
 
     if (!currentToken) {
       return Promise.reject(err)
@@ -60,7 +61,7 @@ api.interceptors.response.use((res) => {
     if (!isRefreshRequesting) {
       isRefreshRequesting = true
 
-      api.post('/auth/refresh', { refresh, nameOrg })
+      api.post('/auth/refresh', { refresh, nameOrg, name })
         .then((resp) => {
           store.dispatch(setAuthToken(resp.data.token))
 

@@ -7,6 +7,7 @@ import { moduleLocalStorage } from '../services/local-storage.service'
 export const clearLocalStorage = () => {
   moduleLocalStorage.removeItem('refresh')
   moduleLocalStorage.removeItem('user')
+  moduleLocalStorage.removeItem('name')
   moduleLocalStorage.removeItem('exp')
   moduleLocalStorage.removeItem('token')
   moduleLocalStorage.removeItem('nameOrg')
@@ -22,6 +23,7 @@ export const setLocalStorage = (data) => {
   moduleLocalStorage.setItem('user', data.user)
   moduleLocalStorage.setItem('refresh', data.refresh || Math.floor(Date.now() / 1000) + refreshTime)
   moduleLocalStorage.setItem('exp', data.exp)
+  moduleLocalStorage.setItem('name', data.name)
   moduleLocalStorage.setItem('nameOrg', data.nameOrg)
   moduleLocalStorage.setItem('token', data.token)
 }
