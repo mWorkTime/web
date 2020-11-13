@@ -1,5 +1,23 @@
 @import "../shared/variables";
 
+.modal--empty {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dotted $border-color;
+  .modal--empty__icon {
+    font-size: 24px;
+  }
+  .modal--empty__text {
+    font-size: 16px;
+    color: $primary-text-color;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
 .modal--comments {
   margin: 25px 0;
   .comments--box {
@@ -48,6 +66,17 @@
       font-size: 12px;
       font-weight: 600;
     }
+  }
 }
 
+@media screen and (max-width: 480px) {
+  .modal--empty {
+    .modal--empty__icon {
+      font-size: 20px;
+    }
+    .modal--empty__text {
+      font-size: 14px;
+    }
+  }
 }
+

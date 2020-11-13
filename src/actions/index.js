@@ -6,14 +6,18 @@ import {
   getNewConfirmLink
 } from './confirm.action'
 import { toggleSidebar, hideSidebar, showSidebar } from './sidebar.action'
-import { fetchUserRequest, setAuthToken, fetchUserData,
-  fetchEditUserRegular, fetchConfirmPassword, fetchEditPassword } from './user.action'
-import { fetchAllEmployees, fetchCreateEmployee,
-         fetchEmployeeById, fetchEmployeeEdit,
-         fetchEmployeeDismiss, fetchEmployeeRecover } from './employee.action'
+import {
+  fetchUserRequest, setAuthToken, fetchUserData,
+  fetchEditUserRegular, fetchConfirmPassword, fetchEditPassword
+} from './user.action'
+import {
+  fetchAllEmployees, fetchCreateEmployee,
+  fetchEmployeeById, fetchEmployeeEdit,
+  fetchEmployeeDismiss, fetchEmployeeRecover
+} from './employee.action'
 import { fetchAllDepartments, fetchCreateDepartment, showFormDepartment } from './department.action'
 import { fetchAllRole } from './role.action'
-import { fetchAllTasks, fetchEmployeesByDepartment } from './task.action'
+import { fetchAllTasks, fetchEmployeesByDepartment, showComment } from './task.action'
 
 export {
   registerUser,
@@ -40,6 +44,7 @@ export {
   fetchEditPassword,
   fetchAllTasks,
   fetchEmployeesByDepartment,
+  showComment,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,

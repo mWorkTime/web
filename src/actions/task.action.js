@@ -1,6 +1,7 @@
-import { FETCH_ALL_TASKS_REQUEST, FETCH_ALL_TASKS_SUCCESS, FETCH_ALL_TASKS_FAILURE,
+import {
+  FETCH_ALL_TASKS_REQUEST, FETCH_ALL_TASKS_SUCCESS, FETCH_ALL_TASKS_FAILURE,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
-  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE
+  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, SHOW_MODAL_COMMENTS
 } from '../types'
 import { getAllTasks, getEmployeesByDepartment } from '../services/task.service'
 import { getErrorMsg } from '../utils'
@@ -44,7 +45,12 @@ const fetchEmployeesByDepartment = (values) => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, error: getErrorMsg(err)}) )
 }
 
+const showComment = (commentId) => (dispatch) => {
+  dispatch({ type: SHOW_MODAL_COMMENTS, id: commentId })
+}
+
 export {
   fetchAllTasks,
-  fetchEmployeesByDepartment
+  fetchEmployeesByDepartment,
+  showComment
 }
