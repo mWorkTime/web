@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import Tasks from '../../layouts/user/tasks'
 import { useDispatch, useSelector } from 'react-redux'
-import UserHeader from '../user-header'
 import { fetchAllTasks, fetchAllDepartments } from '../../../actions'
 import { renderListEmployees } from './render-list-employees'
 import { Form, Button } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
+import Tasks from '../../layouts/user/tasks'
+import UserHeader from '../user-header'
 import FormChooseDepartment from './form-choose-department'
 import Loader from '../../loader/loader'
+import ModalComments from './comments/modal-comments'
+import { SHOW_MODAL_COMMENTS } from '../../../types'
 
 const UserTasks = () => {
   const { sidebarUser: { active }, taskData: { loading, employees, role }, departmentData: { departments } } = useSelector(state => state)
@@ -91,7 +93,7 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment">Прочитать комментарии</div>
+                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -117,7 +119,7 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment">Прочитать комментарии</div>
+                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -143,7 +145,7 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment">Прочитать комментарии</div>
+                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -169,7 +171,7 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment">Прочитать комментарии</div>
+                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -182,6 +184,7 @@ const UserTasks = () => {
           </div>
         </div>
       </div>
+      <ModalComments/>
     </Tasks>
   )
 }
