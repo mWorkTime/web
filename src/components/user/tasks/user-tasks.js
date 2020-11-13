@@ -4,15 +4,18 @@ import { fetchAllTasks, fetchAllDepartments } from '../../../actions'
 import { renderListEmployees } from './render-list-employees'
 import { Form, Button } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
+import { SHOW_MODAL_COMMENTS } from '../../../types'
 import Tasks from '../../layouts/user/tasks'
 import UserHeader from '../user-header'
 import FormChooseDepartment from './form-choose-department'
 import Loader from '../../loader/loader'
 import ModalComments from './comments/modal-comments'
-import { SHOW_MODAL_COMMENTS } from '../../../types'
 
 const UserTasks = () => {
-  const { sidebarUser: { active }, taskData: { loading, employees, role }, departmentData: { departments } } = useSelector(state => state)
+  const {
+    sidebarUser: { active }, taskData: { loading, employees, role, loadingEmployees },
+    departmentData: { departments }
+  } = useSelector(state => state)
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
   const [form] = Form.useForm()
@@ -38,7 +41,7 @@ const UserTasks = () => {
         <div className="tasks--wrapper">
           {
             loading
-              ? <Loader />
+              ? <Loader height={'100vh'} />
               : null
           }
           {
@@ -54,7 +57,7 @@ const UserTasks = () => {
           <div className="tasks--wrapper--content">
 
             {
-              !loading && employees && Array.isArray(employees) && employees.length > 0
+              employees && Array.isArray(employees) && employees.length > 0
                 ? <>
                   <div className="wrapper--content--ls">
                     <div className="content--ls__title">
@@ -68,6 +71,8 @@ const UserTasks = () => {
 
                   </div>
                 </>
+                : loadingEmployees ?
+                <Loader height={'50vh'}/>
                 : null
             }
             <div className="content--tasks">
@@ -93,7 +98,9 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
+                    <div className="board--info__comment"
+                         onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии
+                    </div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -119,7 +126,9 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
+                    <div className="board--info__comment"
+                         onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии
+                    </div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -145,7 +154,9 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
+                    <div className="board--info__comment"
+                         onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии
+                    </div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -171,7 +182,9 @@ const UserTasks = () => {
                       <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
                         файлы </Button>
                     </div>
-                    <div className="board--info__comment" onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии</div>
+                    <div className="board--info__comment"
+                         onClick={() => dispatch({ type: SHOW_MODAL_COMMENTS })}>Прочитать комментарии
+                    </div>
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
@@ -184,7 +197,7 @@ const UserTasks = () => {
           </div>
         </div>
       </div>
-      <ModalComments/>
+      <ModalComments />
     </Tasks>
   )
 }
