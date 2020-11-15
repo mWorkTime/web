@@ -103,7 +103,7 @@ const UserTasks = () => {
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
-                      <Button className='board--btn finish' disabled shape='round'>Завершить задание</Button>
+                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить задание</Button>
                     </div>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ const UserTasks = () => {
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
-                      <Button className='board--btn finish' disabled shape='round'>Завершить задание</Button>
+                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить задание</Button>
                     </div>
                   </div>
                 </div>
