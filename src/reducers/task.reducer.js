@@ -1,9 +1,13 @@
 import {
   FETCH_ALL_TASKS_REQUEST, FETCH_ALL_TASKS_SUCCESS,
-  FETCH_ALL_TASKS_FAILURE, SHOW_MODAL_COMMENTS, HIDE_MODAL_COMMENTS,
+  FETCH_ALL_TASKS_FAILURE, SHOW_MODAL_TASK, HIDE_MODAL_TASK,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
   FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE
 } from '../types'
+
+const showOrHideModal = (payload, str, value, state) => {
+  return payload === str ? value : state
+}
 
 const updateTaskData = (state, action) => {
   if (state === undefined) {
@@ -14,6 +18,10 @@ const updateTaskData = (state, action) => {
       loading: false,
       loadingEmployees: false,
       commentId: '',
+      userId: '',
+      modalComments: false,
+      modalTask: false,
+      error: null,
       comments: {
         '2324fdf': [
           {
@@ -53,9 +61,7 @@ const updateTaskData = (state, action) => {
             createdAt: '11/13/2020, 1:35:34 PM'
           }
         ]
-      },
-      modalComments: false,
-      error: null
+      }
     }
   }
 
@@ -98,16 +104,19 @@ const updateTaskData = (state, action) => {
       loadingEmployees: false,
       error: action.error
     }
-  case SHOW_MODAL_COMMENTS:
+  case SHOW_MODAL_TASK:
     return {
       ...state.taskData,
-      modalComments: true,
-      commentId: action.id
+      modalComments: showOrHideModal(action.payload, 'comments', true, state.taskData.modalComments),
+      modalTask: showOrHideModal(action.payload, 'task', true, state.taskData.modalTask),
+      commentId: action.id ? action.id : state.taskData.commentId,
+      userId: action.user_id ? action.user_id : state.taskData.userId
     }
-  case HIDE_MODAL_COMMENTS:
+  case HIDE_MODAL_TASK:
     return {
       ...state.taskData,
-      modalComments: false
+      modalComments: showOrHideModal(action.payload, 'comments', false, state.taskData.modalComments),
+      modalTask: showOrHideModal(action.payload, 'task', false, state.taskData.modalTask)
     }
   default:
     return state.taskData

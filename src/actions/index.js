@@ -17,7 +17,7 @@ import {
 } from './employee.action'
 import { fetchAllDepartments, fetchCreateDepartment, showFormDepartment } from './department.action'
 import { fetchAllRole } from './role.action'
-import { fetchAllTasks, fetchEmployeesByDepartment, showComment } from './task.action'
+import { fetchAllTasks, fetchEmployeesByDepartment, showComment, showCreateTask } from './task.action'
 
 export {
   registerUser,
@@ -45,6 +45,7 @@ export {
   fetchAllTasks,
   fetchEmployeesByDepartment,
   showComment,
+  showCreateTask,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,

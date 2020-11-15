@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllTasks, fetchAllDepartments, showComment } from '../../../actions'
+import { fetchAllTasks, fetchAllDepartments, showComment, showCreateTask } from '../../../actions'
 import { renderListEmployees } from './render-list-employees'
 import { Form, Button } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
@@ -9,6 +9,7 @@ import UserHeader from '../user-header'
 import FormChooseDepartment from './form-choose-department'
 import Loader from '../../loader/loader'
 import ModalComments from './comments/modal-comments'
+import TaskCreate from './task-create'
 
 const UserTasks = () => {
   const {
@@ -31,6 +32,10 @@ const UserTasks = () => {
 
   const handleVisible = () => {
     setVisible(!visible)
+  }
+
+  const handleActive = (id) => {
+    dispatch(showCreateTask(id))
   }
 
   return (
@@ -63,7 +68,7 @@ const UserTasks = () => {
                       Выберите рабочего и добавьте ему задачу
                     </div>
                     <div className="content-ls--list">
-                      {renderListEmployees(employees)}
+                      {renderListEmployees(employees, handleActive)}
                     </div>
                   </div>
                   <div className="wrapper--content--rs">
@@ -71,7 +76,7 @@ const UserTasks = () => {
                   </div>
                 </>
                 : loadingEmployees ?
-                <Loader height={'50vh'}/>
+                <Loader height={'50vh'} />
                 : null
             }
             <div className="content--tasks">
@@ -103,7 +108,8 @@ const UserTasks = () => {
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
-                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить задание</Button>
+                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить
+                        задание</Button>
                     </div>
                   </div>
                 </div>
@@ -131,7 +137,8 @@ const UserTasks = () => {
                     <div className="tasks--board__buttons">
                       <Button className='board--btn start' shape='round'>Начать выполнение</Button>
                       <Button className='board--btn review' shape='round'>Отправить на проверку</Button>
-                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить задание</Button>
+                      <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить
+                        задание</Button>
                     </div>
                   </div>
                 </div>
@@ -141,6 +148,7 @@ const UserTasks = () => {
         </div>
       </div>
       <ModalComments />
+      <TaskCreate />
     </Tasks>
   )
 }

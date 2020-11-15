@@ -1,13 +1,13 @@
 import React from 'react'
 import { Modal, Button } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { HIDE_MODAL_COMMENTS } from '../../../../types'
+import { HIDE_MODAL_TASK } from '../../../../types'
 import { DownloadOutlined, SmileTwoTone } from '@ant-design/icons'
 
 const ModalComments = () => {
   const { taskData: { modalComments, commentId, comments } } = useSelector(state => state)
   const dispatch = useDispatch()
-  const hideModal = () => dispatch({ type: HIDE_MODAL_COMMENTS })
+  const hideModal = () => dispatch({ type: HIDE_MODAL_TASK, payload: 'comments' })
 
   const renderComments = (id) => {
     return comments[id].map(({ key, createdBy, about, createdAt }) => (
