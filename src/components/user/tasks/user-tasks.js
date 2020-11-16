@@ -49,7 +49,7 @@ const UserTasks = () => {
               : null
           }
           {
-            role === 3
+            role === 3 && departments
               ? <div className="tasks--wrapper--top">
                 <div className='wrapper--top__title'>Вы являетесь основателем и Вы можете выбрать отдел с работниками и
                   выдать им задания.

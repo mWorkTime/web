@@ -2,7 +2,8 @@ import {
   FETCH_ALL_TASKS_REQUEST, FETCH_ALL_TASKS_SUCCESS,
   FETCH_ALL_TASKS_FAILURE, SHOW_MODAL_TASK, HIDE_MODAL_TASK,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
-  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE
+  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, FETCH_CREATE_TASK_SUCCESS,
+  FETCH_CREATE_TASK_FAILURE
 } from '../types'
 
 const showOrHideModal = (payload, str, value, state) => {
@@ -17,9 +18,11 @@ const updateTaskData = (state, action) => {
       tasks: null,
       loading: false,
       loadingEmployees: false,
+      user: '',
       commentId: '',
       userId: '',
       modalComments: false,
+      disable: false,
       modalTask: false,
       error: null,
       comments: {
@@ -78,6 +81,7 @@ const updateTaskData = (state, action) => {
       error: null,
       role: action.role,
       employees: action.employees,
+      user: action.name,
       tasks: action.tasks
     }
   case FETCH_ALL_TASKS_FAILURE:
@@ -102,6 +106,16 @@ const updateTaskData = (state, action) => {
     return {
       ...state.taskData,
       loadingEmployees: false,
+      error: action.error
+    }
+  case FETCH_CREATE_TASK_SUCCESS:
+    return {
+      ...state.taskData,
+      disable: true
+    }
+  case FETCH_CREATE_TASK_FAILURE:
+    return {
+      ...state.taskData,
       error: action.error
     }
   case SHOW_MODAL_TASK:

@@ -1,9 +1,10 @@
 import {
   FETCH_ALL_TASKS_REQUEST, FETCH_ALL_TASKS_SUCCESS, FETCH_ALL_TASKS_FAILURE,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
-  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, SHOW_MODAL_TASK
+  FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, SHOW_MODAL_TASK, FETCH_CREATE_TASK_SUCCESS,
+  FETCH_CREATE_TASK_FAILURE
 } from '../types'
-import { getAllTasks, getEmployeesByDepartment } from '../services/task.service'
+import { createTask, getAllTasks, getEmployeesByDepartment } from '../services/task.service'
 import { getErrorMsg } from '../utils'
 import { dictionaryRoles } from '../items'
 
@@ -27,7 +28,7 @@ const fetchAllTasks = () => (dispatch) => {
       }
 
       dispatch({ type: FETCH_ALL_TASKS_SUCCESS, employees: convertEmployees,
-        tasks: data?.tasks || [], role: data.role })
+        tasks: data?.tasks || [], role: data.role, name: data.name })
     })
     .catch((err) => dispatch({ type: FETCH_ALL_TASKS_FAILURE, error: getErrorMsg(err)}))
 }
@@ -45,6 +46,20 @@ const fetchEmployeesByDepartment = (values) => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, error: getErrorMsg(err)}) )
 }
 
+const fetchCreateTask = (fieldsValue) => () => (dispatch) => {
+    const rangeTimeValue = fieldsValue['runtime'];
+    const values = {
+      ...fieldsValue,
+      runtime: [
+        rangeTimeValue[0].format('DD.MM.YYYY HH:mm:ss'),
+        rangeTimeValue[1].format('DD.MM.YYYY HH:mm:ss'),
+      ]
+    };
+  createTask(values)
+    .then(({ data }) => dispatch({ type: FETCH_CREATE_TASK_SUCCESS }))
+    .catch((err) => dispatch({ type: FETCH_CREATE_TASK_FAILURE, error: getErrorMsg(err)}))
+}
+
 const showComment = (commentId) => (dispatch) => {
   dispatch({ type: SHOW_MODAL_TASK, id: commentId, payload: 'comments' })
 }
@@ -57,5 +72,6 @@ export {
   fetchAllTasks,
   fetchEmployeesByDepartment,
   showComment,
-  showCreateTask
+  showCreateTask,
+  fetchCreateTask
 }

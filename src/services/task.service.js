@@ -7,3 +7,7 @@ export const getAllTasks = () => {
 export const getEmployeesByDepartment = (data) => {
   return api.post('/task/employees', data)
 }
+
+export const createTask = (data) => {
+  return api.post('/task/create', data)
+}
