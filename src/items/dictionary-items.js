@@ -6,3 +6,10 @@ export const dictionaryRoles = {
   Moderator: 'Редактор',
   'Interim-manager': 'Временный управляющий'
 }
+
+export const dictionaryPriority = {
+  0: 'Низкий',
+  1: 'Средний',
+  2: 'Высокий',
+  3: 'Очень высокий'
+}
