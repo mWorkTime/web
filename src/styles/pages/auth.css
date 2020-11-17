@@ -1,0 +1,98 @@
+@import "../shared/_variables.css";
+
+.auth--background {
+	height: 100%;
+}
+
+.auth--background:before {
+	content: '';
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: url("../../images/auth/investment.svg") right no-repeat;
+	background-size: auto;
+}
+
+.auth--wrapper {
+	height: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.auth--wrapper__content {
+	width: 475px;
+	background-color: #fff;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.auth--wrapper__content .auth--wrapper__title {
+	font-size: 28px;
+	text-align: center;
+	color: var(--primary-text-color);
+}
+
+.form--login .form--login__input label, .form--register .form--register__input label {
+	color: var(--primary-text-color);
+}
+
+.ant-form-item-label label {
+	color: var(--primary-text-color);
+}
+
+.ant-form-item-control .ant-input-affix-wrapper,
+.ant-form-item-control input {
+	color: var(--primary-text-color);
+}
+
+.form--auth__buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.form--register__button, .form--login__button {
+	width: 60%;
+}
+
+.form--register__link, .form--login__link {
+	padding-top: 10px;
+}
+
+.auth--wrapper__resend  {
+	width: 475px;
+	padding: 20px;
+	margin-top: 50px;
+	background: #fff;
+	border-radius: 15px;
+	box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.23);
+}
+
+.resend--link .resend--link__title {
+	font-size: 24px;
+	color: var(--primary-text-color);
+}
+
+.form--resend__input .ant-form-item-label label,
+.form--resend__input .ant-form-item-label input,
+.ant-form-item-control .ant-input-affix-wrapper {
+	color: var(--primary-text-color);
+}
+
+.form--resend--buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.form--resend--buttons .form--resend__btn {
+	padding: 0 50px;
+}
+
+@media screen and (max-width: 576px) {
+	.auth--wrapper__content, .auth--wrapper__resend  {
+		width: 100%;
+	}
+}

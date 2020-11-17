@@ -1,0 +1,140 @@
+@import "../shared/_variables.css";
+
+.user--edit--wrapper {
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.user--edit--wrapper .user--edit {
+  max-width: 1000px;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+}
+
+.user--edit--wrapper .user--edit .user--edit--header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+}
+
+.user--edit--wrapper .user--edit .user--edit--header .user--header__title {
+  color: var(--primary-text-color);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--loader {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--ls {
+  padding: 30px;
+  border-right: 1px solid var(--border-color);
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--ls .form--edit--regular {
+  width: 300px;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--rs {
+  padding: 30px;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--title {
+  display: none;
+}
+
+.user--edit--wrapper .user--edit .user--edit--content .user--content--rs .form--check--password,
+.user--edit--wrapper .user--edit .user--edit--content .user--content--rs .form--edit--password {
+  width: 300px;
+}
+
+@media screen and (max-width: 1200px) {
+  .user--edit--wrapper {
+    padding: 30px 5px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .user--edit--wrapper {
+    padding: 30px;
+    width: 100%;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--header .user--header__title {
+    text-align: center;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content {
+    flex-direction: column;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--loader {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--ls {
+    border: 0;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--ls .form--edit--regular {
+    width: 100%;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs {
+    border-top: 1px solid var(--border-color);
+    padding: 0;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--title {
+    display: block;
+    font-size: 24px;
+    color: var(--primary-text-color);
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--top,
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--bottom {
+    padding: 30px;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .form--check--password,
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .form--edit--password {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .user--edit--wrapper {
+    padding: 20px 0;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--header .user--header__title {
+    font-size: 20px;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--title {
+    font-size: 20px;
+  }
+
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--top,
+  .user--edit--wrapper .user--edit .user--edit--content .user--content--rs .content--rs--bottom  {
+    padding: 15px;
+  }
+}

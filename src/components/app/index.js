@@ -4,7 +4,7 @@ import { useRoutes } from '../../routes'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAuthToken } from '../../actions'
 
-import '../../styles/global.scss'
+import '../../styles/global.css'
 
 function App() {
   const state = useSelector(({ userData }) => userData)
