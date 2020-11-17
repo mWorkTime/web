@@ -3,7 +3,7 @@ import {
   FETCH_ALL_TASKS_FAILURE, SHOW_MODAL_TASK, HIDE_MODAL_TASK,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
   FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, FETCH_CREATE_TASK_SUCCESS,
-  FETCH_CREATE_TASK_FAILURE
+  FETCH_CREATE_TASK_FAILURE, FETCH_UPLOAD_FILE_SUCCESS, SET_CLEAR_FORM
 } from '../types'
 
 const showOrHideModal = (payload, str, value, state) => {
@@ -21,50 +21,13 @@ const updateTaskData = (state, action) => {
       user: '',
       commentId: '',
       userId: '',
+      taskId: '',
       modalComments: false,
       disable: false,
       modalTask: false,
+      clearForm: false,
       error: null,
-      comments: {
-        '2324fdf': [
-          {
-            key: '9k9090k9',
-            createdBy: 'Илья Шараевский',
-            about: `Создайте, измените или увольте - работника. 
-            Выберите для них роль "Работник", "Временный управляющий", "Управляющий".`,
-            createdAt: '11/4/2020, 6:25:25 PM'
-          },
-          {
-            key: '92923-dfd',
-            createdBy: 'Илья Шараевский',
-            about: `Создайте, измените или увольте - работника. 
-            Выберите для них роль "Работник"`,
-            createdAt: '11/7/2020, 7:25:34 PM'
-          }],
-        'ju27ye23': [
-          {
-            key: 'h828ddf',
-            createdBy: 'Илья Шараевский',
-            about: `Создайте, измените или увольте - работника. 
-            Выберите для них роль "Работник", "Временный управляющий", "Управляющий".`,
-            createdAt: '11/10/2020, 9:25:25 PM'
-          },
-          {
-            key: 'llsdsjb3',
-            createdBy: 'Илья Шараевский',
-            about: `Создайте, измените или увольте - работника. 
-            Выберите для них роль "Работник"`,
-            createdAt: '11/12/2020, 7:25:34 PM'
-          },
-          {
-            key: 'hbhiiu82',
-            createdBy: 'Илья Шараевский',
-            about: `Создайте, измените или увольте - работника. 
-            Выберите для них роль "Работник"`,
-            createdAt: '11/13/2020, 1:35:34 PM'
-          }
-        ]
-      }
+      comments: {}
     }
   }
 
@@ -111,12 +74,24 @@ const updateTaskData = (state, action) => {
   case FETCH_CREATE_TASK_SUCCESS:
     return {
       ...state.taskData,
-      disable: true
+      disable: true,
+      taskId: action.id
     }
   case FETCH_CREATE_TASK_FAILURE:
     return {
       ...state.taskData,
       error: action.error
+    }
+  case FETCH_UPLOAD_FILE_SUCCESS:
+    return {
+      ...state.taskData,
+      clearForm: true,
+      disable: false
+    }
+  case SET_CLEAR_FORM:
+    return {
+      ...state.taskData,
+      clearForm: false
     }
   case SHOW_MODAL_TASK:
     return {
@@ -124,11 +99,13 @@ const updateTaskData = (state, action) => {
       modalComments: showOrHideModal(action.payload, 'comments', true, state.taskData.modalComments),
       modalTask: showOrHideModal(action.payload, 'task', true, state.taskData.modalTask),
       commentId: action.id ? action.id : state.taskData.commentId,
-      userId: action.user_id ? action.user_id : state.taskData.userId
+      userId: action.user_id ? action.user_id : state.taskData.userId,
+      clearForm: false
     }
   case HIDE_MODAL_TASK:
     return {
       ...state.taskData,
+      clearForm: false,
       modalComments: showOrHideModal(action.payload, 'comments', false, state.taskData.modalComments),
       modalTask: showOrHideModal(action.payload, 'task', false, state.taskData.modalTask)
     }

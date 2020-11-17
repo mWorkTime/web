@@ -11,3 +11,7 @@ export const getEmployeesByDepartment = (data) => {
 export const createTask = (data) => {
   return api.post('/task/create', data)
 }
+
+export const uploadTaskFiles = (data) => {
+  return api.put('/task/upload', data)
+}
