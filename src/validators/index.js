@@ -3,6 +3,7 @@ import { departmentValidator } from './department.validator'
 import { phoneValidation } from './phone.validator'
 import { employeeValidator } from './employee.validator'
 import { taskValidator } from './task.validator'
+import { validateFiles } from './file.validator'
 
 export {
   generalValidation,
@@ -10,5 +11,6 @@ export {
   departmentValidator,
   phoneValidation,
   employeeValidator,
-  taskValidator
+  taskValidator,
+  validateFiles
 }
