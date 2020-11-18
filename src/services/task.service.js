@@ -24,3 +24,11 @@ export const downloadTaskFiles = (id) => {
     }
   })
 }
+
+export const updateTaskStatus = (data) => {
+  return api.put('/task/update/status', data)
+}
+
+export const sendTaskOnReview = (data) => {
+  return api.put('/task/send/review', data)
+}

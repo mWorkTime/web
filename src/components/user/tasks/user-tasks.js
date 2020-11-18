@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Form } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllTasks, fetchAllDepartments, showComment, showCreateTask } from '../../../actions'
+import { fetchAllTasks, fetchAllDepartments, showComment, showCreateTask, fetchUpdateStatus, showReview } from '../../../actions'
 import { renderListEmployees } from './render-list-employees'
 import { SHOW_OR_HIDE_DATES } from '../../../types'
 import { downloadTaskFiles } from '../../../services/task.service'
@@ -14,6 +14,7 @@ import Loader from '../../loader/loader'
 import ModalComments from './comments/modal-comments'
 import TaskCreate from './task-create'
 import renderListTasks from './render-list-tasks'
+import ModalSendOnReview from './review/modal-send-on-review'
 
 const UserTasks = () => {
   const {
@@ -49,6 +50,14 @@ const UserTasks = () => {
     downloadTaskFiles(id)
       .then(() => {})
       .catch((err) => console.log(getErrorMsg(err)))
+  }
+
+  const updateStatusTask = (data) => {
+    dispatch(fetchUpdateStatus(data))
+  }
+
+  const showModalReview = (id) => {
+    dispatch(showReview(id))
   }
 
   return (
@@ -99,7 +108,7 @@ const UserTasks = () => {
               <div className="content--tasks--board">
                 {
                   tasks && Array.isArray(tasks) && tasks.length > 0
-                    ? renderListTasks(tasks, visible, handleVisible, handleModalComment, downloadFiles)
+                    ? renderListTasks(tasks, visible, handleVisible, handleModalComment, downloadFiles, updateStatusTask, showModalReview)
                     : loadingEmployees ?
                     <Loader height={'50vh'} />
                     : <div className="task--board--empty">
@@ -116,6 +125,8 @@ const UserTasks = () => {
           </div>
         </div>
       </div>
+
+      <ModalSendOnReview />
       <ModalComments />
       <TaskCreate />
     </Tasks>

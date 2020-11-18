@@ -4,11 +4,20 @@ import {
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
   FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, FETCH_CREATE_TASK_SUCCESS,
   FETCH_CREATE_TASK_FAILURE, FETCH_UPLOAD_FILE_SUCCESS, SET_CLEAR_FORM,
-  SHOW_OR_HIDE_DATES
+  SHOW_OR_HIDE_DATES, FETCH_UPDATE_TASK_STATUS_SUCCESS, FETCH_TASK_ON_REVIEW_SUCCESS,
+  FETCH_TASK_ON_REVIEW_FAILURE
 } from '../types'
 
 const showOrHideModal = (payload, str, value, state) => {
   return payload === str ? value : state
+}
+
+const updateTasks = (tasks, item, idx) => {
+  return [
+    ...tasks.slice(0, idx),
+    item,
+    ...tasks.slice(idx + 1)
+  ]
 }
 
 const updateTaskData = (state, action) => {
@@ -19,11 +28,13 @@ const updateTaskData = (state, action) => {
       tasks: null,
       loading: false,
       loadingEmployees: false,
+      managers: null,
       user: '',
       commentId: '',
       userId: '',
       taskId: '',
       modalComments: false,
+      modalReview: false,
       disable: false,
       modalTask: false,
       clearForm: false,
@@ -49,7 +60,8 @@ const updateTaskData = (state, action) => {
       user: action.name,
       tasks: action.tasks,
       visible: action.visibleDates,
-      comments: action.comments
+      comments: action.comments,
+      managers: action.managers
     }
   case FETCH_ALL_TASKS_FAILURE:
     return {
@@ -92,6 +104,24 @@ const updateTaskData = (state, action) => {
       clearForm: true,
       disable: false
     }
+  case FETCH_UPDATE_TASK_STATUS_SUCCESS:
+    const { updatedTask } = action
+    const taskIndex = state.taskData.tasks.findIndex(({ id }) => id === updatedTask.id)
+
+    return {
+      ...state.taskData,
+      tasks: updateTasks(state.taskData.tasks, updatedTask, taskIndex)
+    }
+  case FETCH_TASK_ON_REVIEW_SUCCESS:
+    return {
+      ...state.taskData,
+      commentId: ''
+    }
+  case FETCH_TASK_ON_REVIEW_FAILURE:
+    return {
+      ...state.taskData,
+      error: action.error
+    }
   case SET_CLEAR_FORM:
     return {
       ...state.taskData,
@@ -102,16 +132,18 @@ const updateTaskData = (state, action) => {
       ...state.taskData,
       modalComments: showOrHideModal(action.payload, 'comments', true, state.taskData.modalComments),
       modalTask: showOrHideModal(action.payload, 'task', true, state.taskData.modalTask),
+      modalReview: showOrHideModal(action.payload, 'review', true, state.taskData.modalReview),
       commentId: action.id ? action.id : state.taskData.commentId,
       userId: action.user_id ? action.user_id : state.taskData.userId,
-      clearForm: false
+      clearForm: false,
     }
   case HIDE_MODAL_TASK:
     return {
       ...state.taskData,
       clearForm: false,
       modalComments: showOrHideModal(action.payload, 'comments', false, state.taskData.modalComments),
-      modalTask: showOrHideModal(action.payload, 'task', false, state.taskData.modalTask)
+      modalTask: showOrHideModal(action.payload, 'task', false, state.taskData.modalTask),
+      modalReview: showOrHideModal(action.payload, 'review', false, state.taskData.modalReview),
     }
   case SHOW_OR_HIDE_DATES:
     return {
