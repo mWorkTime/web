@@ -3,7 +3,8 @@ import {
   FETCH_ALL_TASKS_FAILURE, SHOW_MODAL_TASK, HIDE_MODAL_TASK,
   FETCH_EMPLOYEES_BY_DEPARTMENT_REQUEST, FETCH_EMPLOYEES_BY_DEPARTMENT_SUCCESS,
   FETCH_EMPLOYEES_BY_DEPARTMENT_FAILURE, FETCH_CREATE_TASK_SUCCESS,
-  FETCH_CREATE_TASK_FAILURE, FETCH_UPLOAD_FILE_SUCCESS, SET_CLEAR_FORM
+  FETCH_CREATE_TASK_FAILURE, FETCH_UPLOAD_FILE_SUCCESS, SET_CLEAR_FORM,
+  SHOW_OR_HIDE_DATES
 } from '../types'
 
 const showOrHideModal = (payload, str, value, state) => {
@@ -27,6 +28,7 @@ const updateTaskData = (state, action) => {
       modalTask: false,
       clearForm: false,
       error: null,
+      visible: {},
       comments: {}
     }
   }
@@ -45,7 +47,9 @@ const updateTaskData = (state, action) => {
       role: action.role,
       employees: action.employees,
       user: action.name,
-      tasks: action.tasks
+      tasks: action.tasks,
+      visible: action.visibleDates,
+      comments: action.comments
     }
   case FETCH_ALL_TASKS_FAILURE:
     return {
@@ -108,6 +112,14 @@ const updateTaskData = (state, action) => {
       clearForm: false,
       modalComments: showOrHideModal(action.payload, 'comments', false, state.taskData.modalComments),
       modalTask: showOrHideModal(action.payload, 'task', false, state.taskData.modalTask)
+    }
+  case SHOW_OR_HIDE_DATES:
+    return {
+      ...state.taskData,
+      visible: {
+        ...state.taskData.visible,
+        [action.id]: !state.taskData.visible[action.id]
+      }
     }
   default:
     return state.taskData

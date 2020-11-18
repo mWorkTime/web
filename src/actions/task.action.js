@@ -5,32 +5,32 @@ import {
   FETCH_CREATE_TASK_FAILURE
 } from '../types'
 import { createTask, getAllTasks, getEmployeesByDepartment } from '../services/task.service'
-import { getErrorMsg } from '../utils'
-import { dictionaryRoles } from '../items'
-
-const getConvertingEmployees = (arr) => {
-  return arr.employees.reduce((acc, employee) => {
-    acc.push({
-      name: `${employee.name} ${employee?.surname}`, email: employee.email,
-      role: { name: employee.role.name, normalName: dictionaryRoles[employee.role.name] },
-      id: employee._id, department: employee.department.name
-    })
-    return acc
-  }, [])
-}
+import { getConvertingEmployees, getErrorMsg, getConvertingTasks,
+  getObjectWithVisibleDates, getConvertingComments } from '../utils'
 
 const fetchAllTasks = () => (dispatch) => {
   dispatch({ type: FETCH_ALL_TASKS_REQUEST })
   getAllTasks()
     .then(({ data }) => {
       let convertEmployees = []
+      let convertTasks = []
+      let visibleDates = {}
+      let comments = {}
+
       if (data.employees) {
         convertEmployees = getConvertingEmployees(data)
       }
 
+      if (data.tasks) {
+        convertTasks = getConvertingTasks(data.tasks)
+        visibleDates = getObjectWithVisibleDates(data.tasks)
+        comments = getConvertingComments(data.tasks)
+      }
+
       dispatch({
         type: FETCH_ALL_TASKS_SUCCESS, employees: convertEmployees,
-        tasks: data?.tasks || [], role: data.role, name: data.name
+        tasks: convertTasks, role: data.role, name: data.name,
+        visibleDates, comments
       })
     })
     .catch((err) => dispatch({ type: FETCH_ALL_TASKS_FAILURE, error: getErrorMsg(err) }))
