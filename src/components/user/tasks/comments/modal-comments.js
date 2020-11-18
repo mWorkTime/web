@@ -29,11 +29,11 @@ const ModalComments = () => {
       visible={modalComments}
       onOk={hideModal}
       onCancel={hideModal}
-      title={`Комментарии для задачи #1`}
+      title={`Комментарии`}
       cancelText={'Закрыть'}
     >
       {
-        comments && typeof comments === 'object' && commentId && comments[commentId].length
+        comments && typeof comments === 'object' && commentId && comments[commentId] && comments[commentId].length
           ? <div className="modal--comments">
             {renderComments(commentId)}
           </div>
