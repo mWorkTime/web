@@ -18,7 +18,8 @@ export const getConvertingTasks = (tasks) => {
       name: task.name, id: task._id, visibleDate: false,
       dates: `${task.runtime[0]} - ${task.runtime[1]}`,
       createdBy: task.createdBy, desc: task.desc, status: task.status,
-      priority: { title: dictionaryPriority[`${task.priority}`], code: task.priority }
+      priority: { title: dictionaryPriority[`${task.priority}`], code: task.priority },
+      files: task.filepath
     })
     return acc
   }, [])

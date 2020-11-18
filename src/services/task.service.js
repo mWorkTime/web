@@ -15,3 +15,12 @@ export const createTask = (data) => {
 export const uploadTaskFiles = (data) => {
   return api.put('/task/upload', data)
 }
+
+export const downloadTaskFiles = (id) => {
+  return api.get(`/task/${id}/files/download`, {
+    responseType: 'blob',
+    headers: {
+      'Content-Type': 'application/zip'
+    }
+  })
+}

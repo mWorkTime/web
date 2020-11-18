@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
+import { Form } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTasks, fetchAllDepartments, showComment, showCreateTask } from '../../../actions'
 import { renderListEmployees } from './render-list-employees'
-import { Form } from 'antd'
+import { SHOW_OR_HIDE_DATES } from '../../../types'
+import { downloadTaskFiles } from '../../../services/task.service'
+import { getErrorMsg } from '../../../utils'
 import noTasks from '../../../images/task/empty.svg'
 import Tasks from '../../layouts/user/tasks'
 import UserHeader from '../user-header'
@@ -11,7 +14,6 @@ import Loader from '../../loader/loader'
 import ModalComments from './comments/modal-comments'
 import TaskCreate from './task-create'
 import renderListTasks from './render-list-tasks'
-import { SHOW_OR_HIDE_DATES } from '../../../types'
 
 const UserTasks = () => {
   const {
@@ -41,6 +43,12 @@ const UserTasks = () => {
 
   const handleModalComment = (id) => {
     dispatch(showComment(id))
+  }
+
+  const downloadFiles = (id) => {
+    downloadTaskFiles(id)
+      .then(() => {})
+      .catch((err) => console.log(getErrorMsg(err)))
   }
 
   return (
@@ -91,7 +99,7 @@ const UserTasks = () => {
               <div className="content--tasks--board">
                 {
                   tasks && Array.isArray(tasks) && tasks.length > 0
-                    ? renderListTasks(tasks, visible, handleVisible, handleModalComment)
+                    ? renderListTasks(tasks, visible, handleVisible, handleModalComment, downloadFiles)
                     : loadingEmployees ?
                     <Loader height={'50vh'} />
                     : <div className="task--board--empty">

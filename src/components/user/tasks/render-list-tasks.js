@@ -9,9 +9,10 @@ import { getClassNameByPriority } from '../../../utils'
  * @param {object} visibleDate
  * @param {function} func
  * @param {function} func2
+ * @param {function} func3
  * @return {*}
  */
-const renderListTasks = (data, visibleDate, func, func2) => {
+const renderListTasks = (data, visibleDate, func, func2, func3) => {
   return data.map(({ name, runtime, dates, createdBy, desc, status, priority: { title, code }, id }) => {
     return (
       <div className="tasks--board__card " key={id}>
@@ -25,8 +26,11 @@ const renderListTasks = (data, visibleDate, func, func2) => {
               <div className="board--info__created__by">От кого: {createdBy}</div>
               <div className="board--info__desc">{desc}</div>
             </div>
-            <Button className="board--info__download" type='primary' shape='round'><DownloadOutlined />Скачать
-              файлы </Button>
+            <a href={`${process.env.REACT_APP_BASE_SERVER_URI}/task/${id}/files/download`} download
+               target='_blank' rel="noopener noreferrer">
+              <Button className="board--info__download" type='link' onClick={() => func3(id)}>
+              <DownloadOutlined />Скачать
+              файлы </Button></a>
           </div>
           <div className="board--info__comment"
                onClick={() => func2(id)}>Прочитать комментарии
