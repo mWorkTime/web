@@ -73,16 +73,22 @@ const fetchCreateTask = (fieldsValue) => () => (dispatch) => {
     .catch((err) => dispatch({ type: FETCH_CREATE_TASK_FAILURE, error: getErrorMsg(err) }))
 }
 
+const getTaskObject = (obj) => {
+  const runtimeSt = obj.runtime[0]
+  const runtimeFin =  obj.runtime[1]
+
+  return {
+    id: obj._id, name: obj.name, runtime: +runtimeFin.substr(0, 2) - (+runtimeSt.substr(0, 2)),
+    visibleDate: false, dates: `${runtimeSt}-${runtimeFin}`, createdBy: obj.createdBy, desc: obj.desc, status: obj.status,
+    priority: { title: dictionaryPriority[`${obj.priority}`], code: obj.priority },
+    files: obj.filepath
+  }
+}
+
 const fetchUpdateStatus = (task) => (dispatch) => {
   updateTaskStatus(task)
     .then(({ data }) => {
-      const { _id, name, runtime, filepath, priority, desc, status, createdBy } = data.task
-      const updatedTask = {
-        id: _id, name, runtime: +runtime[1].substr(0, 2) - (+runtime[0].substr(0, 2)),
-        visibleDate: false, dates: `${runtime[0]}-${runtime[1]}`, createdBy, desc, status,
-        priority: { title: dictionaryPriority[`${priority}`], code: priority },
-        files: filepath
-      }
+      const updatedTask = getTaskObject(data.task)
       dispatch({ type: FETCH_UPDATE_TASK_STATUS_SUCCESS, updatedTask })
     })
     .catch((err) => getErrorMsg(err))
@@ -92,7 +98,8 @@ const fetchSendTaskOnReview = (dataReview) => (obj) => (dispatch) => {
   const sendData = { ...dataReview, ...obj }
   sendTaskOnReview(sendData)
     .then(({ data }) => {
-      dispatch({ type: FETCH_TASK_ON_REVIEW_SUCCESS })
+      const updatedTask = getTaskObject(data.task)
+      dispatch({ type: FETCH_TASK_ON_REVIEW_SUCCESS, updatedTask })
       dispatch({ type: HIDE_MODAL_TASK, payload: 'review' })
     })
     .catch((err) => dispatch({ type: FETCH_TASK_ON_REVIEW_FAILURE, error: getErrorMsg(err) }))

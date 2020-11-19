@@ -39,7 +39,7 @@ const renderListTasks = (data, visibleDate, func, func2, func3, funcUpdate, func
           </div>
           <div className="tasks--board__buttons">
             <Button className='board--btn start' shape='round' disabled={status >= 1} onClick={() => funcUpdate({ id, status: 1 })} >Начать выполнение</Button>
-            <Button className='board--btn review' shape='round' disabled={status >= 2} onClick={() => funcReview(id)}>Отправить на проверку</Button>
+            <Button className='board--btn review' type='dashed' shape='round' disabled={status >= 2} onClick={() => funcReview(id)}>Отправить на проверку</Button>
             <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить
               задание</Button>
           </div>

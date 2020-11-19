@@ -113,9 +113,11 @@ const updateTaskData = (state, action) => {
       tasks: updateTasks(state.taskData.tasks, updatedTask, taskIndex)
     }
   case FETCH_TASK_ON_REVIEW_SUCCESS:
+    const findIndex = state.taskData.tasks.findIndex(({ id }) => id === action.updatedTask.id)
     return {
       ...state.taskData,
-      commentId: ''
+      commentId: '',
+      tasks: updateTasks(state.taskData.tasks, action.updatedTask, findIndex)
     }
   case FETCH_TASK_ON_REVIEW_FAILURE:
     return {
