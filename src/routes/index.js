@@ -8,6 +8,7 @@ import UserDashboard from '../components/user/dashboard/user-dashboard'
 import UserEmployees from '../components/user/employees/user-employees'
 import UserDashboardEdit from '../components/user/dashboard/user-dashboard-edit'
 import UserTasks from '../components/user/tasks/user-tasks'
+import UserReports from '../components/user/reports/user-reports'
 
 export const useRoutes = isAuth => {
   if (isAuth) {
@@ -17,6 +18,7 @@ export const useRoutes = isAuth => {
         <Route path='/employees' component={UserEmployees} />
         <Route path='/dashboard/user/edit' component={UserDashboardEdit}/>
         <Route path='/tasks' component={UserTasks}/>
+        <Route path='/reports' component={UserReports}/>
         <Redirect to={'/dashboard'} />
       </Switch>
     )
