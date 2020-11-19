@@ -333,12 +333,6 @@
 	margin-bottom: 0;
 }
 
-.board--btn.review {
-	background: #faad14;
-	color: #fff;
-	border-color: #f6af1f;
-}
-
 @media screen and (max-width: 992px) {
 	.board--empty__title {
 		font-size: 22px;

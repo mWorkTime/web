@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
-import Dashboard from '../../layouts/user/dashboard'
 import UserDashboardTop from './user-dashboard-top'
-import UserHeader from '../user-header'
 import avatar from '../../../images/user/profile.svg'
 import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import { dashboardItems } from '../../../items'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserRequest } from '../../../actions'
+import General from '../../layouts/user/general'
 
 const UserDashboard = () => {
-  const { sidebarUser: { active }, userData: { user, loading, token, organization } } = useSelector((state) => state)
+  const { userData: { user, loading, token, organization } } = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -37,12 +36,9 @@ const UserDashboard = () => {
   })
 
   return (
-    <Dashboard>
-      <div className={`base--layout ${active ? 'active' : ''}`}>
-        <UserHeader />
+    <General>
         <div className="dashboard--wrapper">
           <div className="dashboard--wrapper__top">
-
             <div className="dashboard--top__ls">
               {loading
                 ? <div className="top--ls__loader">
@@ -64,8 +60,7 @@ const UserDashboard = () => {
             {renderItems}
           </div>
         </div>
-      </div>
-    </Dashboard>
+    </General>
   )
 }
 
