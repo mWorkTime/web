@@ -19,7 +19,7 @@ import { fetchAllDepartments, fetchCreateDepartment, showFormDepartment } from '
 import { fetchAllRole, fetchUserRole } from './role.action'
 import { fetchAllTasks, fetchEmployeesByDepartment, showComment, showCreateTask, fetchSendTaskOnReview,
   fetchCreateTask, fetchUpdateStatus, showReview } from './task.action'
-import { fetchAllTasksOnReview, fetchConfirmReviewTask } from './review.action'
+import { fetchAllTasksOnReview, fetchConfirmReviewTask, fetchReviewComment } from './review.action'
 
 export {
   registerUser,
@@ -55,6 +55,7 @@ export {
   fetchUserRole,
   fetchAllTasksOnReview,
   fetchConfirmReviewTask,
+  fetchReviewComment,
   showFormDepartment,
   toggleSidebar,
   hideSidebar,

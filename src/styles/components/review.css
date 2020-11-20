@@ -88,8 +88,9 @@
 }
 
 .review--wrapper--ls__info {
-
+	margin-right: 10px;
 }
 
 .review--wrapper--rs__info {
+	margin-left: 10px;
 }

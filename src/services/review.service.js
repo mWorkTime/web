@@ -7,3 +7,7 @@ export const getAllTasksOnReview = () => {
 export const confirmReviewTask = (data) => {
   return api.put('/review/confirm/success', data)
 }
+
+export const commentReview = (data) => {
+  return api.put('/review/comment/create', data)
+}

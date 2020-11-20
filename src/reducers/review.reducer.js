@@ -1,5 +1,6 @@
 import { FETCH_ALL_TASKS_ON_REVIEW_REQUEST, FETCH_ALL_TASKS_ON_REVIEW_SUCCESS,
-  FETCH_ALL_TASKS_ON_REVIEW_FAILURE, FETCH_CONFIRM_TASK_SUCCESS, FETCH_CONFIRM_TASK_FAILURE
+  FETCH_ALL_TASKS_ON_REVIEW_FAILURE, FETCH_CONFIRM_TASK_SUCCESS, FETCH_CONFIRM_TASK_FAILURE,
+  FETCH_REVIEW_COMMENT_REQUEST, FETCH_REVIEW_COMMENT_SUCCESS, FETCH_REVIEW_COMMENT_FAILURE
 } from '../types'
 
 const updateReviewData = (state, action) => {
@@ -9,7 +10,8 @@ const updateReviewData = (state, action) => {
       user: null,
       error: null,
       loading: false,
-      disable: false
+      disable: false,
+      commentId: ''
     }
   }
   switch (action.type) {
@@ -45,6 +47,22 @@ const updateReviewData = (state, action) => {
   case FETCH_CONFIRM_TASK_FAILURE:
     return {
       ...state.reviewData,
+      error: action.error
+    }
+  case FETCH_REVIEW_COMMENT_REQUEST:
+    return {
+      ...state.reviewData,
+      disable: true
+    }
+  case FETCH_REVIEW_COMMENT_SUCCESS:
+    return {
+      ...state.reviewData,
+      commentId: action.commentId
+    }
+  case FETCH_REVIEW_COMMENT_FAILURE:
+    return {
+      ...state.reviewData,
+      disable: false,
       error: action.error
     }
   default:
