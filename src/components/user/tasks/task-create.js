@@ -13,8 +13,8 @@ const TaskCreate = () => {
   const dispatch = useDispatch()
   const hideModal = () => dispatch({ type: HIDE_MODAL_TASK, payload: 'task' })
 
-  useEffect(() => {
-    if(clearForm) {
+  useEffect(() => () => {
+    if (clearForm) {
       form.resetFields(['name', 'desc', 'runtime', 'priority'])
     }
   }, [form, clearForm])

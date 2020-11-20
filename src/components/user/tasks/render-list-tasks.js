@@ -15,7 +15,7 @@ import { getClassNameByPriority } from '../../../utils'
  * @return {*}
  */
 const renderListTasks = (data, visibleDate, func, func2, func3, funcUpdate, funcReview) => {
-  return data.map(({ name, runtime, dates, createdBy, desc, status, priority: { title, code }, id }) => {
+  return data.map(({ name, runtime, dates, createdBy, desc, status, priority: { title, code }, id, isConfirmed }) => {
     return (
       <div className="tasks--board__card " key={id}>
         <div className="tasks--board__title">{name}</div>
@@ -31,17 +31,18 @@ const renderListTasks = (data, visibleDate, func, func2, func3, funcUpdate, func
             <a href={`${process.env.REACT_APP_BASE_SERVER_URI}/task/${id}/files/download`} download
                target='_blank' rel="noopener noreferrer">
               <Button className="board--info__download" type='link' onClick={() => func3(id)}>
-              <DownloadOutlined />Скачать
-              файлы </Button></a>
+                <DownloadOutlined />Скачать
+                файлы </Button></a>
           </div>
           <div className="board--info__comment"
                onClick={() => func2(id)}>Прочитать комментарии
           </div>
           <div className="tasks--board__buttons">
-            <Button className='board--btn start' shape='round' disabled={status >= 1} onClick={() => funcUpdate({ id, status: 1 })} >Начать выполнение</Button>
-            <Button className='board--btn review' type='dashed' shape='round' disabled={status >= 2} onClick={() => funcReview(id)}>Отправить на проверку</Button>
-            <Button className='board--btn finish' type='primary' disabled shape='round'>Завершить
-              задание</Button>
+            <Button className='board--btn start' shape='round' disabled={status >= 1}
+                    onClick={() => funcUpdate({ id, status: 1 })}>Начать выполнение</Button>
+            <Button className='board--btn review' type='dashed' shape='round' disabled={status >= 2}
+                    onClick={() => funcReview(id)}>Отправить на проверку</Button>
+            <Button className='board--btn finish' type='primary' disabled={!isConfirmed} shape='round'>Завершить задание</Button>
           </div>
         </div>
       </div>

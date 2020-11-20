@@ -1,7 +1,7 @@
 @import "../shared/_variables.css";
 
 .modal--empty {
-	height: 15vh;
+	height: 35vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

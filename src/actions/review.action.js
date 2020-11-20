@@ -1,9 +1,10 @@
 import {
   FETCH_ALL_TASKS_ON_REVIEW_FAILURE,
   FETCH_ALL_TASKS_ON_REVIEW_REQUEST,
-  FETCH_ALL_TASKS_ON_REVIEW_SUCCESS
+  FETCH_ALL_TASKS_ON_REVIEW_SUCCESS,
+  FETCH_CONFIRM_TASK_SUCCESS, FETCH_CONFIRM_TASK_FAILURE
 } from '../types'
-import { getAllTasksOnReview } from '../services/review.service'
+import { confirmReviewTask, getAllTasksOnReview } from '../services/review.service'
 import { getErrorMsg } from '../utils'
 
 const fetchAllTasksOnReview = () => (dispatch) => {
@@ -20,7 +21,17 @@ const fetchAllTasksOnReview = () => (dispatch) => {
     })
 }
 
+
+const fetchConfirmReviewTask = (dataConfirm) => (dispatch) => {
+  confirmReviewTask({ task_id: dataConfirm })
+    .then(({ data: { id } }) => {
+      dispatch({ type: FETCH_CONFIRM_TASK_SUCCESS, id })
+    })
+    .catch((err) => dispatch({ type: FETCH_CONFIRM_TASK_FAILURE, error: getErrorMsg(err) }))
+}
+
 export {
-  fetchAllTasksOnReview
+  fetchAllTasksOnReview,
+  fetchConfirmReviewTask
 }
 

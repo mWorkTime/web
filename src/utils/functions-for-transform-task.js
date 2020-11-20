@@ -5,7 +5,7 @@ export const getConvertingEmployees = (arr) => {
     acc.push({
       name: `${employee.name} ${employee?.surname}`, email: employee.email,
       role: { name: employee.role.name, normalName: dictionaryRoles[employee.role.name] },
-      id: employee._id, department: employee.department.name
+      id: employee._id, department: employee.department.name, isConfirmed: employee.isConfirmed
     })
     return acc
   }, [])
@@ -19,7 +19,7 @@ export const getConvertingTasks = (tasks) => {
       dates: `${task.runtime[0]} - ${task.runtime[1]}`,
       createdBy: task.createdBy, desc: task.desc, status: task.status,
       priority: { title: dictionaryPriority[`${task.priority}`], code: task.priority },
-      files: task.filepath
+      files: task.filepath, isConfirmed: task.isConfirmed
     })
     return acc
   }, [])

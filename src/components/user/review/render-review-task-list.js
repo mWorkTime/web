@@ -1,6 +1,8 @@
-import { Button } from 'antd'
+import { Button, Row, Col } from 'antd'
 import React from 'react'
 import SendComment from './send-comment'
+import { DownloadOutlined } from '@ant-design/icons'
+import ReviewConfirmTask from './review-confirm-task'
 
 const renderReviewTaskList = (taskList) => {
   return taskList.map(({ name, employee, createdBy, desc, runtime, createdAt, _id }) => (
@@ -21,7 +23,9 @@ const renderReviewTaskList = (taskList) => {
         </div>
         <div className="review--wrapper--rs__info">
           <div className="review--info__title"> Прикреплёные файлы:</div>
-          <Button type='dashed' block>Скачать</Button>
+          <a href={`${process.env.REACT_APP_BASE_SERVER_URI}/task/${_id}/files/download`} download
+             target='_blank' rel="noopener noreferrer"><Button type='dashed' block><DownloadOutlined /> Скачать</Button>
+          </a>
         </div>
       </div>
       <div className="review--wrapper--bs">
@@ -31,9 +35,14 @@ const renderReviewTaskList = (taskList) => {
         </div>
       </div>
       <div className="wrapper--bs__title">Напишите комментарий или просто подтвердите выполнение задания</div>
-      <div className="wrapper--bs--form__comment">
-        <SendComment />
-      </div>
+      <Row justify='space-between'>
+        <Col lg={14} >
+          <SendComment />
+        </Col>
+       <Col lg={10}>
+         <ReviewConfirmTask id={_id} />
+       </Col>
+      </Row>
     </div>
   ))
 }

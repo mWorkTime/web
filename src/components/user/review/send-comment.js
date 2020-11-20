@@ -5,7 +5,7 @@ const SendComment = () => {
   const [form] = Form.useForm()
 
   return (
-    <Form form={form} name="form-send-comment" layout='vertical'>
+    <Form form={form} name="form-send-comment" layout='vertical' className="form--send--comment">
       <Form.Item
         label='Коментарий'
         name={'comment'}

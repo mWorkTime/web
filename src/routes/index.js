@@ -19,7 +19,7 @@ export const useRoutes = isAuth => {
         <Route path='/employees' component={UserEmployees} />
         <Route path='/dashboard/user/edit' component={UserDashboardEdit}/>
         <Route path='/tasks' component={UserTasks}/>
-        <Route path='/reports' component={UserReports}/>
+        {/*<Route path='/reports' component={UserReports}/>*/}
         <Route path='/review' component={UserReview}/>
         <Redirect to={'/dashboard'} />
       </Switch>
