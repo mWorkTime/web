@@ -5,22 +5,50 @@
 	border-bottom: 1px solid var(--border-color);
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 	background: var(--primary-background-color);
 }
 
-.user--header .user--header__title {
+.user--header--ls {
+	margin-left: 50px;
+}
+
+.user--header--ls__link {
+	background: var(--color-4th);
+	border: 1px solid #675ff5;
+	padding: 8px 0;
+	border-radius: 7px;
+	opacity: .9;
+	transition: all .3s ease-in;
+}
+
+.user--header--ls__link:hover {
+	opacity: 1;
+}
+
+.user--header--ls__badge {
+	padding: 8px 15px;
+	color: #fff;
+}
+
+.user--header--rs {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 60px;
+}
+
+.user--header--rs__title {
 	padding: 0 20px;
 	font-size: 16px;
 	font-weight: 600;
 	color: var(--primary-text-color);
 }
 
-.user--header .user--header__profile {
-	margin-right: 20px;
+.user--header--rs__profile {
 	width: 50px;
 }
 
-.user--header .user--header__profile .user--header__img {
+.user--header--rs__profile .user--header--rs__img {
 	width: 100%;
 }

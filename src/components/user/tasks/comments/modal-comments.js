@@ -10,12 +10,12 @@ const ModalComments = () => {
   const hideModal = () => dispatch({ type: HIDE_MODAL_TASK, payload: 'comments' })
 
   const renderComments = (id) => {
-    return comments[id].map(({ key, createdBy, about, createdAt }) => (
+    return comments[id].map(({ key, createdBy, comment, createdAt }) => (
       <div className="comments--box" key={key}>
         <div className="comments--box__created__by">От кого: {createdBy}</div>
         <div className="comments--box__content">
-          <div className="comments--box__text">{about}</div>
-          <Button type={'primary'} className="comments--box__download" shape='round'>
+          <div className="comments--box__text">{comment}</div>
+          <Button type={'link'} className="comments--box__download" shape='round'>
             <DownloadOutlined />Скачать доп. файлы
           </Button>
         </div>

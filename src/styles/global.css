@@ -18,8 +18,10 @@
 @import "./components/tasks.css";
 @import "./components/comments.css";
 @import "./components/reports.css";
+@import "./components/review.css";
 
 #root {
+  height: 100%;
   position: relative;
   font-family: 'Roboto', sans-serif !important;
 }
