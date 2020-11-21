@@ -15,11 +15,14 @@ const ModalComments = () => {
         <div className="comments--box__created__by">От кого: {createdBy}</div>
         <div className="comments--box__content">
           <div className="comments--box__text">{comment}</div>
-          <Button type={'link'} className="comments--box__download" shape='round'>
+          <a href={`${process.env.REACT_APP_BASE_SERVER_URI}/task/${key}/${id}/files/download`} download
+             target='_blank' rel="noopener noreferrer">
+            <Button type={'link'} className="comments--box__download" shape='round'>
             <DownloadOutlined />Скачать доп. файлы
           </Button>
+          </a>
         </div>
-        <div className="comments--box__date">{createdAt}</div>
+        <div className="comments--box__date">{new Date(createdAt).toLocaleString()}</div>
       </div>
     ))
   }
@@ -38,9 +41,9 @@ const ModalComments = () => {
             {renderComments(commentId)}
           </div>
           : <div className="modal--empty">
-              <div className='modal--empty__icon'><SmileTwoTone /></div>
-              <div className='modal--empty__text'>Комментарии для данной задачи отсутствуют</div>
-            </div>
+            <div className='modal--empty__icon'><SmileTwoTone /></div>
+            <div className='modal--empty__text'>Комментарии для данной задачи отсутствуют</div>
+          </div>
       }
     </Modal>
   )
