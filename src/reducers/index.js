@@ -8,6 +8,7 @@ import updateRoleData from './role.reducer'
 import updatePaginationData from './pagination.reducer'
 import updateTaskData from './task.reducer'
 import updateReviewData from './review.reducer'
+import updateReportData from './report.reducer'
 
 const Reducer = (state, action) => {
   return {
@@ -20,7 +21,8 @@ const Reducer = (state, action) => {
     roleData: updateRoleData(state, action),
     paginationData: updatePaginationData(state, action),
     taskData: updateTaskData(state, action),
-    reviewData: updateReviewData(state, action)
+    reviewData: updateReviewData(state, action),
+    reportData: updateReportData(state, action)
   }
 }
 
