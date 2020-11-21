@@ -91,17 +91,17 @@
 }
 
 .task--ls__title, .task--rs__title, .task--description__title {
-	color: var(--color-4th);
+	color: var(--primary-text-color);
 	font-weight: 600;
-	font-size: 18px;
+	margin-bottom: 10px;
 }
 
 .task--ls__value, .task--rs__value {
-	box-shadow: 0 2px 5px rgba(108, 99, 255, .2);
-	padding: 10px;
-	color:  var(--primary-text-color);
-	border-radius: 11px;
-	text-align: center;
+	color: var(--color-1st);
+	border-radius: 5px;
+	border: 1px dashed var(--color-1st);
+	padding: 5px 10px;
+	margin-bottom: 10px;
 }
 
 .report--task--description {
@@ -113,10 +113,10 @@
 
 .task--description__text {
 	font-size: 14px;
-	color: var(--primary-text-color);
-	box-shadow: 0 2px 5px rgba(108, 99, 255, .2);
+	color: var(--color-1st);
+	border-radius: 5px;
+	border: 1px dashed var(--color-1st);
 	padding: 10px;
-	border-radius: 11px;
 }
 
 .reports--wrapper__send {
@@ -160,11 +160,6 @@
 		padding: 10px 20px;
 	}
 
-	.task--ls__value, .task--rs__value {
-		font-size: 16px;
-		font-weight: 600;
-	}
-
 	.report--task--description {
 		max-width: 100%;
 		padding: 10px 20px;
@@ -178,11 +173,11 @@
 
 @media screen and (max-width: 576px) {
 	.reports--wrapper {
-		margin: 30px 10px;
+		margin: 30px 5px;
 	}
 
 	.reports--wrapper__task {
-		padding: 20px 10px;
+		padding: 20px 0 5px 0;
 	}
 
 	.task--rs__box, .task--ls__box {

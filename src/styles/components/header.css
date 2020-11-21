@@ -52,3 +52,13 @@
 .user--header--rs__profile .user--header--rs__img {
 	width: 100%;
 }
+
+
+@media screen and (max-width: 480px) {
+	.user--header--ls {
+		margin-left: 20px;
+	}
+	.user--header--rs {
+		margin-right: 15px;
+	}
+}

@@ -5,7 +5,7 @@ import { DownloadOutlined } from '@ant-design/icons'
 import ReviewConfirmTask from './review-confirm-task'
 import UserFileUpload from '../user-file-upload'
 
-const renderReviewTaskList = (taskList) => {
+const renderReviewTaskList = (taskList, disable, commentId, funcUpload, funcUploadSuccess) => {
   return taskList.map(({ name, employee, createdBy, desc, runtime, createdAt, _id }) => (
     <div className="review--wrapper__task" key={_id}>
       <div className="review--wrapper__title"> {name}</div>
@@ -40,6 +40,15 @@ const renderReviewTaskList = (taskList) => {
       <Row justify='space-between'>
         <Col lg={14}>
           <SendComment id={_id} />
+          <UserFileUpload
+            disable={disable}
+            additionalFields={[
+              { field: 'comment_id', value: commentId },
+              { field: 'task_id', value: _id }
+            ]}
+            needClearForm={false}
+            typeClearForm={''} func={funcUpload} funcSuccess={funcUploadSuccess}
+          />
         </Col>
         <Col lg={10}>
           <ReviewConfirmTask id={_id} />

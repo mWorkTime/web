@@ -12,8 +12,9 @@ const TaskFileUpload = () => {
     dispatch({ type: FETCH_UPLOAD_FILE_SUCCESS})
   }
 
-  return <UserFileUpload disable={disable} id={taskId} needClearForm={true} nameFieldForRequest={'task_id'}
-                funcSuccess={successUploading}  func={uploadTaskFiles} typeClearForm={SET_CLEAR_FORM}
+  return <UserFileUpload disable={disable} needClearForm={true} funcSuccess={successUploading}
+                         additionalFields={[{ field: 'task_id', value: taskId }]}
+                         func={uploadTaskFiles} typeClearForm={SET_CLEAR_FORM}
   />
 }
 

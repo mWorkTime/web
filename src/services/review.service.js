@@ -11,3 +11,7 @@ export const confirmReviewTask = (data) => {
 export const commentReview = (data) => {
   return api.put('/review/comment/create', data)
 }
+
+export const reviewUploadFiles = (data) => {
+  return api.put('/review/comment/files/upload', data)
+}

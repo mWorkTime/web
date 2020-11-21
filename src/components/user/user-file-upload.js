@@ -5,7 +5,7 @@ import { validateFiles } from '../../validators'
 import { Button, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 
-const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm = false, typeClearForm = '', funcSuccess }) => {
+const UserFileUpload = ({ disable, func, needClearForm = false, typeClearForm = '', funcSuccess, additionalFields }) => {
   const [fileList, setFileList] = useState([])
   const [uploading, setUploading] = useState(false)
   const dispatch = useDispatch()
@@ -14,7 +14,6 @@ const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm 
     name: 'files',
     multiple: true,
     beforeUpload: (file, files) => {
-
       setFileList([...files])
       return false
     },
@@ -30,7 +29,7 @@ const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm 
     fileList
   }
 
-  const handleUpload = (id) => {
+  const handleUpload = () => {
     setUploading(true)
     const isValid = validateFiles(fileList)
 
@@ -43,7 +42,10 @@ const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm 
     fileList.forEach(file => {
       formData.append('files', file)
     })
-    formData.append(nameFieldForRequest, id)
+
+    for (let i = 0; i < additionalFields.length; i++) {
+      formData.append(additionalFields[i].field, additionalFields[i].value)
+    }
 
     func(formData)
       .then(({ data }) => {
@@ -70,7 +72,7 @@ const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm 
         type="primary"
         disabled={fileList.length === 0}
         loading={uploading}
-        onClick={() => handleUpload(id)}
+        onClick={handleUpload}
         style={{ marginTop: 16 }}
       >
         {uploading ? 'Загрузка...' : 'Загрузить'}
@@ -81,9 +83,8 @@ const UserFileUpload = ({ disable, id, func, nameFieldForRequest, needClearForm 
 
 UserFileUpload.propTypes = {
   disable: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
   func: PropTypes.func.isRequired,
-  nameFieldForRequest: PropTypes.string.isRequired,
+  additionalFields: PropTypes.array.isRequired,
   needClearForm: PropTypes.bool.isRequired,
   typeClearForm: PropTypes.string.isRequired,
   funcSuccess: PropTypes.func.isRequired
