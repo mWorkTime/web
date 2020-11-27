@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import General from '../../layouts/user/general'
 import ReportSend from './report-send'
 import ChooseTask from './choose-task'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import renderTaskItem from './task-item'
+import { CLEAR_TASK } from '../../../types'
 
 const UserReports = () => {
   const { reportData: { loadingTask, task, taskId } } = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(() => () => {
+    if (task) {
+      dispatch({ type: CLEAR_TASK })
+    }
+  }, [dispatch, task])
 
   return (
     <General>

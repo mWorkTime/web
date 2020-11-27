@@ -9,8 +9,8 @@ const renderTaskItem = (task) => {
       </div>
         {
           task.isConfirmed
-            ? <> <div className="task--confirm__allow"><CheckCircleFilled /> <span>Подтверждено</span></div></>
-            : <><div className="task--confirm__disallow"><CloseCircleFilled /> <span>Не  подтверждено</span></div></>
+            ? <> <div className="task--confirm__allow"><CheckCircleFilled /> <span className='task--confirm__text'>Подтверждено</span></div></>
+            : <><div className="task--confirm__disallow"><CloseCircleFilled /> <span className='task--confirm__text' >Не  подтверждено</span></div></>
         }
       <div className="reports--task">
         <div className="reports--task--ls">
@@ -20,7 +20,7 @@ const renderTaskItem = (task) => {
           </div>
           <div className="task--ls__box">
             <div className="task--ls__title">Кем подтверждён</div>
-            <div className="task--ls__value">{task?.confirmedBy}</div>
+            <div className="task--ls__value">{task?.confirmedBy || 'Не указано'}</div>
           </div>
         </div>
         <div className="reports--task--rs">

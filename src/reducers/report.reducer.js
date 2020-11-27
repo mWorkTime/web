@@ -2,7 +2,8 @@ import {
   FETCH_ALL_TASKS_ON_REPORT_REQUEST,
   FETCH_ALL_TASKS_ON_REPORT_SUCCESS, FETCH_ALL_TASKS_ON_REPORT_FAILURE,
   FETCH_TASK_ON_REPORT_SUCCESS, FETCH_TASK_ON_REPORT_FAILURE,
-  FETCH_REPORT_CREATE_SUCCESS, FETCH_REPORT_CREATE_FAILURE, FETCH_UPLOAD_REPORT_FILE_SUCCESS
+  FETCH_REPORT_CREATE_SUCCESS, FETCH_REPORT_CREATE_FAILURE, FETCH_UPLOAD_REPORT_FILE_SUCCESS,
+  CLEAR_TASK
 } from '../types'
 
 const updateReportData = (state, action) => {
@@ -68,6 +69,12 @@ const updateReportData = (state, action) => {
       ...state.reportData,
       task: null,
       disableReport: false,
+      loadingTask: true
+    }
+  case CLEAR_TASK:
+    return {
+      ...state.reportData,
+      task: null,
       loadingTask: true
     }
   default:

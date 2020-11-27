@@ -23,7 +23,7 @@ const UserHeader = () => {
       <div className="user--header--ls">
         {userRole > 0 && userRole < 4 ?
           <Link to={'/review'} className='user--header--ls__link'>
-            <Badge count={5} className='user--header--ls__badge'>
+            <Badge  className='user--header--ls__badge'>
               На проверку
             </Badge>
           </Link> : null

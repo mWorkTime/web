@@ -54,7 +54,6 @@ const ReportSend = ({ id }) => {
             message: 'Напишите сколько времени вы потратили всего на выполнение задания'
           }]}
           hasFeedback
-
         >
           <Input disabled={disableReport} />
         </Form.Item>

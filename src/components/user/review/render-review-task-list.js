@@ -38,7 +38,7 @@ const renderReviewTaskList = (taskList, disable, commentId, funcUpload, funcUplo
       </div>
       <div className="wrapper--bs__title">Напишите комментарий или просто подтвердите выполнение задания</div>
       <Row justify='space-between'>
-        <Col lg={14}>
+        <Col xs={24} sm={24} md={24} lg={14}>
           <SendComment id={_id} />
           <UserFileUpload
             disable={disable}
@@ -50,7 +50,7 @@ const renderReviewTaskList = (taskList, disable, commentId, funcUpload, funcUplo
             typeClearForm={''} func={funcUpload} funcSuccess={funcUploadSuccess}
           />
         </Col>
-        <Col lg={10}>
+        <Col xs={24} sm={24} md={24} lg={10}>
           <ReviewConfirmTask id={_id} />
         </Col>
       </Row>
