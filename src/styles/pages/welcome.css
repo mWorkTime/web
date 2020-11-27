@@ -102,19 +102,25 @@
 	.welcome--background {
 		justify-content: center;
 		align-items: center;
-
+		padding-top: 50px;
 	}
 
 	.welcome--background .welcome--wrapper {
 		width: 100%;
+		border-radius: 15px;
 		margin: 0;
 	}
 }
 
 @media screen and (max-width: 480px) {
+	.welcome--background {
+		padding-top: 0;
+	}
+
 	.welcome--background .welcome--wrapper {
 		padding: 20px 15px;
 		border-radius: 0;
+		height: 100vh;
 	}
 
 	.welcome--background .welcome--wrapper .welcome--wrapper__title {

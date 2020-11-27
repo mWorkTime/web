@@ -230,7 +230,7 @@
 		display: none;
 	}
 
-	.task--confirm__allow {
+	.task--confirm__allow,.task--confirm__disallow {
 		height: 50px;
 		width: 50px;
 		top: -30px;
