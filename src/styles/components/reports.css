@@ -52,6 +52,7 @@
 .reports--wrapper--empty {
 	height: 50vh;
 	display: flex;
+	border-radius: 10px;
 	align-items: center;
 	justify-content: center;
 	border: 1px dashed var(--color-1st);

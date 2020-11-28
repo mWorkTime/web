@@ -2,7 +2,7 @@ import {
   FETCH_ALL_TASKS_ON_REPORT_REQUEST,
   FETCH_ALL_TASKS_ON_REPORT_SUCCESS, FETCH_ALL_TASKS_ON_REPORT_FAILURE,
   FETCH_TASK_ON_REPORT_SUCCESS, FETCH_TASK_ON_REPORT_FAILURE,
-  FETCH_REPORT_CREATE_SUCCESS, FETCH_REPORT_CREATE_FAILURE
+  FETCH_REPORT_CREATE_SUCCESS, FETCH_REPORT_CREATE_FAILURE, FETCH_TASK_ON_REPORT_REQUEST
 } from '../types'
 import { getAllTasksByUserId, getTaskById, createReport } from '../services/report.service'
 import { getErrorMsg } from '../utils'
@@ -26,6 +26,7 @@ const fetchAllTasksOnReport = () => (dispatch) => {
 }
 
 const fetchTaskOnReport = (taskData) => (dispatch) => {
+  dispatch({ type: FETCH_TASK_ON_REPORT_REQUEST })
   getTaskById(taskData)
     .then(({ data: { task } }) => {
       const convertingData = {

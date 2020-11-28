@@ -3,7 +3,7 @@ import {
   FETCH_ALL_TASKS_ON_REPORT_SUCCESS, FETCH_ALL_TASKS_ON_REPORT_FAILURE,
   FETCH_TASK_ON_REPORT_SUCCESS, FETCH_TASK_ON_REPORT_FAILURE,
   FETCH_REPORT_CREATE_SUCCESS, FETCH_REPORT_CREATE_FAILURE, FETCH_UPLOAD_REPORT_FILE_SUCCESS,
-  CLEAR_TASK
+  CLEAR_TASK, FETCH_TASK_ON_REPORT_REQUEST
 } from '../types'
 
 const updateReportData = (state, action) => {
@@ -38,6 +38,12 @@ const updateReportData = (state, action) => {
       ...state.reportData,
       error: action.error
     }
+  case FETCH_TASK_ON_REPORT_REQUEST:
+    return {
+      ...state.reportData,
+      task: null,
+      loadingTask: true
+    }
   case FETCH_TASK_ON_REPORT_SUCCESS:
     return {
       ...state.reportData,
@@ -67,9 +73,7 @@ const updateReportData = (state, action) => {
   case FETCH_UPLOAD_REPORT_FILE_SUCCESS:
     return {
       ...state.reportData,
-      task: null,
-      disableReport: false,
-      loadingTask: true
+      disableReport: false
     }
   case CLEAR_TASK:
     return {

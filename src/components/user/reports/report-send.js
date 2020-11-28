@@ -36,6 +36,8 @@ const ReportSend = ({ id }) => {
     dispatch({ type: FETCH_UPLOAD_REPORT_FILE_SUCCESS })
   }
 
+  const resetFields = () => form.resetFields()
+
   return (
     <div className="reports--wrapper__send">
       <div className="reports--send__title">Отправка отчёта</div>
@@ -82,6 +84,11 @@ const ReportSend = ({ id }) => {
         <Form.Item>
           <Button type="primary" htmlType="submit" shape='round' block>
             Отправить отчёт
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <Button type="link" shape='round' block onClick={resetFields}>
+            Очистить поля
           </Button>
         </Form.Item>
       </Form>
